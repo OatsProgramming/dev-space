@@ -63,6 +63,7 @@ export const authOptions: NextAuthOptions = {
                 return {
                     id: user.id,
                     name: user.username,
+                    follows: user.follows
                 };
             }
         })
@@ -75,15 +76,18 @@ export const authOptions: NextAuthOptions = {
                     ...session.user,
                     id: token.id ,
                     name: token.name,
-                    favIds: token.favIds
+                    follows: token.follows
                 },
             };
         },
         jwt: ({ token, user, trigger, session }) => {
             if (trigger === 'update') {
                 // Validate the data
-                if (session.username) {
-                    token.username = session.username
+                if (session.name) {
+                    token.name = session.name
+                }
+                else if (session.follows) {
+                    token.follows = session.follows
                 }
             }
             // Exec on sign in
