@@ -26,6 +26,7 @@ type UserReq = Partial<UserProps> & {
 
 type CommentRequest = {
     commentId?: string,
+    userId?: string,
     body?: string,
     postId?: string,
     repliedTo?: string

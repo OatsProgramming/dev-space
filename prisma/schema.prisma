@@ -78,9 +78,10 @@ model Comment {
   body      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  repliedTo String?  @db.ObjectId
 
-  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  postId String @db.ObjectId
-  userId String @db.ObjectId
+  post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  postId String? @db.ObjectId
+  userId String  @db.ObjectId
 }
