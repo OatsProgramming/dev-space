@@ -6,7 +6,7 @@ export async function validateReq(req: Request) {
     try {
         // Best to keep data structure for fetching consistent 
         // Not using "method" since itll always just be updating
-        const bodyPromise = req.json() as Promise<Omit<ReqBody<FollowRequest>, 'method'>>
+        const bodyPromise = req.json() as Promise<{ data: FollowRequest }>
         const sessionPromise = getServerSession(authOptions)
 
         const [body, session] = await Promise.all([bodyPromise, sessionPromise])

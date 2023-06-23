@@ -10,37 +10,23 @@ type Essential = {
 
 type PATCH = {
     method: 'PATCH',
-    data: Essential & {
-        commentId: string,
-        body: string,
-    }
+    data: Essential & CommentReq<'PATCH'>
 }
 
 type DELETE = {
     method: 'DELETE',
-    data: Essential & {
-        commentId: string,
-    }
+    data: Essential & CommentReq<'DELETE'>
 }
 
 // delete wont work unless the property is optional
 type POST = {
     method?: 'POST'
-    data: Essential & {
-        postId: string,
-        body: string,
-    }
-} | {
-    method?: 'POST',
-    data: Essential & {
-        repliedTo: string,
-        body: string
-    }
+    data: Essential & CommentReq<'POST'>
 }
 
 export default async function validateReq<T extends DELETE | PATCH | POST>(req: Request) {
     try {
-        const bodyPromise = req.json() as Promise<ReqBody<CommentRequest>>
+        const bodyPromise = req.json() as Promise<ReqBody<CommentReqPartial>>
         const sessionPromise = getServerSession(authOptions)
 
         const [body, session] = await Promise.all([bodyPromise, sessionPromise])

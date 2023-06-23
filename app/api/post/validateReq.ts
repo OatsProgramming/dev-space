@@ -10,29 +10,20 @@ type Essential = {
 
 type PATCH = {
     method: 'PATCH',
-    data: {
-        postId: string,
-        newInfo: {
-            title?: string,
-            body?: string,
-        }
-    }
+    data: PostReq<'PATCH'>
+
 }
 
 type DELETE = {
     method: 'DELETE',
-    data: {
-        postId: string,
-    }
+    data: PostReq<'DELETE'>
+
 }
 
 // delete wont work unless the property is optional
 type POST = {
     method?: 'POST'
-    data: Essential & {
-        title: string,
-        body: string,
-    }
+    data: PostReq<'POST'> & Essential
 } 
 
 export default async function validateReq<T extends DELETE | PATCH | POST>(req: Request) {
@@ -44,7 +35,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
 
         if (!session) return NextResponse.json("User must sign in", { status: 401 })
 
-        const { method, data } = body as ReqBody<PostRequest>
+        const { method, data } = body as ReqBody<PostReqPartial>
 
         let message;
         let status;
@@ -88,7 +79,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                         Body?       ${!body}`
                     status = 422
                 }
-
+                
                 // Append userId for creation
                 data.userId = session.user.id
                 break;
@@ -98,7 +89,6 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
             }
         }
         if (message && status) return NextResponse.json(message, { status })
-
         return {
             data: {...data},
             method

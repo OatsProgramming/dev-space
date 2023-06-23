@@ -9,34 +9,22 @@ type Essential = {
 
 type DELETE = {
     method: 'DELETE',
-    data: Essential
+    data: Essential & UserReq<'DELETE'>
 }
 
 type PATCH = {
     method: 'PATCH',
-    data: Essential & {
-        newInfo: {
-            username?: string,
-            password?: string,
-            email?: string,
-            name?: string,
-        }
-    }
+    data: Essential & UserReq<'PATCH'>
 }
 
 type POST = {
     method: 'POST',
-    data: {
-        username: string,
-        email: string,
-        name?: string,
-        password: string,
-    }
+    data: UserReq<'POST'>
 }
 
 export default async function validateReq<T extends DELETE | PATCH | POST>(req: Request) {
     try {
-        const body = await req.json() as ReqBody<UserReq>
+        const body = await req.json() as ReqBody<UserReqPartial>
         const { method, data } = body
 
         let message;
