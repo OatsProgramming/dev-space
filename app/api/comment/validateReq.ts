@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "../auth/[...nextauth]/route"
 import { NextResponse } from "next/server"
 import prismadb from "@/lib/prismadb"
+import simpleValidate from "@/lib/simpleValidate"
 
 type Essential = {
     userId?: string,
@@ -26,13 +27,9 @@ type POST = {
 
 export default async function validateReq<T extends DELETE | PATCH | POST>(req: Request) {
     try {
-        const bodyPromise = req.json() as Promise<ReqBody<CommentReqPartial>>
-        const sessionPromise = getServerSession(authOptions)
-
-        const [body, session] = await Promise.all([bodyPromise, sessionPromise])
-        const { method, data } = body
-
-        if (!session) return NextResponse.json("User must sign in", { status: 401 })
+        const res = await simpleValidate<CommentReqPartial>(req)
+        if (res instanceof Response) return res
+        const { data, method, userId } = res
 
         let message;
         let status;
@@ -60,7 +57,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                         message = "Comment not found",
                             status = 404
                     }
-                    else if (comment.userId !== session.user.id) {
+                    else if (comment.userId !== userId) {
                         message = "Can't make updates to a comment that's not of the same creator"
                         status = 401
                     }
@@ -78,7 +75,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                     status = 422
                 }
 
-                data.userId = session.user.id
+                data.userId = userId
                 break;
             }
             default: {
