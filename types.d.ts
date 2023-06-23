@@ -42,3 +42,11 @@ type PostRequest = {
         body?: string
     }
 }
+
+type FollowRequest = {
+    /**
+     * Mutate on the client side.
+     * This will make the UX seem faster.
+     */
+    newFollows?: string[]
+}

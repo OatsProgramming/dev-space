@@ -57,6 +57,7 @@ model User {
   // Extra
   username       String    @unique
   hashedPassword String
+  follows        String[]  @db.ObjectId
   posts          Post[]
   comments       Comment[]
 }
