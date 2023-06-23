@@ -57,7 +57,11 @@ model User {
   // Extra
   username       String    @unique
   hashedPassword String
-  follows        String[]  @db.ObjectId
+  follows        String[]  
+  followers      String[]  
+  // Before letting someone follow another or even letting them see their profile, check blockedUsers 
+  // But how would performance be? Then again, still fetching the entire user data anyways
+  blockedUsers   String[]   
   posts          Post[]
   comments       Comment[]
 }

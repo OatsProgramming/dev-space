@@ -5,6 +5,10 @@ type ReqBody<T> = {
     method: MutateHTTP
 }
 
+type BlockedUsersReq = {
+    blockedUsers?: string[]
+}
+
 // COMMENT REQUEST DATA STRUCTURE
 type CommentReqPartial = {
     commentId?: string,
@@ -41,6 +45,15 @@ type FollowRequest = {
      * This will make the UX seem faster.
      */
     newFollows?: string[]
+}
+
+// Basically the same: just for easier integration purposes
+type FollowerRequest = {
+     /**
+     * Mutate on the client side.
+     * This will make the UX seem faster.
+     */
+    newFollowers?: string[],
 }
 
 // POST REQUEST DATA STRUCTURE
