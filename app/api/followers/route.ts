@@ -29,6 +29,8 @@ export async function POST(req: Request) {
         if (res instanceof Response) return res
         const { data, userId } = res
         const { newFollowers } = data
+        
+        if (!newFollowers) return new Response("New follows list not given", { status: 422 })
 
         await prismadb.user.update({
             where: { id: userId },

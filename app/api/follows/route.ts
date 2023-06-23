@@ -1,12 +1,14 @@
 import prismadb from "@/lib/prismadb";
-import { validateReq } from "./validateReq";
 import { NextResponse } from "next/server";
+import simpleValidate from "@/lib/simpleValidate";
 
 export async function POST(req: Request) {
-    const res = await validateReq(req)
+    const res = await simpleValidate<FollowRequest>(req)
     if (res instanceof Response) return res
 
-    const { userId, newFollows } = res.data
+    const { data, userId } = res
+    const { newFollows } = data
+    if (!newFollows) return new Response("New follows list not given", { status: 422 })
 
     try {
         await prismadb.user.update({

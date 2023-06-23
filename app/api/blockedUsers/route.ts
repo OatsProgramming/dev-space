@@ -9,12 +9,14 @@ export async function POST(req: Request) {
         const res = await simpleValidate<BlockedUsersReq>(req)
         if (res instanceof Response) return res
         const { data, userId } = res
-
+        const { blockedUsers } = data
+        if (!blockedUsers) {
+            return new Response("Missing new blocked users list", { status: 422 })
+        }
+        
         await prismadb.user.update({
             where: { id: userId },
-            data: {
-                blockedUsers: data.blockedUsers
-            }
+            data: { blockedUsers }
         })
 
         return NextResponse.json(data)

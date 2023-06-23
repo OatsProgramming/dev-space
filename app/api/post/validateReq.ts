@@ -1,8 +1,7 @@
-import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/route";
 import isEmpty from "lodash/isEmpty";
 import prismadb from "@/lib/prismadb";
+import simpleValidate from "@/lib/simpleValidate";
 
 type Essential = {
     userId?: string,
@@ -28,14 +27,9 @@ type POST = {
 
 export default async function validateReq<T extends DELETE | PATCH | POST>(req: Request) {
     try {
-        const bodyPromise = req.json()
-        const sessionPromise = getServerSession(authOptions)
-
-        const [body, session] = await Promise.all([bodyPromise, sessionPromise])
-
-        if (!session) return NextResponse.json("User must sign in", { status: 401 })
-
-        const { method, data } = body as ReqBody<PostReqPartial>
+        const res = await simpleValidate<PostReqPartial>(req)
+        if (res instanceof Response) return res
+        const { data, userId, method } = res
 
         let message;
         let status;
@@ -63,7 +57,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                         message = 'Post not found'
                         status = 404
                     }
-                    else if (post.userId !== session.user.id) {
+                    else if (post.userId !== userId) {
                         message = `Can't mutate a post thats not of the creator's`
                         status = 401
                     } 
@@ -81,7 +75,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                 }
                 
                 // Append userId for creation
-                data.userId = session.user.id
+                data.userId = userId
                 break;
             }
             default: {

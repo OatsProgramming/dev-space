@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import isEmpty from "lodash/isEmpty";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
+import simpleValidate from "@/lib/simpleValidate";
 
 type Essential = {
     userId?: string
@@ -24,8 +25,9 @@ type POST = {
 
 export default async function validateReq<T extends DELETE | PATCH | POST>(req: Request) {
     try {
-        const body = await req.json() as ReqBody<UserReqPartial>
-        const { method, data } = body
+        const res = await simpleValidate<UserReqPartial>(req)
+        if (res instanceof Response) return res
+        const { data, method, userId } = res
 
         let message;
         let status;
@@ -34,17 +36,8 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
             case 'DELETE':
             case 'PATCH': {
                 const { isVerified, newInfo } = data
-                // If just delete, will delete currently signed in user
-                // since its been verified already with /api/verifyUser
-                const session = await getServerSession(authOptions)
-                // Just in case of hackers
-                if (!session) {
-                    message = "User must sign in."
-                    status = 401
-                    break;
-                }
 
-                else if (!isVerified) {
+                if (!isVerified) {
                     message = "User's request must be checked for authorization first."
                     status = 401
                     break;
@@ -57,8 +50,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                 }
 
                 // Append new data to identify the user by id rather than username or email
-                console.log(data)
-                data.userId = session.user.id
+                data.userId = userId
                 break;
             }
             case 'POST': {
