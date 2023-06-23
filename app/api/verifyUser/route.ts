@@ -3,6 +3,7 @@ import validateReq from "./validateReq";
 import prismadb from "@/lib/prismadb";
 import { compare } from "bcrypt";
 
+// To be used for user mutation
 export async function POST(req: Request) {
     const res = await validateReq(req)
     if (res instanceof Response) return res

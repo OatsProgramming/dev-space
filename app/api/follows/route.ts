@@ -16,7 +16,7 @@ export async function POST(req: Request) {
             }
         })
     
-    return NextResponse.json(newFollows)
+    return NextResponse.json({ newFollows })
     } catch (err) {
         console.log(err)
         return NextResponse.json(err, { status: 500 })
