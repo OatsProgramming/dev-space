@@ -7,18 +7,18 @@ export async function POST(req: Request) {
     const res = await validateReq(req)
     if (res instanceof Response) return res
 
-    const { method } = res
+    const { method, data } = res
     try {
         switch (method) {
             case 'DELETE': {
-                const { userId } = res
+                const { userId } = data
                 await prismadb.user.delete({
                     where: { id: userId }
                 })
                 break;
             }
             case 'PATCH': {
-                const { userId, newInfo } = res
+                const { userId, newInfo } = data
                 
                 await prismadb.user.update({
                     where: { id: userId },
@@ -27,7 +27,7 @@ export async function POST(req: Request) {
                 break;
             }
             case 'POST': {
-                const { username, email, password, name } = res
+                const { username, email, password, name } = data
                 const hashedPassword = await hash(password, 12)
 
                 await prismadb.user.create({
@@ -43,10 +43,11 @@ export async function POST(req: Request) {
         }
         
         // Just as a precaution
-        if ('userId' in res) delete res.userId
+        if ('userId' in data) delete data.userId
 
-        return NextResponse.json(res)
+        return NextResponse.json(data)
     } catch (err) {
+        console.log(err)
         return NextResponse.json(err, { status: 500 })
     }
 }

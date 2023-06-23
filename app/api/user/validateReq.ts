@@ -3,55 +3,65 @@ import isEmpty from "lodash/isEmpty";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 
+type Essential = {
+    userId?: string
+}
+
 type DELETE = {
     method: 'DELETE',
-    userId?: string,
+    data: Essential
 }
 
 type PATCH = {
     method: 'PATCH',
-    userId?: string,
-    newInfo: {
-        username?: string,
-        password?: string,
-        email?: string,
-        name?: string,
+    data: Essential & {
+        newInfo: {
+            username?: string,
+            password?: string,
+            email?: string,
+            name?: string,
+        }
     }
 }
 
 type POST = {
     method: 'POST',
-    username: string,
-    email: string,
-    name?: string,
-    password: string,
+    data: {
+        username: string,
+        email: string,
+        name?: string,
+        password: string,
+    }
 }
 
 export default async function validateReq<T extends DELETE | PATCH | POST>(req: Request) {
     try {
         const body = await req.json() as ReqBody<UserReq>
         const { method, data } = body
-        
+
         let message;
         let status;
 
-        switch(method) {
-            case 'DELETE': 
+        switch (method) {
+            case 'DELETE':
             case 'PATCH': {
                 const { isVerified, newInfo } = data
+                // If just delete, will delete currently signed in user
+                // since its been verified already with /api/verifyUser
                 const session = await getServerSession(authOptions)
+                // Just in case of hackers
                 if (!session) {
                     message = "User must sign in."
                     status = 401
                     break;
                 }
 
-                else if (!isVerified)  {
+                else if (!isVerified) {
                     message = "User's request must be checked for authorization first."
                     status = 401
                     break;
                 }
-                
+
                 else if (method === 'PATCH' && (!newInfo || isEmpty(newInfo))) {
                     message = "New info for user route has not been given"
                     status = 422
@@ -59,14 +69,14 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                 }
 
                 // Append new data to identify the user by id rather than username or email
+                console.log(data)
                 data.userId = session.user.id
-
                 break;
             }
             case 'POST': {
                 const { username, email, password } = data
                 if (!username || !email || !password) {
-                    message = 
+                    message =
                         `Missing properties:
                             Username?       ${!username}
                             Email?          ${!email}
@@ -85,10 +95,11 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
         if (message && status) return NextResponse.json(message, { status })
 
         return {
-            ...data,
+            data: {...data},
             method
         } as T
     } catch (err) {
+        console.log(err)
         return NextResponse.json(err, { status: 500 })
     }
 }
