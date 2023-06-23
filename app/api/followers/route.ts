@@ -1,6 +1,6 @@
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
-import validateReq from "./validateReq";
+import simpleValidate from "@/lib/simpleValidate";
 
 // Not adding this to sesssion:
 // Needs to be revalidated at certain times and events
@@ -25,9 +25,10 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
     try {
-        const res = await validateReq(req)
+        const res = await simpleValidate<FollowerRequest>(req)
         if (res instanceof Response) return res
-        const { newFollowers, userId } = res.data
+        const { data, userId } = res
+        const { newFollowers } = data
 
         await prismadb.user.update({
             where: { id: userId },
