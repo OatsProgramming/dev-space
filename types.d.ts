@@ -23,3 +23,21 @@ type UserReq = Partial<UserProps> & {
     newInfo?: Partial<UserProps>,
     userId?: string,
 }
+
+type CommentRequest = {
+    commentId?: string,
+    body?: string,
+    postId?: string,
+    repliedTo?: string
+}
+
+type PostRequest = {
+    postId?: string,
+    userId?: string,
+    title?: string,
+    body?: string,
+    newInfo?: {
+        title?: string,
+        body?: string
+    }
+}
