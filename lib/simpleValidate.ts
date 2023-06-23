@@ -1,8 +1,10 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import isEmpty from "lodash/isEmpty"
 import { getServerSession } from "next-auth"
 
 /**
- * For simple req body extraction and auth
+ * For simple req body extraction and auth.
+ * You must check for missing data properties outside of this fn.
  * @param req 
  * @returns 
  */
@@ -15,8 +17,8 @@ export default async function simpleValidate<T>(req: Request) {
     const [body, session] = await Promise.all([bodyPromise, sessionPromise])
 
     if (!session) return new Response("User must sign in", { status: 401 })
-    else if (!body.data) {
-        return new Response(`Missing properties: ${body.data}`, { status: 422 })
+    else if (!body.data || isEmpty(body.data)) {
+        return new Response("No data was given", { status: 422 })
     }
     return { 
         data: body.data,

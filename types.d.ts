@@ -56,6 +56,16 @@ type FollowerRequest = {
     newFollowers?: string[],
 }
 
+// NOTIF REQUEST DATA STRUCTURE
+type NotifProps = {
+    message: string,
+    createdAt: Date
+}
+
+type NotifsReq = {
+    notifs?: NotifProps[]
+}
+
 // POST REQUEST DATA STRUCTURE
 type PostReqPartial = {
     postId?: string,

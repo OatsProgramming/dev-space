@@ -57,6 +57,7 @@ model User {
   // Extra
   username       String    @unique
   hashedPassword String
+  notifs         Json[]
   follows        String[]  
   followers      String[]  
   // Before letting someone follow another or even letting them see their profile, check blockedUsers 
