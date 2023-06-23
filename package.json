@@ -9,12 +9,21 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/node": "20.3.1",
-    "@types/react": "18.2.13",
-    "@types/react-dom": "18.2.6",
-    "next": "13.4.6",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "5.1.3"
+    "@next-auth/prisma-adapter": "latest",
+    "@prisma/client": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "bcrypt": "latest",
+    "lodash": "^4.17.21",
+    "next": "latest",
+    "next-auth": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "typescript": "latest"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "latest",
+    "prisma": "latest"
   }
 }
