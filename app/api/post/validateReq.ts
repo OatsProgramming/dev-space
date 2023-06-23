@@ -57,6 +57,11 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                     message = `Missing post ID (Method: ${method})`
                     status = 422
                 }
+                // Missing props (PATCH)
+                else if (method === 'PATCH' && (!newInfo || isEmpty(newInfo))) {
+                    message = `Missing new info for post route (Method: ${method})`
+                    status = 422
+                }
                 else {
                     // Check if authorized
                     const post = await prismadb.post.findUnique({
@@ -71,12 +76,6 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                         message = `Can't mutate a post thats not of the creator's`
                         status = 401
                     } 
-
-                    // Check for missing properties (PATCH)
-                    else if (method === 'PATCH' && (!newInfo || isEmpty(newInfo))) {
-                        message = `Missing new info for post route (Method: ${method})`
-                        status = 422
-                    }
                 }
                 break;
             }
