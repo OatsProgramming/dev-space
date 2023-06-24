@@ -6,7 +6,7 @@ import styles from './nav.module.css'
 // import UserDialog from "./UserDialog/UserDialog"
 // import CreatePost from "./CreatePost/CreatePost"
 import Link from "next/link"
-// import Hamburger from "./Hamburger/Hamburger"
+import Hamburger from "./Hamburger/Hamburger"
 
 export default async function Nav() {
     const session = await getServerSession(authOptions)
@@ -14,7 +14,7 @@ export default async function Nav() {
     return (
         <nav className={styles['nav']}>
             <div className={styles['leftContainer']}>
-                {/* <Hamburger /> */}
+                <Hamburger />
                 <Link href="/">
                     Home
                 </Link>
