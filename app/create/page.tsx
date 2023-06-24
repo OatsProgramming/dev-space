@@ -3,9 +3,9 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import dynamic from "next/dynamic";
 
-// const MarkdownEditor = dynamic(() => 
-//     import('../components/MarkdownEditor/MarkdownEditor')
-// )
+const MarkdownEditor = dynamic(() => 
+    import('../components/MarkdownEditor/MarkdownEditor')
+)
 
 export default async function Page() {
     const session = await getServerSession(authOptions)
@@ -13,7 +13,7 @@ export default async function Page() {
 
     return (
         <div>
-            {/* <MarkdownEditor /> */}
+            <MarkdownEditor />
         </div>
     )
 }

@@ -1,0 +1,51 @@
+.container {
+    width: 100dvw;
+    aspect-ratio: 4 / 5;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.container > textarea,
+.markdown {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    border-radius: 20px;
+    padding: 2rem;
+    border: none;
+    background-color: var(--backgroundLighter);
+}
+
+.container > textarea {
+    resize: none;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border: 2px dashed var(--accent);
+    -webkit-transition: all 500ms ease-out;
+    -o-transition: all 500ms ease-out;
+    transition: all 500ms ease-out;
+}
+
+.container > textarea:focus-within {
+    outline: none;
+    border: 5px solid var(--accent);
+}
+
+@-webkit-keyframes border-dance {
+    0% {
+        background-position: 0px 0px, 300px 116px, 0px 150px, 216px 0px;
+    }
+
+    100% {
+        background-position: 300px 0px, 0px 116px, 0px 0px, 216px 150px;
+    }
+}
+
+@keyframes border-dance {
+    0% {
+        background-position: 0px 0px, 300px 116px, 0px 150px, 216px 0px;
+    }
+
+    100% {
+        background-position: 300px 0px, 0px 116px, 0px 0px, 216px 150px;
+    }
+}

@@ -1,0 +1,60 @@
+.btns {
+    position: fixed;
+    top: 0;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100dvh;
+    align-items: center;
+    gap: 5rem;
+    right: 0;
+    background-color: hsla(40, 6%, 20%, 0.25);
+    z-index: 999;
+    min-width: 150px;
+    max-width: 200px;
+    backdrop-filter: blur(3px);
+    padding: 32px 0;
+}
+
+.btns > * {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    max-width: 100px;
+    gap: 0.5rem;
+}
+
+.helpers > select {
+    transition: all 500ms ease;
+}
+
+.helpers > select:hover {
+    background-color: var(--accent);
+}
+
+.btns button,
+.btns select {
+    filter: drop-shadow(0 0 10px rgb(92, 92, 92));
+}
+
+.toggles button {
+    transition: all 500ms ease;
+}
+
+.clicked {
+    background-color: var(--accent);
+    color: var(--text);
+}
+
+@media (prefers-color-scheme: light) {
+    .btns {
+        background-color: hsl(36, 100%, 90%, 0.25);
+    }
+
+    .btns button,
+    .btns select {
+        filter: none;
+    }
+}
+
