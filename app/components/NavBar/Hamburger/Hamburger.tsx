@@ -4,6 +4,8 @@ import { useState } from "react"
 import styles from './hamburger.module.css'
 import ModalSlide from "../ModalSlide/ModalSlide"
 import Link from "next/link"
+import postEx from "@/lib/toyData/postEx"
+import PostCard from "../../PostCard/PostCard"
 
 export default function Hamburger() {
     const [isOpen, setIsOpen] = useState(false)
@@ -17,8 +19,11 @@ export default function Hamburger() {
             </div>
             <ModalSlide isOpen={isOpen} setIsOpen={setIsOpen} isLeft>
                 <div className={styles['slideContent']}>
-                    <div>
-                        LOGO
+                    <div className={styles['logo']}>
+                        <img 
+                            src={'logo.svg'}
+                            alt="logo"
+                        />
                     </div>
                     <div onPointerDown={() => setIsOpen(false)} className={styles['close']}>
                         X
@@ -43,16 +48,21 @@ export default function Hamburger() {
                         Explore
                     </Link>
                     <br />
+                    <h1>Your Top Posts</h1>
                     <hr />
                     <br />
-                    <div>
-                        FETCH AND HAVE POSTS HERE (SCROLLABLE)
+                    <div className={styles['posts']}>
+                        {postEx.map(post => (
+                            <div key={post.id}>
+                                <PostCard post={post} />
+                            </div>
+                        ))}
                     </div>
                     <br />
                     <hr />
                     <br />
                     <footer>
-                        © 2023 COMPANY
+                        © 2023 DevSpace 
                     </footer>
                 </div>
             </ModalSlide>
