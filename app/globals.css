@@ -11,9 +11,29 @@ body {
   min-height: 200vh;
 }
 
+html {
+  --white: #E9F8FF;
+  --black: #030B0E;
+  --base: #54D1FF;
+
+  --background: #E9F8FF;
+  background-color: var(--background);
+}
+
 html.darkMode {
+  --background: #030B0E;
   color-scheme: dark;
-  background-color: black;
+}
+
+button {
+  background-color: var(--background);
+  color: var(--base);
+  border: none;
+}
+
+button:hover {
+  cursor: pointer;
+  filter: drop-shadow(0 0 2px var(--white));
 }
 
 a {
