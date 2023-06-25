@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth"
 import styles from './nav.module.css'
 // import SearchDialog from "./SearchDialog/SearchDialog"
 // import UserDialog from "./UserDialog/UserDialog"
-// import CreatePost from "./CreatePost/CreatePost"
+import CreatePost from "./CreatePost/CreatePost"
 import Link from "next/link"
 import Hamburger from "./Hamburger/Hamburger"
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch"
@@ -24,7 +24,7 @@ export default async function Nav() {
                 {/* <SearchDialog /> */}
                 <ThemeSwitch />
                 {session && <Notif />}
-                {/* <CreatePost /> */}
+                <CreatePost />
                 {/* <UserDialog session={session}/> */}
             </div>
         </nav>
