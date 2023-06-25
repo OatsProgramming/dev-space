@@ -1,7 +1,7 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { getServerSession } from "next-auth"
 import styles from './nav.module.css'
-// import SearchDialog from "./SearchDialog/SearchDialog"
+import SearchDialog from "./SearchDialog/SearchDialog"
 // import UserDialog from "./UserDialog/UserDialog"
 import CreatePost from "./CreatePost/CreatePost"
 import Link from "next/link"
@@ -21,7 +21,7 @@ export default async function Nav() {
                 </Link>
             </div>
             <div className={styles['rightContainer']}>
-                {/* <SearchDialog /> */}
+                <SearchDialog />
                 <ThemeSwitch />
                 {session && <Notif />}
                 <CreatePost />
