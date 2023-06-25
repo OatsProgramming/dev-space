@@ -7,7 +7,6 @@
 
 .modal {
     display: flex;
-    border: 1px solid yellow;
     position: absolute;
     top: 100%;
     z-index: 999;
@@ -17,4 +16,29 @@
     /* right: 2rem; */
     gap: 1rem;
     border-radius: 10px;
+    box-shadow: 0 0px 10px -2px var(--base);
+    height: max-content;
+    max-height: 500px;
+    align-items: center;
+}
+
+.modal > div {
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.modal > button {
+    color: var(--base);
+    border: 1px solid;
+    padding: 0.25rem 0.5rem;
+    width: max-content;
+    transition: all 200ms ease;
+    border-radius: 10px;
+}
+
+.modal > button:hover {
+    background-color: var(--base);
+    color: var(--black);
+    outline: none;
+    filter: none;
 }

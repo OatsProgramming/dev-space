@@ -4,19 +4,18 @@ const container: Variants = {
     initial: {
         scaleY: 0,
         height: 0,
-        width: 'max-content',
         origin: 'top center',
         right: '2rem',
+        scaleX: 0.01,
     },
     animate: {
         scaleY: 1,
-        width: '',
-        height: 'max-content',
+        scaleX: 1,
+        height: '',
         transition: {
             ease: 'anticipate',
-            duration: 0.5,
-            delayChildren: 0.1,
-            staggerChildren: 0.15,
+            when: 'beforeChildren',
+            staggerChildren: 0.1,
         }
     },
     exit: {
@@ -25,7 +24,7 @@ const container: Variants = {
         opacity: [1, 0.5],
         scaleX: [1, 0.01],
         scaleY: [1,  1, 0.1, 0],
-      },
+    },
 }
 
 const item: Variants = {
