@@ -3,25 +3,11 @@
 import { useState } from 'react'
 import styles from './notif.module.css'
 import { AnimatePresence, m, LazyMotion } from 'framer-motion'
-import { Variants } from 'framer-motion'
+import { container, item } from './notifVariants'
+import NotifCard from './NotifCard/NotifCard'
+import textEX from '@/lib/toyData'
 
-const variant: Variants = {
-    initial: {
-        scaleY: 0,
-        height: 0,
-        origin: 'top center',
-    },
-    animate: {
-        scaleY: 1,
-        height: 100,
-    },
-    exit: {
-        scaleY: 0,
-        height: 0,
-    }
-}
-
-const loadFeatures = () => 
+const loadFeatures = () =>
     import('@/lib/framer/domAnimation').then(mod => mod.default)
 
 export default function Notif() {
@@ -39,12 +25,19 @@ export default function Notif() {
                     {isOpen && (
                         <m.div
                             className={styles['modal']}
-                            variants={variant}
+                            variants={container}
                             initial='initial'
                             animate='animate'
                             exit='exit'
                         >
-                            <div>Hello</div>
+                            {textEX.map((ex, idx) => (
+                                <m.div
+                                    key={idx}
+                                    variants={item}
+                                >
+                                    <NotifCard notif={ex} />
+                                </m.div>
+                            ))}
                             <button onClick={() => setIsOpen(false)}>
                                 Close
                             </button>
