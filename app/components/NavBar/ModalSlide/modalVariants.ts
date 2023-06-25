@@ -9,7 +9,7 @@ const leftSide: Variants = {
     },
     animate: {
         x: 0,
-        backdropFilter: 'blur(6px)'
+        backdropFilter: 'blur(10px)'
     },
     exit: {
         x: -500,
@@ -24,6 +24,7 @@ const rightSide: Variants = {
     },
     animate: {
         x: 0,
+        backdropFilter: 'blur(10px)'
     },
     exit: {
         x: 500,
@@ -37,7 +38,7 @@ const backdrop: Variants = {
     },
     animate: {
         opacity: 1,
-        backdropFilter: 'blur(1.5px)',
+        backdropFilter: 'blur(2px)',
     },
     exit: {
         opacity: 0,
