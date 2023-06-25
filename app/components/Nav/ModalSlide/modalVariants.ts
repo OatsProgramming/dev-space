@@ -2,7 +2,7 @@ import type { Variants } from "framer-motion"
 
 const leftSide: Variants = {
     initial: {
-        x: -100,
+        x: -500,
         originX: 'left',
         left: 0,
         zIndex: 100,
@@ -12,13 +12,13 @@ const leftSide: Variants = {
         backdropFilter: 'blur(6px)'
     },
     exit: {
-        x: -100,
+        x: -500,
     },
 }
 
 const rightSide: Variants = {
     initial: {
-        x: 100,
+        x: 500,
         originX: 'right',
         right: 0,
     },
@@ -26,7 +26,7 @@ const rightSide: Variants = {
         x: 0,
     },
     exit: {
-        x: 100,
+        x: 500,
     },
 }
 

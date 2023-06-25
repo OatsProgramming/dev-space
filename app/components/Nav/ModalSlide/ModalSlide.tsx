@@ -5,9 +5,10 @@ import styles from './modalSlide.module.css'
 const loadFeatures = () =>
     import('@/lib/framer/domAnimation').then(mod => mod.default)
 
-export default function ModalSlide({ children, isOpen, isLeft }: {
+export default function ModalSlide({ children, isOpen, setIsOpen, isLeft }: {
     children: React.ReactNode,
     isOpen: boolean,
+    setIsOpen: (isOpen: boolean) => void,
     isLeft?: true
 }) {
     const slideSide = isLeft ? leftSide : rightSide
@@ -18,6 +19,7 @@ export default function ModalSlide({ children, isOpen, isLeft }: {
                     {isOpen && (
                         <>
                             <m.div
+                                onClick={() => setIsOpen(false)}
                                 className={styles['backdrop']}
                                 variants={backdrop}
                                 initial='initial'
@@ -25,11 +27,18 @@ export default function ModalSlide({ children, isOpen, isLeft }: {
                                 exit='exit'
                             />
                             <m.div
-                                className={styles['slide']}
+                                className={`
+                                    ${styles['slide']}
+                                    ${isLeft && styles['softRight']}
+                                `}
                                 variants={slideSide}
                                 initial='initial'
                                 animate='animate'
                                 exit='exit'
+                                transition={{
+                                    duration: 0.5,
+                                    ease: 'circOut',
+                                }}
                             >
                                 {children}
                             </m.div>
