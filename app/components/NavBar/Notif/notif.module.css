@@ -16,7 +16,7 @@
     /* right: 2rem; */
     gap: 1rem;
     border-radius: 10px;
-    box-shadow: 0 0px 10px -2px var(--base);
+    box-shadow: var(--subtleGlow);
     height: max-content;
     max-height: 500px;
     align-items: center;

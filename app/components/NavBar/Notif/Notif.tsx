@@ -5,7 +5,7 @@ import styles from './notif.module.css'
 import { AnimatePresence, m, LazyMotion } from 'framer-motion'
 import { container, item } from './notifVariants'
 import NotifCard from './NotifCard/NotifCard'
-import textEX from '@/lib/toyData'
+import textEX from '@/lib/toyData/textEx'
 
 const loadFeatures = () =>
     import('@/lib/framer/domAnimation').then(mod => mod.default)

@@ -12,7 +12,7 @@
     padding: 1rem;
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
-    box-shadow: 0 0px 10px -2px var(--base);
+    box-shadow: var(--subtleGlow);
 }
 
 .slide svg {
