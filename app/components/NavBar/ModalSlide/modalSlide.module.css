@@ -1,0 +1,33 @@
+.container {
+    position: fixed;
+    z-index: 999;
+}
+
+.slide {
+    min-height: 100dvh;
+    min-width: 100px;
+    position: fixed;
+    z-index: 1;
+    border: 1px solid red;
+    top: 0;
+    padding: 1rem;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.backdrop {
+    width: 100vw;
+    min-height: 100dvh;
+    background-color: hsla(0, 0%, 0%, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.softRight {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}

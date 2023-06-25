@@ -1,0 +1,13 @@
+.container {
+    /* position: relative; */
+    display: grid;
+    place-items: center;
+}
+
+.modal {
+    display: flex;
+    border: 1px solid yellow;
+    position: absolute;
+    top: 100%;
+    z-index: 999;
+}
