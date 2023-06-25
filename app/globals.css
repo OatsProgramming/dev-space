@@ -16,6 +16,9 @@ html {
   --black: #030B0E;
   --base: #54D1FF;
 
+  /* For box shadow to be used as a border */
+  --subtleGlow: 0 0px 10px -2px var(--base);
+
   --background: #E9F8FF;
   background-color: var(--background);
 }
