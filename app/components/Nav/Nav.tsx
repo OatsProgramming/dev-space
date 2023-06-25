@@ -7,6 +7,7 @@ import styles from './nav.module.css'
 // import CreatePost from "./CreatePost/CreatePost"
 import Link from "next/link"
 import Hamburger from "./Hamburger/Hamburger"
+import ThemeSwitch from "../NextUI/ThemeSwitch"
 
 export default async function Nav() {
     const session = await getServerSession(authOptions)
@@ -21,6 +22,7 @@ export default async function Nav() {
             </div>
             <div className={styles['rightContainer']}>
                 {/* <SearchDialog /> */}
+                <ThemeSwitch />
                 {/* {session && <Notif />} */}
                 {/* <CreatePost /> */}
                 {/* <UserDialog session={session}/> */}
