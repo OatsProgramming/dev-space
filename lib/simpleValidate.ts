@@ -12,7 +12,7 @@ export default async function simpleValidate<T>(req: Request) {
     const bodyPromise = req.json() as Promise<ReqBody<T>>
     const sessionPromise = 
         // getServerSession(authOptions)
-        Promise.resolve({ user: { id: "649534b00c8edaf5088712a5" }})
+        Promise.resolve({ user: { id: "649534b00c8edaf5088712a5", name: 'eve' }})
 
     const [body, session] = await Promise.all([bodyPromise, sessionPromise])
 
@@ -23,6 +23,7 @@ export default async function simpleValidate<T>(req: Request) {
     return { 
         data: body.data,
         userId: session.user.id,
+        username: session.user.name,
         method: body.method || undefined
     }
 }

@@ -15,7 +15,8 @@ type CommentReqPartial = {
     userId?: string,
     body?: string,
     postId?: string,
-    repliedTo?: string
+    repliedTo?: string,
+    createdBy?: string
 }
 
 type CommentReq<T extends MutateHTTP> =
@@ -32,9 +33,11 @@ type CommentReq<T extends MutateHTTP> =
     {
         postId: string,
         body: string,
+        createdBy: string,
     } | {
         repliedTo: string,
-        body: string
+        body: string,
+        createdBy: string,
     }
     : never
 
@@ -58,7 +61,8 @@ type FollowerRequest = {
 
 // NOTIF REQUEST DATA STRUCTURE
 type NotifProps = {
-    message: string,
+    title: string,
+    body: string,
     createdAt: Date
 }
 
@@ -70,6 +74,7 @@ type NotifsReq = {
 type PostReqPartial = {
     postId?: string,
     userId?: string,
+    createdBy?: string,
     title?: string,
     body?: string,
     newInfo?: {
@@ -95,6 +100,7 @@ type PostReq<T extends MutateHTTP> =
     {
         title: string,
         body: string,
+        createdBy: string,
     }
     : never
 
@@ -132,3 +138,28 @@ type VerifyUser = {
     email?: string,
     password: string
 }
+
+// TOAST
+type ToastType = 'info' | 'warning' | 'error' | 'success'
+
+type NotifyParams = {
+    type: ToastType,
+    message: string,
+} | {
+    type: 'promise',
+    messages: {
+        pending: string,
+        success: string,
+        error: string,
+    },
+    promise: Promise<any>
+}
+
+type NotifyReturnType = Record<ToastType, string | number> & {
+    promise: Promise<Response>
+}
+
+type MarkdownHelperTypes =
+"heading1" | "heading2" | "heading3" | "heading4" | "heading5" | "heading6"
+| "italic" | "bold" | "quote" | "multiQuote" | "code" | "codeBlock" | "unorderItem"
+

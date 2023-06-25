@@ -45,6 +45,7 @@ export async function POST(req: Request) {
                     data: { 
                         body: data.body,
                         userId: data.userId!,
+                        createdBy: data.createdBy,
                         postId: 'postId' in data 
                             ? data.postId 
                             : undefined,

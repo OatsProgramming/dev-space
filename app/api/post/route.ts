@@ -42,7 +42,8 @@ export async function POST(req: Request) {
                     data: {
                         title: data.title,
                         body: data.body,
-                        userId: data.userId!
+                        userId: data.userId!,
+                        createdBy: data.createdBy,
                     }
                 })
                 break;

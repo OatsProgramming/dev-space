@@ -29,7 +29,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
     try {
         const res = await simpleValidate<PostReqPartial>(req)
         if (res instanceof Response) return res
-        const { data, userId, method } = res
+        const { data, userId, method, username } = res
 
         let message;
         let status;
@@ -76,6 +76,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                 
                 // Append userId for creation
                 data.userId = userId
+                data.createdBy = username
                 break;
             }
             default: {
