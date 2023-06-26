@@ -88,9 +88,6 @@ export default function UserDialog({ session }: {
                         <SignOut />
                     </div>
                 </div>
-                <button onPointerDown={() => setIsOpen(false)}>
-                    Close
-                </button>
             </ModalSlide>
             {/* <dialog ref={dialogRef} className={styles['container']}>
                 {session ?

@@ -40,6 +40,9 @@ export default function ModalSlide({ children, isOpen, setIsOpen, isLeft }: {
                                     ease: 'circOut',
                                 }}
                             >
+                                <div onPointerDown={() => setIsOpen(false)} className={styles['close']}>
+                                    X
+                                </div>
                                 {children}
                             </m.div>
                         </>
