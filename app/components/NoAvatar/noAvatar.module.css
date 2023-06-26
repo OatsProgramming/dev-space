@@ -1,0 +1,8 @@
+.avatar {
+    background-color: var(--randomColor);
+    border-radius: 10px;
+    height: 2.3rem;
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+}
