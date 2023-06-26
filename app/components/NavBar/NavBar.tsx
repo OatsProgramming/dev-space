@@ -6,9 +6,14 @@ import UserDialog from "./UserDialog/UserDialog"
 import CreatePost from "./CreatePost/CreatePost"
 import Link from "next/link"
 import Hamburger from "./Hamburger/Hamburger"
-import ThemeSwitch from "../ThemeSwitch/ThemeSwitch"
+// import ThemeSwitch from "../ThemeSwitch/ThemeSwitch"
 import Notif from "./Notif/Notif"
 import Nav from "./Nav/Nav"
+import dynamic from "next/dynamic"
+
+const ThemeSwitch = dynamic(() => 
+    import('../ThemeSwitch/ThemeSwitch'), { ssr: false }
+)
 
 export default async function NavBar() {
     const session = await getServerSession(authOptions)
@@ -31,7 +36,7 @@ export default async function NavBar() {
                 <SearchDialog />
                 <ThemeSwitch />
                 {/* Temp */}
-                <Notif /> 
+                <Notif username="eve"/> 
                 {/* {session && <Notif />} */}
                 <CreatePost />
                 <UserDialog session={session}/>
