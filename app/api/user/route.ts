@@ -19,11 +19,19 @@ export async function POST(req: Request) {
             }
             case 'PATCH': {
                 const { userId, newInfo } = data
-                
+                const { username, password } = newInfo
+
+                let hashedPassword;
+                if (password) hashedPassword = await hash(password, 12) 
+
                 await prismadb.user.update({
                     where: { id: userId },
-                    data: { ...newInfo }
+                    data: {
+                        username,
+                        hashedPassword
+                    }
                 })
+
                 break;
             }
             case 'POST': {
@@ -44,6 +52,11 @@ export async function POST(req: Request) {
         
         // Just as a precaution
         if ('userId' in data) delete data.userId
+        // @ts-expect-error
+        if ('password' in data) delete data.password
+        if ('newInfo' in data && 'password' in data.newInfo){
+            delete data.newInfo.password
+        }
 
         return NextResponse.json(data)
     } catch (err) {

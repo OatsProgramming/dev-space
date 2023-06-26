@@ -19,7 +19,7 @@ export async function POST(req: Request) {
             data: { blockedUsers }
         })
 
-        return NextResponse.json(data)
+        return NextResponse.json(blockedUsers)
    } catch (err) {
        return NextResponse.json(err, { status: 500 })
    }

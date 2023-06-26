@@ -39,7 +39,7 @@ export async function POST(req: Request) {
             }
         })
 
-        return NextResponse.json({ newFollowers })
+        return NextResponse.json(newFollowers)
     } catch (err) {
         return NextResponse.json(err, { status: 500 })
     }

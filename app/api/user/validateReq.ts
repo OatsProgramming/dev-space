@@ -5,7 +5,8 @@ import { authOptions } from "../auth/[...nextauth]/route";
 import simpleValidate from "@/lib/simpleValidate";
 
 type Essential = {
-    userId?: string
+    userId?: string,
+    username: string,
 }
 
 type DELETE = {
@@ -27,7 +28,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
     try {
         const res = await simpleValidate<UserReqPartial>(req)
         if (res instanceof Response) return res
-        const { data, method, userId } = res
+        const { data, method, userId, username } = res
 
         let message;
         let status;
@@ -51,6 +52,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
 
                 // Append new data to identify the user by id rather than username or email
                 data.userId = userId
+                data.username = username
                 break;
             }
             case 'POST': {
@@ -66,7 +68,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                 break;
             }
             default: {
-                message = 'Method not given'
+                message = 'Method not given or unknown.\n(Hint:\n{method: "ENTER_METHOD", data: { "ENTER_DATA" }}'
                 status = 422
                 break;
             }

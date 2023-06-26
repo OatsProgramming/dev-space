@@ -1,5 +1,3 @@
-import { getServerSession } from "next-auth"
-import { authOptions } from "../auth/[...nextauth]/route"
 import { NextResponse } from "next/server"
 import prismadb from "@/lib/prismadb"
 import simpleValidate from "@/lib/simpleValidate"
@@ -80,10 +78,11 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                 break;
             }
             default: {
-                throw new Error("Unknown Method")
+                message = 'Method not given or unknown.\n(Hint:\n{method: "ENTER_METHOD", data: { "ENTER_DATA" }}'
+                status = 422
+                break;
             }
         }
-
         if (message && status) return NextResponse.json(message, { status })
 
         return { 

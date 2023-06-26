@@ -15,7 +15,7 @@ export async function GET(req: Request) {
         if (!user) return new Response("User not found (/api/notifs)", {status: 404 })
         const { notifs } = user
 
-        return NextResponse.json({ notifs })
+        return NextResponse.json(notifs)
     } catch (err) {
         return NextResponse.json(err, { status: 500 })
     }
