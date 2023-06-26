@@ -5,8 +5,7 @@ import styles from './notif.module.css'
 import { AnimatePresence, m, LazyMotion } from 'framer-motion'
 import { container, item } from './notifVariants'
 import NotifCard from './NotifCard/NotifCard'
-import fetcher from '@/lib/fetchers/fetcher'
-import baseUrl from '@/lib/baseUrl'
+import useNotifs from './useNotifs'
 
 const loadFeatures = () =>
     import('@/lib/framer/domAnimation').then(mod => mod.default)
@@ -16,26 +15,15 @@ export default function Notif({ username }: {
 }) {
     const divRef = useRef<HTMLDivElement>(null)
     const [isOpen, setIsOpen] = useState(false)
-    const [notifs, setNotifs] = useState<NotifProps[]>([])
+    const { state, dispatch } = useNotifs(username)
+    const { notifs, isLoading, isError } = state
 
-    // Set initial notifs list
-    useEffect(() => {
-        (async () => {
-            const stringedNotifs = await fetcher(`${baseUrl}/api/notifs?username=${username}`)
-            // Gotta parse it twice since the items inside the array are JSON
-            const result = [] as NotifProps[]
-            for (let stringedNotif of stringedNotifs) {
-                result.push(JSON.parse(stringedNotif))
-            }
-            setNotifs(result)
-        })()
-    }, [])
     // Close the modal if clicked outside of modal
     useEffect(() => {
         function handleClose(e: PointerEvent) {
             const div = divRef.current
             if (!div) return
-            
+
             const clickedEl = e.target as HTMLElement
             if (!div.contains(clickedEl)) setIsOpen(false)
         }
@@ -49,14 +37,37 @@ export default function Notif({ username }: {
     // Update notification list once user closes tab
     // This way it wont constantly send requests to the db
     useEffect(() => {
+        // Prevent accidental error saves
+        if (isError || !notifs) return
+
+        // Prevent accidental excess stringification (???)
+        const newNotifs = [] as NotifProps[]
+        for (let notif of notifs) {
+            if (typeof notif !== 'object') {
+                console.log(notif, 'NOT AN OBJECT.')
+                const parsedNotif = JSON.parse(notif)
+
+                if (typeof parsedNotif !== 'object') {
+                    throw new Error(`Invalid notif. Still not an object: ${parsedNotif}`)
+                }
+
+                newNotifs.push(parsedNotif)
+            }
+            else {
+                newNotifs.push(notif)
+            }
+        }
+
         function handleUnload() {
-            navigator.sendBeacon("api/notifs", JSON.stringify({ data: { notifs } }))
+            navigator.sendBeacon("api/notifs", JSON.stringify({ data: { notifs: newNotifs } }))
         }
         window.addEventListener('unload', handleUnload)
         return () => {
             window.removeEventListener('unload', handleUnload)
         }
-    }, [notifs])
+    }, [notifs, isError])
+
+    if (isLoading) return <div>LOADING...</div>
 
     return (
         <div ref={divRef} className={styles['container']}>
@@ -82,15 +93,17 @@ export default function Notif({ username }: {
                                         key={idx}
                                         variants={item}
                                         onClick={() => {
-                                            const filtered = notifs.filter(notif => notif.createdAt !== ex.createdAt)
-                                            setNotifs(filtered)
+                                            dispatch({
+                                                type: 'removed',
+                                                nextNotif: ex
+                                            })
                                         }}
                                     >
                                         <NotifCard notif={ex} />
                                     </m.div>
                                 )) : (
                                     <div className={styles['card']}>
-                                        <NotifCard notif={{title: "Congrats! ", body: "You're all clear for today.", createdAt: new Date()}} />
+                                        <NotifCard notif={{ title: "System", body: "You're all clear for today.", createdAt: new Date() }} />
                                     </div>
                                 )}
                             </div>
