@@ -52,3 +52,11 @@
     outline: none;
     filter: none;
 }
+
+.loader {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1 / 1;
+    width: 25%;
+}

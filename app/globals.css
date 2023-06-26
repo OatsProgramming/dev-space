@@ -15,6 +15,7 @@ html {
   --white: #E9F8FF;
   --black: #030B0E;
   --base: #54D1FF;
+  --secondary: #E9F8FF;
 
   /* For box shadow to be used as a border */
   --subtleGlow: 0 0px 10px -2px var(--base);
@@ -24,6 +25,7 @@ html {
 }
 
 html.lightMode {
+  --secondary: #030B0E;
   --background: #E9F8FF;
   color-scheme: light;
 }

@@ -6,6 +6,7 @@ import { AnimatePresence, m, LazyMotion } from 'framer-motion'
 import { container, item } from './notifVariants'
 import NotifCard from './NotifCard/NotifCard'
 import useNotifs from './useNotifs'
+import Loader from '../../Loader/Loader'
 
 const loadFeatures = () =>
     import('@/lib/framer/domAnimation').then(mod => mod.default)
@@ -47,6 +48,7 @@ export default function Notif({ username }: {
                 console.log(notif, 'NOT AN OBJECT.')
                 const parsedNotif = JSON.parse(notif)
 
+                // Best to not send beacon...
                 if (typeof parsedNotif !== 'object') {
                     throw new Error(`Invalid notif. Still not an object: ${parsedNotif}`)
                 }
@@ -67,7 +69,7 @@ export default function Notif({ username }: {
         }
     }, [notifs, isError])
 
-    if (isLoading) return <div>LOADING...</div>
+    if (isError) console.error(isError)
 
     return (
         <div ref={divRef} className={styles['container']}>
@@ -86,27 +88,33 @@ export default function Notif({ username }: {
                             animate='animate'
                             exit='exit'
                         >
-                            <div className={styles['cards']}>
-                                {notifs.length !== 0 ? notifs.map((ex, idx) => (
-                                    <m.div
-                                        className={styles['card']}
-                                        key={idx}
-                                        variants={item}
-                                        onClick={() => {
-                                            dispatch({
-                                                type: 'removed',
-                                                nextNotif: ex
-                                            })
-                                        }}
-                                    >
-                                        <NotifCard notif={ex} />
-                                    </m.div>
-                                )) : (
-                                    <div className={styles['card']}>
-                                        <NotifCard notif={{ title: "System", body: "You're all clear for today.", createdAt: new Date() }} />
-                                    </div>
-                                )}
-                            </div>
+                            {isLoading ? (
+                                <div className={styles['loader']}>
+                                    <Loader />
+                                </div>
+                            ) : (
+                                <div className={styles['cards']}>
+                                    {notifs.length !== 0 ? notifs.map((ex, idx) => (
+                                        <m.div
+                                            className={styles['card']}
+                                            key={idx}
+                                            variants={item}
+                                            onClick={() => {
+                                                dispatch({
+                                                    type: 'removed',
+                                                    nextNotif: ex
+                                                })
+                                            }}
+                                        >
+                                            <NotifCard notif={ex} />
+                                        </m.div>
+                                    )) : (
+                                        <div className={styles['card']}>
+                                            <NotifCard notif={{ title: "System", body: "You're all clear for today.", createdAt: new Date() }} />
+                                        </div>
+                                    )}
+                                </div>
+                            )}
                             <button onClick={() => setIsOpen(false)}>
                                 Close
                             </button>
