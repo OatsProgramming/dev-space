@@ -17,9 +17,12 @@ export default function Nav({
       if (!nav) return 
       else if (window.scrollY > 0) {
         nav.style.backdropFilter = 'blur(5px)'
+        // Maybe keep this? To be decided...
+        nav.style.boxShadow = 'var(--subtleGlow)'
       }
       else {
         nav.style.backdropFilter = 'blur(0px)'
+        nav.style.boxShadow = ''
       }
     }
 
