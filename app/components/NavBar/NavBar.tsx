@@ -2,7 +2,7 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import { getServerSession } from "next-auth"
 import styles from './navBar.module.css'
 import SearchDialog from "./SearchDialog/SearchDialog"
-// import UserDialog from "./UserDialog/UserDialog"
+import UserDialog from "./UserDialog/UserDialog"
 import CreatePost from "./CreatePost/CreatePost"
 import Link from "next/link"
 import Hamburger from "./Hamburger/Hamburger"
@@ -17,6 +17,12 @@ export default async function NavBar() {
         <Nav>
             <div className={styles['leftContainer']}>
                 <Hamburger />
+                <Link href='/' className="logo">
+                    <img
+                        src='logo.svg'
+                        alt='logo'
+                    />
+                </Link>
                 <Link href="/">
                     Home
                 </Link>
@@ -24,9 +30,11 @@ export default async function NavBar() {
             <div className={styles['rightContainer']}>
                 <SearchDialog />
                 <ThemeSwitch />
-                {session && <Notif />}
+                {/* Temp */}
+                <Notif /> 
+                {/* {session && <Notif />} */}
                 <CreatePost />
-                {/* <UserDialog session={session}/> */}
+                <UserDialog session={session}/>
             </div>
         </Nav>
     )

@@ -19,7 +19,7 @@ export default function Hamburger() {
             </div>
             <ModalSlide isOpen={isOpen} setIsOpen={setIsOpen} isLeft>
                 <div className={styles['slideContent']}>
-                    <div className={styles['logo']}>
+                    <div className='logo'>
                         <img 
                             src={'logo.svg'}
                             alt="logo"
