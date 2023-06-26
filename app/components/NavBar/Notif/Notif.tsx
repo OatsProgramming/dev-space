@@ -5,8 +5,8 @@ import styles from './notif.module.css'
 import { AnimatePresence, m, LazyMotion } from 'framer-motion'
 import { container, item } from './notifVariants'
 import NotifCard from './NotifCard/NotifCard'
-import textEX from '@/lib/toyData/textEx'
 import fetcher from '@/lib/fetchers/fetcher'
+import baseUrl from '@/lib/baseUrl'
 
 const loadFeatures = () =>
     import('@/lib/framer/domAnimation').then(mod => mod.default)
@@ -21,16 +21,15 @@ export default function Notif({ username }: {
     // Set initial notifs list
     useEffect(() => {
         (async () => {
-            const res = await fetcher(`api/notifs?username=${username}`)
+            const stringedNotifs = await fetcher(`${baseUrl}/api/notifs?username=${username}`)
             // Gotta parse it twice since the items inside the array are JSON
             const result = [] as NotifProps[]
-            for (let stringedNotif of res.notifs) {
+            for (let stringedNotif of stringedNotifs) {
                 result.push(JSON.parse(stringedNotif))
             }
             setNotifs(result)
         })()
     }, [])
-
     // Close the modal if clicked outside of modal
     useEffect(() => {
         function handleClose(e: PointerEvent) {
