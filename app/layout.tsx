@@ -1,8 +1,7 @@
-import Nav from './components/Nav/Nav'
-import SessionProviderComp from './components/SessionProviderComp/SessionProviderComp'
+import NavBar from './components/NavBar/NavBar'
+import SessionProviderComp from './components/SessionProviderC/SessionProviderC'
 import './globals.css'
 import { Mulish } from 'next/font/google'
-import NextUIProviderComp from './components/NextUI/NextUIProviderComp'
 
 const mulish = Mulish({ subsets: ['latin'] })
 
@@ -20,10 +19,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={mulish.className}>
         <SessionProviderComp>
-          <NextUIProviderComp>
-            <Nav />
-            {children}
-          </NextUIProviderComp>
+          <NavBar />
+          {children}
         </SessionProviderComp>
       </body>
     </html>
