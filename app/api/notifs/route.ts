@@ -25,16 +25,20 @@ export async function POST(req: Request) {
     try {
         const res = await simpleValidate<Required<NotifsReq>>(req)
         if (res instanceof Response) return res
-
         const { data, userId } = res
         const { notifs } = data
         if (!notifs) return new Response("New notifs list not given", { status: 422 })
 
-        const notifsStringified = JSON.stringify(notifs)
+        // cant just stringify the array...
+        const stringifiedNotifs = []
+        for (let item of notifs) {
+            stringifiedNotifs.push(JSON.stringify(item))
+        }
+
         await prismadb.user.update({
             where: { id: userId },
             data: {
-                notifs: notifsStringified,
+                notifs: stringifiedNotifs,
             }
         })
         return NextResponse.json(notifs)
