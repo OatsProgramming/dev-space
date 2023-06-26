@@ -19,7 +19,6 @@ export default function Hamburger() {
                 </svg>
             </div>
             <ModalSlide isOpen={isOpen} setIsOpen={setIsOpen} isLeft>
-                <div className={styles['slideContent']}>
                     <div className='logo'>
                         <img 
                             src={logo}
@@ -65,7 +64,6 @@ export default function Hamburger() {
                     <footer>
                         © 2023 DevSpace 
                     </footer>
-                </div>
             </ModalSlide>
         </div>
     )

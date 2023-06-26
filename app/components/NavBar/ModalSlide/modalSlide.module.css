@@ -13,10 +13,32 @@
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
     box-shadow: var(--subtleGlow);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 350px;
+}
+
+.slide a {
+    /* width: max-content; */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    /* border: 1px solid; */
+    padding: 0.25rem 0.5rem;
+    border-radius: 10px;
+    background-color: none;
+    transition: all 100ms ease;
+}
+
+.slide a:hover {
+    background-color: rgba(128, 128, 128, 0.2);
 }
 
 .slide svg {
-    color: var(--base)
+    color: var(--base);
+    width: 16px;
 }
 
 .backdrop {
