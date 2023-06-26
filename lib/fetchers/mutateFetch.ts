@@ -13,6 +13,6 @@ export default async function mutateFetch<T>(url: string, method: MutateHTTP, da
         return { error: result }
     }
 
-    const result = await res.json() as T
+    const result = await res.json()
     return { data: result }
 }
