@@ -6,6 +6,7 @@ import ModalSlide from "../ModalSlide/ModalSlide"
 import Link from "next/link"
 import postEx from "@/lib/toyData/postEx"
 import PostCard from "../../PostCard/PostCard"
+import logo from "@/public/logo"
 
 export default function Hamburger() {
     const [isOpen, setIsOpen] = useState(false)
@@ -21,7 +22,7 @@ export default function Hamburger() {
                 <div className={styles['slideContent']}>
                     <div className='logo'>
                         <img 
-                            src={'logo.svg'}
+                            src={logo}
                             alt="logo"
                         />
                     </div>
