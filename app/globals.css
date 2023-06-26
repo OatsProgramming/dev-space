@@ -66,7 +66,12 @@ svg {
   height: var(--height);
   padding: calc(var(--height) * 0.11);
   border-radius: calc(var(--height) * 0.26);
-  
+
   background-color: var(--base);
   aspect-ratio: 1 / 1;
+}
+
+.modalSlideSect {
+  display: grid;
+  gap: 0.5rem;
 }
