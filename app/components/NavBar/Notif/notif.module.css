@@ -12,7 +12,7 @@
     z-index: 999;
     flex-direction: column;
     padding: 1rem;
-    width: 250px;
+    width: 300px;
     /* right: 2rem; */
     gap: 1rem;
     border-radius: 10px;
@@ -20,11 +20,21 @@
     height: max-content;
     max-height: 500px;
     align-items: center;
+    backdrop-filter: blur(10px);
+    /* background-color: var(--background); */
 }
 
-.modal > div {
+.cards {
     max-height: 400px;
     overflow-y: scroll;
+    display: grid;
+    gap: 1rem;
+}
+
+.card {
+    border: 1px solid var(--base);
+    padding: 1rem;
+    border-radius: 10px;
 }
 
 .modal > button {

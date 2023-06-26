@@ -6,14 +6,32 @@ import { AnimatePresence, m, LazyMotion } from 'framer-motion'
 import { container, item } from './notifVariants'
 import NotifCard from './NotifCard/NotifCard'
 import textEX from '@/lib/toyData/textEx'
+import fetcher from '@/lib/fetchers/fetcher'
 
 const loadFeatures = () =>
     import('@/lib/framer/domAnimation').then(mod => mod.default)
 
-export default function Notif() {
-    const [isOpen, setIsOpen] = useState(false)
+export default function Notif({ username }: {
+    username: string,
+}) {
     const divRef = useRef<HTMLDivElement>(null)
+    const [isOpen, setIsOpen] = useState(false)
+    const [notifs, setNotifs] = useState<NotifProps[]>([])
 
+    // Set initial notifs list
+    useEffect(() => {
+        (async () => {
+            const res = await fetcher(`api/notifs?username=${username}`)
+            // Gotta parse it twice since the items inside the array are JSON
+            const result = [] as NotifProps[]
+            for (let stringedNotif of res.notifs) {
+                result.push(JSON.parse(stringedNotif))
+            }
+            setNotifs(result)
+        })()
+    }, [])
+
+    // Close the modal if clicked outside of modal
     useEffect(() => {
         function handleClose(e: PointerEvent) {
             const div = divRef.current
@@ -28,6 +46,18 @@ export default function Notif() {
             document.body.removeEventListener('pointerdown', handleClose)
         }
     }, [divRef])
+
+    // Update notification list once user closes tab
+    // This way it wont constantly send requests to the db
+    useEffect(() => {
+        function handleUnload() {
+            navigator.sendBeacon("api/notifs", JSON.stringify({ data: { notifs } }))
+        }
+        window.addEventListener('unload', handleUnload)
+        return () => {
+            window.removeEventListener('unload', handleUnload)
+        }
+    }, [notifs])
 
     return (
         <div ref={divRef} className={styles['container']}>
@@ -46,15 +76,24 @@ export default function Notif() {
                             animate='animate'
                             exit='exit'
                         >
-                            <div>
-                                {textEX.map((ex, idx) => (
+                            <div className={styles['cards']}>
+                                {notifs.length !== 0 ? notifs.map((ex, idx) => (
                                     <m.div
+                                        className={styles['card']}
                                         key={idx}
                                         variants={item}
+                                        onClick={() => {
+                                            const filtered = notifs.filter(notif => notif.createdAt !== ex.createdAt)
+                                            setNotifs(filtered)
+                                        }}
                                     >
                                         <NotifCard notif={ex} />
                                     </m.div>
-                                ))}
+                                )) : (
+                                    <div className={styles['card']}>
+                                        <NotifCard notif={{title: "Congrats! ", body: "You're all clear for today.", createdAt: new Date()}} />
+                                    </div>
+                                )}
                             </div>
                             <button onClick={() => setIsOpen(false)}>
                                 Close
