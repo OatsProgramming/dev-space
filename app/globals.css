@@ -2,6 +2,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  transition: color 250ms ease-in;
 }
 
 html,
@@ -19,6 +20,7 @@ html {
 
   /* For box shadow to be used as a border */
   --subtleGlow: 0 0px 10px -2px var(--base);
+  --subtleGlowGrow: 0 0 10px 0px var(--base);
 
   --background: #030B0E;
   background-color: var(--background);
