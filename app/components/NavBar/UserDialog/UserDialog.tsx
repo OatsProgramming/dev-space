@@ -2,9 +2,6 @@
 
 import { useState } from "react";
 import styles from './userDialog.module.css'
-import { ToastContainer } from "react-toastify";
-import { toastOptions } from "@/lib/toast/toast";
-import dynamic from "next/dynamic";
 import type { Session } from "next-auth";
 import ModalSlide from "../ModalSlide/ModalSlide";
 import Link from "next/link";
@@ -29,13 +26,13 @@ export default function UserDialog({ session }: {
             </button>
             <ModalSlide isOpen={isOpen} setIsOpen={setIsOpen}>
                 <div className={styles['userInfo']}>
-                    <Link href={`/profile/${username}`}>
-                        <NoAvatar username={username} />
-                        <div>
+                    <div>
+                        <NoAvatar username={username}/>
+                        <Link href={`/profile/${username}`}>
                             <h1>USER</h1>
                             <p>name</p>
-                        </div>
-                    </Link>
+                        </Link>
+                    </div>
                 </div>
                 <hr />
                 <nav className="modalSlideSect">
