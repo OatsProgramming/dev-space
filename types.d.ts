@@ -163,3 +163,13 @@ type MarkdownHelperTypes =
 "heading1" | "heading2" | "heading3" | "heading4" | "heading5" | "heading6"
 | "italic" | "bold" | "quote" | "multiQuote" | "code" | "codeBlock" | "unorderItem"
 
+type RandomUserResponse = {
+    username: string,
+    name: string,
+    followers: string[],
+    follows: string[],
+    image?: string,
+    postsMade: number,
+}
+
+type Reducer<S, A> = (prevState: S, action: A) => S
