@@ -5,4 +5,6 @@
     aspect-ratio: 1 / 1;
     display: grid;
     place-items: center;
+    font-size: large;
+    font-weight: bold;
 }
