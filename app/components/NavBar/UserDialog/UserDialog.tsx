@@ -30,7 +30,7 @@ export default function UserDialog({ session }: {
             <ModalSlide isOpen={isOpen} setIsOpen={setIsOpen}>
                 <div className={styles['userInfo']}>
                     <Link href={`/profile/${username}`}>
-                        <NoAvatar letter="J" />
+                        <NoAvatar username={username} />
                         <div>
                             <h1>USER</h1>
                             <p>name</p>

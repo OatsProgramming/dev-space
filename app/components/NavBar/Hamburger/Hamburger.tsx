@@ -54,7 +54,7 @@ export default function Hamburger() {
                     <div className={styles['posts']}>
                         {postEx.map(post => (
                             <div key={post.id}>
-                                <PostCard post={post} />
+                                <PostCard post={post} isSimple/>
                             </div>
                         ))}
                     </div>
