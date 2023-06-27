@@ -1,0 +1,29 @@
+.container {
+    box-shadow: var(--subtleGlow);
+    display: grid;
+    gap: 1rem;
+    border-radius: 10px;
+    padding: 1rem;
+    transition: all 500ms ease;
+    transition-delay: 200ms;
+}
+
+.container:hover {
+    box-shadow: var(--subtleGlowGrow);
+}
+
+.userInfo {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.userStats {
+    /* border: 1px solid; */
+    display: flex;
+    justify-content: space-around;
+}
+
+.userStats > span > span {
+    color: var(--base)
+}
