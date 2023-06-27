@@ -1,3 +1,4 @@
+.complexContainer,
 .container {
     border-radius: 10px;
     border: 1px solid var(--base);
@@ -6,9 +7,22 @@
     gap: 1rem;
 }
 
+.complexContainer {
+    margin-top: 0.65rem;
+}
+
 .content {
-    display: grid;
+    display: flex;
     gap: 0.5rem;
+}
+
+.content > * {
+    flex: 1
+}
+
+.content > *:nth-of-type(2) {
+    flex: 0.5;
+    border: 1px solid blue;
 }
 
 .content h2 {
@@ -26,8 +40,27 @@
     font-weight: lighter;
 }
 
+.readTime,
+.complexMeta,
 .metadata {
     font-weight: lighter;
     font-size: small;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.readTime,
+.metadata {
     opacity: 0.7;
 }
+
+.complexMeta div:last-of-type a {
+    font-size: medium;
+    font-weight: bold;
+}
+
+.complexMeta div:last-of-type span {
+    opacity: 0.5;
+}
+
