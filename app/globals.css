@@ -77,3 +77,10 @@ svg {
   display: grid;
   gap: 0.5rem;
 }
+
+.defaultLoader {
+  width: 100%;
+  height: 200px;
+  display: grid;
+  place-items: center;
+}
