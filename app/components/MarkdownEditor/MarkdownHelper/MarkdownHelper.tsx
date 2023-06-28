@@ -51,6 +51,10 @@ function MarkdownHelper({ textareaRef }: {
                 helperText = `- ${text}`
                 break;
             }
+            case 'blankLine': {
+                helperText = `\n&nbsp;\\${selectedText ? `\n${selectedText}` : ''}`
+                break;
+             }
             default : {
                 throw new Error("Unknown Helper")
             }
@@ -138,6 +142,9 @@ function MarkdownHelper({ textareaRef }: {
                     Multi Quote
                 </button>
                 <button onPointerDown={() => addHelper('unorderItem')}>
+                    Unordered Item
+                </button>
+                <button onPointerDown={() => addHelper('blankLine')}>
                     Unordered Item
                 </button>
             </div>
