@@ -1,34 +1,17 @@
-import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import styles from './postCard.module.css'
 import type { Post } from '@prisma/client'
-import getReadTime from '@/lib/getReadTime'
 import Avatar from '../Avatar/Avatar'
 import Link from 'next/link'
 import parseImgUrl from '@/lib/parseImgUrl'
+import getPostMetadata from '@/lib/getPostMetadata'
 
 export default function PostCard({ post, isSimple }: {
     post: Post & GeneralUserInfo,
     isSimple?: true
 }) {
 
-    const { title, body, createdAt, updatedAt, id, image, user } = post
-    const { username, image: userImg, name } = user
-
-    let imgAlt = "Cool image"
-    let imgUrl = image
-    if (!image) {
-        const res = parseImgUrl(body)
-        imgAlt = res.imgAlt || imgAlt
-        imgUrl = res.imgUrl || null
-    }
-
-    const isUpdated = +createdAt !== +updatedAt
-
-    let latest = createdAt
-    if (isUpdated) latest = updatedAt
-
-    const timeDiff = formatDistanceToNow(latest, { includeSeconds: true, addSuffix: true })
-    const readTime = getReadTime(body)
+    const { title, body, id, user, readTime, timeDiff, imgAlt, imgUrl } = getPostMetadata(post)
+    const { username, image: userImg } = user
 
     return (
         // Simpler to just do this instead of creating a grid
@@ -57,7 +40,7 @@ export default function PostCard({ post, isSimple }: {
                             <img
                                 loading='lazy'
                                 src={imgUrl}
-                                alt="Cool Image"
+                                alt={imgAlt}
                                 width={100}
                             />
                         )}
