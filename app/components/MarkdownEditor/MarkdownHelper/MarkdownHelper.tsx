@@ -2,7 +2,7 @@ import { useCallback, type RefObject, useEffect } from "react";
 import useUI from "@/lib/zustand/useUI";
 import './markdownHelper.css'
 
-function MarkdownUI({ textareaRef }: {
+function MarkdownHelper({ textareaRef }: {
     textareaRef: RefObject<HTMLTextAreaElement>
 }) {
     const { selectedText, isDark, isPreview, setIsDark, setIsPreview, setText, setSelectedText } = useUI()
@@ -145,4 +145,4 @@ function MarkdownUI({ textareaRef }: {
     )
 }
 
-export default MarkdownUI
+export default MarkdownHelper

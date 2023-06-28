@@ -1,17 +1,25 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import { prism } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import './markdownEditor.css'
-import MarkdownUI from './MarkdownHelper/MarkdownHelper'
 import useUI from '@/lib/zustand/useUI'
+import MarkdownHelper from './MarkdownHelper/MarkdownHelper'
+import dynamic from 'next/dynamic'
+import Loader from '../Loader/Loader'
+
+const MarkdownUI = dynamic(() =>
+  import('../MarkdownUI/MarkdownUI'),
+  {
+    loading: () => (
+      <div className='defaultLoader' style={{ height: '80dvh' }}>
+        <Loader />
+      </div>
+    )
+  }
+)
 
 function MarkdownEditor() {
-  const { text, isPreview, isDark, setText, setSelectedText } = useUI()
+  const { text, isPreview, setText, setSelectedText } = useUI()
   const textareadRef = useRef<HTMLTextAreaElement>(null)
 
   // Get selected text (if any)
@@ -37,32 +45,10 @@ function MarkdownEditor() {
   }, [textareadRef.current])
   return (
     <>
-      <MarkdownUI textareaRef={textareadRef} />
+      <MarkdownHelper textareaRef={textareadRef} />
       <section className='container'>
         {isPreview ? (
-          <ReactMarkdown
-            children={text}
-            className='markdown'
-            remarkPlugins={[remarkGfm]}
-            components={{
-              code({ node, inline, className, children, ...props }) {
-                const match = /language-(\w+)/.exec(className || '')
-                return !inline && match ? (
-                  <SyntaxHighlighter
-                    {...props}
-                    children={String(children).replace(/\n$/, '')}
-                    style={isDark ? vscDarkPlus : prism}
-                    language={match[1]}
-                    PreTag="div"
-                  />
-                ) : (
-                  <code {...props} className={className}>
-                    {children}
-                  </code>
-                )
-              }
-            }}
-          />
+          <MarkdownUI text={text} />
         ) : (
           <textarea
             ref={textareadRef}
