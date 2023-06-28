@@ -49,10 +49,10 @@ type FollowRequest = {
 
 // Basically the same: just for easier integration purposes
 type FollowerRequest = {
-     /**
-     * Mutate on the client side.
-     * This will make the UX seem faster.
-     */
+    /**
+    * Mutate on the client side.
+    * This will make the UX seem faster.
+    */
     newFollowers?: string[],
 }
 
@@ -75,7 +75,7 @@ type PostReqPartial = {
     body?: string,
     newInfo?: {
         title?: string,
-        body?: string, 
+        body?: string,
         image?: string,
     }
 }
@@ -98,6 +98,16 @@ type PostReq<T extends MutateHTTP> =
     }
     : never
 
+
+// To be used when fetching comments || posts
+type GeneralUserInfo = {
+    user: {
+        username: string,
+        name: string,
+        image: string | null
+    }
+}
+
 // USER REQUEST DATA STRUCTURE
 type UserProps = {
     username?: string,
@@ -112,17 +122,17 @@ type UserReqPartial = UserProps & {
     userId?: string,
 }
 
-type UserReq<T extends MutateHTTP> = 
+type UserReq<T extends MutateHTTP> =
     T extends 'DELETE' ?
     {
         isVerified: boolean
     }
-    : T extends 'PATCH' ? 
+    : T extends 'PATCH' ?
     {
         isVerified: boolean,
         newInfo: UserProps
-    } 
-    : T extends 'POST' ? 
+    }
+    : T extends 'POST' ?
     Required<UserProps> & { name?: string }
     : never
 
@@ -154,9 +164,9 @@ type NotifyReturnType = Record<ToastType, string | number> & {
 }
 
 type MarkdownHelperTypes =
-"heading1" | "heading2" | "heading3" | "heading4" | "heading5" | "heading6"
-| "italic" | "bold" | "quote" | "multiQuote" | "code" | "codeBlock" | "unorderItem"
-| "blankLine"
+    "heading1" | "heading2" | "heading3" | "heading4" | "heading5" | "heading6"
+    | "italic" | "bold" | "quote" | "multiQuote" | "code" | "codeBlock" | "unorderItem"
+    | "blankLine"
 
 type RandomUserResponse = {
     username: string,
