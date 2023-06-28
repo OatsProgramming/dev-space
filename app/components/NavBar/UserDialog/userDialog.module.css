@@ -5,10 +5,14 @@
 }
 
 .userInfo a {
+    /* Remove the styles ive set originally */
     padding: 0;
-    transition: all 100ms ease;
+
+    display: grid;
+    gap: 0;
 }
 
+/* Remove the styles ive set originally */
 .userInfo a:hover {
     background-color: transparent;
 }

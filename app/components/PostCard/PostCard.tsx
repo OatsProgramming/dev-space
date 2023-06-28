@@ -2,16 +2,17 @@ import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import styles from './postCard.module.css'
 import type { Post } from '@prisma/client'
 import getReadTime from '@/lib/getReadTime'
-import NoAvatar from '../NoAvatar/NoAvatar'
+import Avatar from '../Avatar/Avatar'
 import Link from 'next/link'
 import parseImgUrl from '@/lib/parseImgUrl'
 
 export default function PostCard({ post, isSimple }: {
-    post: Post,
+    post: Post & GeneralUserInfo,
     isSimple?: true
 }) {
 
-    const { title, body, createdAt, updatedAt, createdBy, id, image  } = post
+    const { title, body, createdAt, updatedAt, id, image, user } = post
+    const { username, image: userImg, name } = user
 
     let imgAlt = "Cool image"
     let imgUrl = image
@@ -34,11 +35,11 @@ export default function PostCard({ post, isSimple }: {
         <div>
             {!isSimple && (
                 <div className={styles['complexMeta']}>
-                    <NoAvatar username={createdBy} />
+                    <Avatar username={username} image={userImg} />
                     <div>
-                        <Link href={`/profile/${createdBy}`}>
-                            {createdBy}
-                        </Link> 
+                        <Link href={`/profile/${username}`}>
+                            {username}
+                        </Link>
                         <span>
                             &nbsp;・ {timeDiff}
                         </span>
@@ -53,7 +54,7 @@ export default function PostCard({ post, isSimple }: {
                             <div>{body}</div>
                         </div>
                         {(!isSimple && imgUrl) && (
-                            <img 
+                            <img
                                 loading='lazy'
                                 src={imgUrl}
                                 alt="Cool Image"
@@ -63,7 +64,7 @@ export default function PostCard({ post, isSimple }: {
                     </div>
                     {isSimple && (
                         <div className={styles['metadata']}>
-                            <div>{createdBy} ・ {timeDiff}</div>
+                            <div>{username} ・ {timeDiff}</div>
                         </div>
                     )}
                     <div className={styles['readTime']}>

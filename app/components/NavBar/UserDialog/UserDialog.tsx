@@ -6,13 +6,15 @@ import type { Session } from "next-auth";
 import ModalSlide from "../ModalSlide/ModalSlide";
 import Link from "next/link";
 import { SignOut } from "../../AuthBtns/AuthBtns";
-import NoAvatar from "../../NoAvatar/NoAvatar";
+import Avatar from "../../Avatar/Avatar";
 
 export default function UserDialog({ session }: {
     session: Session | null
 }) {
     const [isOpen, setIsOpen] = useState(false)
+    // TODO: remove the || later
     const username = session?.user.name || 'eve'
+    const userImg = session?.user.image || 'https://rukminim1.flixcart.com/image/850/1000/kufuikw0/poster/j/d/x/small-aesthetic-anime-girl-wall-poster-size-12x18-asstore-red-original-imag7k2v5dbs8tgn.jpeg?q=90'
 
     return (
         <>
@@ -26,13 +28,11 @@ export default function UserDialog({ session }: {
             </button>
             <ModalSlide isOpen={isOpen} setIsOpen={setIsOpen}>
                 <div className={styles['userInfo']}>
-                    <div>
-                        <NoAvatar username={username}/>
-                        <Link href={`/profile/${username}`}>
-                            <h1>USER</h1>
-                            <p>name</p>
-                        </Link>
-                    </div>
+                    <Avatar username={username} image={userImg} />
+                    <Link href={`/profile/${username}`}>
+                        <h1>USER</h1>
+                        <p>name</p>
+                    </Link>
                 </div>
                 <hr />
                 <nav className="modalSlideSect">

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import NoAvatar from '../../NoAvatar/NoAvatar'
+import Avatar from '../../Avatar/Avatar'
 import styles from './userCard.module.css'
 
 export default function UserCard({ user }: {
@@ -10,11 +10,7 @@ export default function UserCard({ user }: {
         <Link href={`/profile/${username}`}>
             <div className={styles['container']}>
                 <div className={styles['userInfo']}>
-                    {image ? (
-                        <div>IMG</div>
-                    ) : (
-                        <NoAvatar username={username} removeLink/>
-                    )}
+                    <Avatar username={username} image={image} removeLink />
                     <div>
                         <h1>{username}</h1>
                         <p>{name}</p>

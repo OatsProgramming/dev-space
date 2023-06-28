@@ -173,7 +173,7 @@ type RandomUserResponse = {
     name: string,
     followers: string[],
     follows: string[],
-    image?: string,
+    image: string | null,
     postsMade: number,
 }
 

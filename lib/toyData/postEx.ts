@@ -1,7 +1,7 @@
 import type { Post } from "@prisma/client"
 import { markdownEx, markdownEx2 } from "./markdownEx"
 
-const postEx: Post[] = [
+const postEx: (Post & GeneralUserInfo)[] = [
     {
         id: '649bcdc4c863c7ce8e7de8ce',
         userId: '123',
@@ -10,6 +10,11 @@ const postEx: Post[] = [
         createdAt: new Date(),
         updatedAt: new Date(),
         image: null,
+        user: {
+            image: "https://rukminim1.flixcart.com/image/850/1000/kufuikw0/poster/j/d/x/small-aesthetic-anime-girl-wall-poster-size-12x18-asstore-red-original-imag7k2v5dbs8tgn.jpeg?q=90",
+            username: "eve",
+            name: 'eve'
+        }
     },
     {
         id: '123234',
@@ -23,6 +28,11 @@ const postEx: Post[] = [
         createdAt: new Date(),
         updatedAt: new Date(),
         image: null,
+        user: {
+            image: null,
+            username: "eve",
+            name: 'eve'
+        }
     },
     {
         id: '123345',
@@ -32,6 +42,11 @@ const postEx: Post[] = [
         createdAt: new Date(),
         updatedAt: new Date(),
         image: null,
+        user: {
+            image: null,
+            username: "eve",
+            name: 'eve'
+        }
     },
     {
         id: '234123',
@@ -45,6 +60,11 @@ const postEx: Post[] = [
         createdAt: new Date(),
         updatedAt: new Date(),
         image: null,
+        user: {
+            image: null,
+            username: "eve",
+            name: 'eve'
+        }
     },
 ]
 
