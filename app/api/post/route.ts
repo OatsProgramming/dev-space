@@ -1,6 +1,7 @@
 import prismadb from "@/lib/prismadb"
 import { NextResponse } from "next/server"
 import validateReq from "./validateReq"
+import deleteComments from "@/lib/deleteComments"
 
 // Think abt this when possible: adding categories to search param
 export async function GET(req: Request) {
@@ -39,9 +40,23 @@ export async function POST(req: Request) {
         switch(method) {
             case 'DELETE': {
                 const { postId } = data
+
+                const postComments = await prismadb.post.findUnique({
+                    where: { id: postId },
+                    select: {
+                        comments: true
+                    }
+                })
+
+                if (postComments) {
+                    const { comments } = postComments
+                    await deleteComments(comments)
+                }
+
                 await prismadb.post.delete({
                     where: { id: postId }
                 })
+
                 break;
             }
             case 'PATCH': {

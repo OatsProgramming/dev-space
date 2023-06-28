@@ -27,7 +27,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
     try {
         const res = await simpleValidate<CommentReqPartial>(req)
         if (res instanceof Response) return res
-        const { data, method, userId, username } = res
+        const { data, method, userId } = res
 
         let message;
         let status;
@@ -63,18 +63,17 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                 break;
             }
             case 'POST': {
-                const { postId, body, repliedTo } = data
-                if ((!postId && !repliedTo) || !body) {
+                const { postId, body, parentCommentId } = data
+                if ((!postId && !parentCommentId) || !body) {
                     message =
                         `Is missing...
-                        Either Post ID or Comment ID (for repliedTo)?       ${!postId && !repliedTo}
-                        Comment Body?                                       ${!body}
+                        Either post ID or parent comment ID?       ${!postId && !parentCommentId}
+                        Comment body?                              ${!body}
                         (Method: ${method})`
                     status = 422
                 }
 
                 data.userId = userId
-                data.createdBy = username
                 break;
             }
             default: {
@@ -85,7 +84,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
         }
         if (message && status) return NextResponse.json(message, { status })
 
-        return { 
+        return {
             data: { ...data },
             method
         } as T

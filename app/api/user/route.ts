@@ -2,6 +2,7 @@ import { hash } from "bcrypt";
 import validateReq from "./validateReq";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
+import deleteComments from "@/lib/deleteComments";
 
 export async function GET(req: Request) {
     
@@ -15,7 +16,21 @@ export async function POST(req: Request) {
     try {
         switch (method) {
             case 'DELETE': {
-                const { userId } = data
+                // const { userId } = data
+                const userId = "649534b00c8edaf5088712a5"
+
+                const userComments = await prismadb.user.findUnique({
+                    where: { id: userId },
+                    select: {
+                        comments: true
+                    }
+                })
+
+                if (userComments) {
+                    const { comments } = userComments
+                    await deleteComments(comments)
+                }
+
                 await prismadb.user.delete({
                     where: { id: userId }
                 })
