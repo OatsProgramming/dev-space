@@ -79,7 +79,8 @@ type PostReqPartial = {
     body?: string,
     newInfo?: {
         title?: string,
-        body?: string
+        body?: string, 
+        image?: string,
     }
 }
 
@@ -91,14 +92,12 @@ type PostReq<T extends MutateHTTP> =
     : T extends 'PATCH' ?
     {
         postId: string
-        newInfo: {
-            title?: string,
-            body?: string,
-        }
+        newInfo: PostReqPartial['newInfo']
     }
     : T extends 'POST' ?
     {
         title: string,
+        image?: string,
         body: string,
         createdBy: string,
     }

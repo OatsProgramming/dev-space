@@ -4,12 +4,23 @@ import type { Post } from '@prisma/client'
 import getReadTime from '@/lib/getReadTime'
 import NoAvatar from '../NoAvatar/NoAvatar'
 import Link from 'next/link'
+import parseImgUrl from '@/lib/parseImgUrl'
 
 export default function PostCard({ post, isSimple }: {
     post: Post,
     isSimple?: true
 }) {
-    const { title, body, createdAt, updatedAt, createdBy, id } = post
+
+    const { title, body, createdAt, updatedAt, createdBy, id, image  } = post
+
+    let imgAlt = "Cool image"
+    let imgUrl = image
+    if (!image) {
+        const res = parseImgUrl(body)
+        imgAlt = res.imgAlt || imgAlt
+        imgUrl = res.imgUrl || null
+    }
+
     const isUpdated = +createdAt !== +updatedAt
 
     let latest = createdAt
@@ -41,7 +52,14 @@ export default function PostCard({ post, isSimple }: {
                             <h2>{title}</h2>
                             <div>{body}</div>
                         </div>
-                        {!isSimple && <div>IMG</div>}
+                        {(!isSimple && imgUrl) && (
+                            <img 
+                                loading='lazy'
+                                src={imgUrl}
+                                alt="Cool Image"
+                                width={100}
+                            />
+                        )}
                     </div>
                     {isSimple && (
                         <div className={styles['metadata']}>
