@@ -1,0 +1,18 @@
+.avatar {
+    background-color: var(--randomColor);
+    border-radius: 10px;
+    height: calc(2.3rem * var(--size));
+    aspect-ratio: 1 / 1;
+    display: grid;
+    place-items: center;
+    font-size: calc(1rem * var(--size));
+    font-weight: bold;
+}
+
+.avatar > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+}
