@@ -15,8 +15,7 @@ type CommentReqPartial = {
     userId?: string,
     body?: string,
     postId?: string,
-    repliedTo?: string,
-    createdBy?: string
+    parentCommentId?: string,
 }
 
 type CommentReq<T extends MutateHTTP> =
@@ -33,11 +32,9 @@ type CommentReq<T extends MutateHTTP> =
     {
         postId: string,
         body: string,
-        createdBy: string,
     } | {
-        repliedTo: string,
+        parentCommentId: string,
         body: string,
-        createdBy: string,
     }
     : never
 

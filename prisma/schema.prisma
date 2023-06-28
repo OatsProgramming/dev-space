@@ -8,6 +8,7 @@ generator client {
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Account {
@@ -83,13 +84,16 @@ model Post {
 model Comment {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   body      String
-  createdBy String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  repliedTo String?  @db.ObjectId
-
+  
   post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
   user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   postId String? @db.ObjectId
   userId String  @db.ObjectId
+
+  parentComment   Comment? @relation("repliedTo", fields: [parentCommentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parentCommentId String?  @db.ObjectId
+
+  replies Comment[] @relation("repliedTo")
 }
