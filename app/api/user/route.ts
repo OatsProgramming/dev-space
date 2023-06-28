@@ -16,8 +16,7 @@ export async function POST(req: Request) {
     try {
         switch (method) {
             case 'DELETE': {
-                // const { userId } = data
-                const userId = "649534b00c8edaf5088712a5"
+                const { userId } = data
 
                 const userComments = await prismadb.user.findUnique({
                     where: { id: userId },
