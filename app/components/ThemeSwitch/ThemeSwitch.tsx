@@ -1,15 +1,16 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import useTheme from '@/lib/zustand/useTheme'
+import { useEffect } from 'react'
 
 export default function ThemeSwitch() {
-    const [isLight, setisLight] = useState(false)
+    const { isLight, setIsLight } = useTheme()
 
     // Manual change
     function toggleTheme() {
         const html = document.documentElement
         html.classList.toggle('lightMode')
-        setisLight(!isLight)
+        setIsLight(!isLight)
     }
 
     // Auto change (based on system)
@@ -20,11 +21,11 @@ export default function ThemeSwitch() {
         function changeTheme() {
             if (media.matches) {
                 html.classList.add('lightMode')
-                setisLight(true)
+                setIsLight(true)
             }
             else {
                 html.classList.remove('lightMode')
-                setisLight(false)
+                setIsLight(false)
             }
         }
         changeTheme() // set initial
