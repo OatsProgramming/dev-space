@@ -2,15 +2,32 @@ import prismadb from "@/lib/prismadb"
 import { NextResponse } from "next/server"
 import validateReq from "./validateReq"
 
-// Think abt this when possible
+// Think abt this when possible: adding categories to search param
 export async function GET(req: Request) {
-    // const { searchParams } = new URL(req.url)
-    // const category = searchParams.entries()
-    // if (!category) return new Response("Category not given for post route", { status: 422 })
-
-    // const posts = await prismadb.post.findMany({
-    //     where: { userId }
-    // })
+    try {
+        const { searchParams } = new URL(req.url)
+        const postId = searchParams.get('postId')
+        if (!postId) return new Response("Post ID not given (/api/post)", { status: 422 })
+    
+        const post = await prismadb.post.findFirst({
+            where: { id: postId }, 
+            include: {
+                user: {
+                    select: {
+                        name: true,
+                        username: true,
+                        image: true,
+                    }
+                }
+            },
+        })
+        
+        if (!post) return new Response("Post not found (/api/post)", { status: 404 })
+    
+        return NextResponse.json(post)
+    } catch (err) {
+        return NextResponse.json(err, { status: 500 })
+    }
 }
 
 export async function POST(req: Request) {
@@ -42,8 +59,7 @@ export async function POST(req: Request) {
                     data: {
                         title: data.title,
                         body: data.body,
-                        userId: data.userId!,
-                        createdBy: data.createdBy,
+                        userId: data.userId!                    
                     }
                 })
                 break;

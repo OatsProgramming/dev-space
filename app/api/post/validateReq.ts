@@ -76,7 +76,6 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                 
                 // Append userId for creation
                 data.userId = userId
-                data.createdBy = username
                 break;
             }
             default: {

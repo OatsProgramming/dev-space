@@ -3,13 +3,12 @@ import { markdownEx, markdownEx2 } from "./markdownEx"
 
 const postEx: Post[] = [
     {
-        id: '123123',
+        id: '649bcdc4c863c7ce8e7de8ce',
         userId: '123',
         title: 'HELLO WORLD',
         body: markdownEx,
         createdAt: new Date(),
         updatedAt: new Date(),
-        createdBy: "eve",
         image: null,
     },
     {
@@ -23,7 +22,6 @@ const postEx: Post[] = [
         Fusce a dignissim risus. Quisque ac ultricies mi, id vulputate tortor. Morbi imperdiet quam quis lorem varius blandit. In luctus, leo consequat tempor consequat, erat nisl suscipit diam, sit amet ullamcorper dolor justo sed nisl. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer fringilla ullamcorper urna. Pellentesque sit amet metus urna. Nunc at rhoncus mauris. Ut ornare tempor ante, vitae blandit neque semper ac. Donec vestibulum molestie neque, id tincidunt tortor eleifend quis. Donec sollicitudin lobortis diam, sit amet scelerisque nisi porttitor congue. Nulla et commodo tellus. `,
         createdAt: new Date(),
         updatedAt: new Date(),
-        createdBy: "eve",
         image: null,
     },
     {
@@ -33,7 +31,6 @@ const postEx: Post[] = [
         body: markdownEx2,
         createdAt: new Date(),
         updatedAt: new Date(),
-        createdBy: "eve",
         image: null,
     },
     {
@@ -47,7 +44,6 @@ const postEx: Post[] = [
         Fusce a dignissim risus. Quisque ac ultricies mi, id vulputate tortor. Morbi imperdiet quam quis lorem varius blandit. In luctus, leo consequat tempor consequat, erat nisl suscipit diam, sit amet ullamcorper dolor justo sed nisl. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer fringilla ullamcorper urna. Pellentesque sit amet metus urna. Nunc at rhoncus mauris. Ut ornare tempor ante, vitae blandit neque semper ac. Donec vestibulum molestie neque, id tincidunt tortor eleifend quis. Donec sollicitudin lobortis diam, sit amet scelerisque nisi porttitor congue. Nulla et commodo tellus. `,
         createdAt: new Date(),
         updatedAt: new Date(),
-        createdBy: "eve",
         image: null,
     },
 ]

@@ -28,30 +28,13 @@ export async function POST(req: Request) {
                 let hashedPassword;
                 if (password) hashedPassword = await hash(password, 12) 
 
-                const todo = []
-
-                const todoUser = prismadb.user.update({
+                await prismadb.user.update({
                     where: { id: userId },
                     data: {
                         username,
                         hashedPassword
                     }
                 })
-
-                todo.push(todoUser)
-
-                if (username) {
-                    const todoPost = prismadb.post.updateMany({
-                        where: { userId },
-                        data: {
-                            createdBy: username
-                        }
-                    })
-
-                    todo.push(todoPost)
-                }
-
-                await Promise.all(todo)
 
                 break;
             }

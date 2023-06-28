@@ -74,7 +74,6 @@ type NotifsReq = {
 type PostReqPartial = {
     postId?: string,
     userId?: string,
-    createdBy?: string,
     title?: string,
     body?: string,
     newInfo?: {
@@ -99,7 +98,6 @@ type PostReq<T extends MutateHTTP> =
         title: string,
         image?: string,
         body: string,
-        createdBy: string,
     }
     : never
 
