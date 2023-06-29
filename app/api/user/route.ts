@@ -8,6 +8,7 @@ export async function GET(req: Request) {
 
 }
 
+// TODO: encrypt the password on the client side for added securtiy in case of middle man
 export async function POST(req: Request) {
     const res = await validateReq(req)
     if (res instanceof Response) return res
@@ -24,7 +25,9 @@ export async function POST(req: Request) {
                         comments: true
                     }
                 })
-
+                
+                // Prisma doesnt allow onDelete: Cascade for self relations. Must do it manually.
+                // Be sure to execute this first before deleting other properties.
                 if (userComments) {
                     const { comments } = userComments
                     await deleteComments(comments)

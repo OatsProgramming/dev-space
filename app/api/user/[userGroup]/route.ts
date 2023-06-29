@@ -105,8 +105,20 @@ export async function POST(
                     break;
                 }
 
-                else {
-                    // Ditto
+                else {    
+                    // Check if target user is in the current user's blocked likst
+                    const isBlocked = await prismadb.user.findFirst({
+                        where: {
+                            id: userId,
+                            blockedUsers: {
+                                hasSome: targetId
+                            }
+                        }
+                    })
+
+                    // This shouldnt occur: be sure that this doesnt happen on the client side
+                    if (isBlocked) return new Response("Cannot add the target user if they're blocked", { status: 400 })
+
                     const arg = {} as {
                         [key: string]: {
                             push: string | undefined
