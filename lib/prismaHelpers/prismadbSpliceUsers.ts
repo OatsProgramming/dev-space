@@ -7,19 +7,20 @@ type MongoResult = {
 }
 
 /**
- * It's important to note that the query is based of from the username. Tried _id, id, id: { $oid: USERID }; they didnt work for some reason.
- * Just make sure that the username is always up to date with the session.
+ * Prismadb doesnt have support for removing items from an array yet. Use this to "splice" the array from collection: "User"
  * @param username 
  * @param userGroup 
  * @param targetId 
  * @returns 
  */
-export default async function prismadbSpliceUsers(username: string, userGroup: UserGroupParam, targetId: string) {
+export default async function prismadbSpliceUsers(userId: string, userGroup: UserGroupParam, targetId: string) {
     const result = await prismadb.$runCommandRaw({
         update: "User",
         updates: [
             {
-                q: { username: "adam" },
+                q: { _id: {
+                    $oid:  userId
+                }},
                 u: {
                     $pull: {
                         [userGroup]: {

@@ -25,7 +25,7 @@ export async function GET(
         // Current user is only allowed to get their blocked list (best not to have searchParams to lessen code)
         const session =
             // await getServerSession(authOptions)
-            await Promise.resolve({ user: { id: "649cdac70d107a45960a8091", name: 'eve' } })
+            await Promise.resolve({ user: { id: "649dd3d21a4f3c363800f786", name: 'eve' } })
 
         if (!session) return new Response("User must be signed in (api/blockedUser)", { status: 401 })
 
@@ -64,12 +64,12 @@ export async function POST(
         const res = await validateReq(req)
         if (res instanceof Response) return res
 
-        const { targetId, method, userId, username } = res
+        const { targetId, method, userId } = res
 
         switch (method) {
             // Very simple: will only target one userGroup
             case 'DELETE': {
-                const res = await prismadbSpliceUsers(username, userGroup, targetId)
+                const res = await prismadbSpliceUsers(userId, userGroup, targetId)
 
                 // Check for any fails
                 if (res.isError) {
@@ -87,8 +87,8 @@ export async function POST(
             case 'POST': {
                 if (userGroup === 'blockedUsers') {
                     // Remove target from any of the following
-                    const followsPromise = prismadbSpliceUsers(username, "follows", targetId)
-                    const followersPromise = prismadbSpliceUsers(username, "followers", targetId)
+                    const followsPromise = prismadbSpliceUsers(userId, "follows", targetId)
+                    const followersPromise = prismadbSpliceUsers(userId, "followers", targetId)
 
                     // Add target to blockedUsers
                     const blockedUsersPromise = prismadb.user.update({
