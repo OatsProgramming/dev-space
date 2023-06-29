@@ -20,7 +20,7 @@ export default function PostCard({ post, isSimple }: {
                 <div className={styles['complexMeta']}>
                     <Avatar username={username} image={userImg} />
                     <div>
-                        <Link href={`/profile/${username}`}>
+                        <Link href={`/profile/${username}`} className='userLink'>
                             {username}
                         </Link>
                         <span>

@@ -58,11 +58,6 @@
 .complexMeta div:last-of-type a {
     font-size: medium;
     font-weight: bold;
-    transition: color 100ms ease;
-}
-
-.complexMeta div:last-of-type a:hover {
-    color: var(--base)
 }
 
 .complexMeta div:last-of-type span {

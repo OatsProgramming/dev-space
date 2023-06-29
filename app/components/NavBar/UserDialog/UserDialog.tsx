@@ -29,7 +29,7 @@ export default function UserDialog({ session }: {
             <ModalSlide isOpen={isOpen} setIsOpen={setIsOpen}>
                 <div className={styles['userInfo']}>
                     <Avatar username={username} image={userImg} />
-                    <Link href={`/profile/${username}`}>
+                    <Link href={`/profile/${username}`} className='userLink'>
                         <h1>USER</h1>
                         <p>name</p>
                     </Link>
