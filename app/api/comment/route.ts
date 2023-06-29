@@ -61,18 +61,15 @@ export async function POST(req: Request) {
                 // Determine whether comment is meant for a post
                 // Or as a reply to a comment
                 await prismadb.comment.create({
-                    data: { 
+                    data: {
                         body: data.body,
                         userId: data.userId!,
-                        postId: 'postId' in data 
-                            ? data.postId 
+                        postId: 'postId' in data
+                            ? data.postId
                             : undefined,
-                        // repliedTo: 'repliedTo' in data 
-                        //     ? data.repliedTo 
-                        //     : undefined,
                         parentCommentId: 'parentCommentId' in data
                             ? data.parentCommentId
-                            : undefined 
+                            : undefined
                     }
                 })
                 break;
