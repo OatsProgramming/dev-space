@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
-  url      = env("DATABASE_URL")
+  provider     = "mongodb"
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
@@ -56,14 +56,15 @@ model User {
   accounts       Account[]
   sessions       Session[]
   // Extra
+  specialId      String    @default(cuid()) @unique
   username       String    @unique
   hashedPassword String
   notifs         Json[]
-  follows        String[]
-  followers      String[]
+  follows        Json[]  
+  followers      Json[]  
   // Before letting someone follow another or even letting them see their profile, check blockedUsers 
   // But how would performance be? Then again, still fetching the entire user data anyways
-  blockedUsers   String[]
+  blockedUsers   Json[]  
   posts          Post[]
   comments       Comment[]
 }

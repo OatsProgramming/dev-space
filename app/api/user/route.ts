@@ -56,20 +56,34 @@ export async function POST(req: Request) {
                 const { username, email, password, name } = data
                 const hashedPassword = await hash(password, 12)
 
-                await prismadb.user.create({
+                const user = await prismadb.user.create({
                     data: {
                         username,
                         email,
                         name,
                         hashedPassword,
+                        followers: [],
+                        follows: [],
+                        blockedUsers: [],
+                    },
+                    select: {
+                        id: true
                     }
                 })
+
+                // well this is aggravating lol
+                await prismadb.user.update({
+                    where: { id: user.id },
+                    data: {
+                        specialId: user.id + Date.now()
+                    }
+                })
+
                 break;
             }
         }
         
         // Just as a precaution
-        if ('userId' in data) delete data.userId
         // @ts-expect-error
         if ('password' in data) delete data.password
         if ('newInfo' in data && 'password' in data.newInfo){

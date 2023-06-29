@@ -5,10 +5,6 @@ type ReqBody<T> = {
     method: MutateHTTP
 }
 
-type BlockedUsersReq = {
-    blockedUsers?: string[]
-}
-
 // COMMENT REQUEST DATA STRUCTURE
 type CommentReqPartial = {
     commentId?: string,
@@ -38,23 +34,6 @@ type CommentReq<T extends MutateHTTP> =
     }
     : never
 
-// FOLLOW REQUEST DATA STRUCTURE
-type FollowRequest = {
-    /**
-     * Mutate on the client side.
-     * This will make the UX seem faster.
-     */
-    newFollows?: string[]
-}
-
-// Basically the same: just for easier integration purposes
-type FollowerRequest = {
-    /**
-    * Mutate on the client side.
-    * This will make the UX seem faster.
-    */
-    newFollowers?: string[],
-}
 
 // NOTIF REQUEST DATA STRUCTURE
 type NotifProps = {
@@ -98,10 +77,10 @@ type PostReq<T extends MutateHTTP> =
     }
     : never
 
-
 // To be used when fetching comments || posts
 type GeneralUserInfo = {
     user: {
+        id: string,
         username: string,
         name: string,
         image: string | null
@@ -178,3 +157,18 @@ type RandomUserResponse = {
 }
 
 type Reducer<S, A> = (prevState: S, action: A) => S
+
+type SpecialIds = {
+    userId: string;
+    /**
+     * Just userId + Date.now(). This is will help by auto sorting the ids (think key & lock)
+     */
+    specialId: string;
+}
+
+// user/[userGroup] api
+type UserGroupReq = {
+    targetUser: SpecialIds,
+}
+
+type UserGroupParam = "follows" | "followers" | "blockedUsers"
