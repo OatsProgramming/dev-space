@@ -4,8 +4,8 @@ export default function getReadTime(text: string) {
     const wordCount = text.trim().split(/\s+/).length
     const readTime = wordCount / avgReadingSpeed
 
-    if (readTime < 1) return "less than one minute"
+    if (readTime < 1) return "less than one minute read"
     
     const rounded =  Math.ceil(readTime) // Best to round up to be on the safe side
-    return `${rounded} mins`
+    return `${rounded} min read`
 }
