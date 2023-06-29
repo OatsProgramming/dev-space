@@ -7,13 +7,12 @@ export default async function validateReq(req: Request) {
         if (res instanceof Response) return res
 
         const { data, userId, method } = res
-        const { userId: targetId, specialId: targetSpecial } = data.targetUser
+        const { targetId } = data
 
-        if (!targetId || !targetSpecial || !method) {
+        if (!targetId || !method) {
             return new Response(
                 `Is missing...
                 Target ID?          ${!targetId}
-                Target Special ID?  ${targetSpecial}
                 Method?             ${!method}`,
                 { status: 422 }
             )
@@ -22,7 +21,8 @@ export default async function validateReq(req: Request) {
         return {
             method,
             userId,
-            targetUser: data.targetUser
+            targetId,
+            username: res.username,
         }
 
     } catch (err) {

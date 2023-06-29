@@ -1,4 +1,4 @@
-import prismadb from "./prismadb";
+import prismadb from "../prismadb";
 
 /**
  * Given just a string of userIds, returns only the necessary data of those users.
@@ -18,7 +18,7 @@ export default async function getUsers(userIds: string[]) {
                 id: true,
                 username: true,
                 name: true,
-                image: true            
+                image: true
             }
         })
         usersPromise.push(userPromise)

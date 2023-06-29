@@ -1,5 +1,5 @@
 import type { Comment } from "@prisma/client";
-import prismadb from "./prismadb";
+import prismadb from "../prismadb";
 
 /**
  * Prisma doesnt allow onDelete: Cascade for self relations. Must do it manually. 

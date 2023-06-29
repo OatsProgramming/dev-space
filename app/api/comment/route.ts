@@ -1,7 +1,7 @@
 import prismadb from "@/lib/prismadb"
 import { NextResponse } from "next/server"
 import validateReq from "./validateReq"
-import deleteComments from "@/lib/deleteComments"
+import deleteComments from "@/lib/prismaHelpers/deleteComments"
 
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url)
@@ -11,7 +11,7 @@ export async function GET(req: Request) {
     if (!postId && !commentId) return NextResponse.json("Given neither post nor comment ID for comments (api/comment)", { status: 422 })
 
     const comments = await prismadb.comment.findMany({
-        where: { 
+        where: {
             OR: [{ postId }, { id: commentId! }]
          },
         include: {
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
     try {
         const res = await validateReq(req)
         if (res instanceof Response) return res
-    
+
         const { method, data } = res
         switch (method) {
             case 'DELETE': {

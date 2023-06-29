@@ -158,17 +158,9 @@ type RandomUserResponse = {
 
 type Reducer<S, A> = (prevState: S, action: A) => S
 
-type SpecialIds = {
-    userId: string;
-    /**
-     * Just userId + Date.now(). This is will help by auto sorting the ids (think key & lock)
-     */
-    specialId: string;
-}
-
 // user/[userGroup] api
 type UserGroupReq = {
-    targetUser: SpecialIds,
+    targetId: string,
 }
 
 type UserGroupParam = "follows" | "followers" | "blockedUsers"

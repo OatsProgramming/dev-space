@@ -56,15 +56,14 @@ model User {
   accounts       Account[]
   sessions       Session[]
   // Extra
-  specialId      String    @default(cuid()) @unique
   username       String    @unique
   hashedPassword String
   notifs         Json[]
-  follows        Json[]  
-  followers      Json[]  
+  follows        String[]  @db.ObjectId @default([])
+  followers      String[]  @db.ObjectId @default([])
   // Before letting someone follow another or even letting them see their profile, check blockedUsers 
   // But how would performance be? Then again, still fetching the entire user data anyways
-  blockedUsers   Json[]  
+  blockedUsers   String[]  @db.ObjectId @default([])
   posts          Post[]
   comments       Comment[]
 }

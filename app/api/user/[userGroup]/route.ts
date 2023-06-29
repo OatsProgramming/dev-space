@@ -1,8 +1,10 @@
-import getUsers from "@/lib/getUsers";
+import getUsers from "@/lib/prismaHelpers/getUsers";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
-import binaryFilter from "@/lib/binaryFilter";
 import validateReq from "./validateReq";
+import prismadbSpliceUsers from "@/lib/prismaHelpers/prismadbSpliceUsers";
+
+// TODO: convert all session back to normal (remove Promise.resolve())
 
 function isUserGroup(userGroup: string): userGroup is UserGroupParam {
     const allowedParams = ["follows", "followers", "blockedUsers"]
@@ -62,95 +64,57 @@ export async function POST(
         const res = await validateReq(req)
         if (res instanceof Response) return res
 
-        const { targetUser, method, userId } = res
+        const { targetId, method, userId, username } = res
 
         switch (method) {
-            // Very simple: will only target one
+            // Very simple: will only target one userGroup
             case 'DELETE': {
+                const res = await prismadbSpliceUsers(username, userGroup, targetId)
 
-                // Hacky workaround
-                const arg = {} as {
-                    [key: string]: {
-                        set: SpecialIds[] | undefined
-                    }
+                // Check for any fails
+                if (res.isError) {
+                    throw new Error(`Failed to query DB (api/user/${userGroup}`)
                 }
-
-                const user = await prismadb.user.findUnique({
-                    where: { id: userId },
-                    select: {
-                        followers: true,
-                        follows: true,
-                        blockedUsers: true,
-                    }
-                })
-
-                if (!user) return new Response(`User not found (api/user/${userGroup})`, { status: 404 })
-
-                // Filter targetGroup
-                const targetGroup = user[userGroup] as SpecialIds[]
-                const res = binaryFilter(targetGroup, targetUser)
-
-                arg[userGroup] = {
-                    set: res?.newList
+                else if (res.numberDocsFound === 0) {
+                    return new Response("Nothing matches the query", { status: 404 })
                 }
-
-                await prismadb.user.update({
-                    where: { id: userId },
-                    data: arg
-                })
+                else if (res.numberDocsModded === 0) {
+                    return new Response("No docs were modified", { status: 400 })
+                }
 
                 break;
             }
             case 'POST': {
                 if (userGroup === 'blockedUsers') {
+                    // Remove target from any of the following
+                    const followsPromise = prismadbSpliceUsers(username, "follows", targetId)
+                    const followersPromise = prismadbSpliceUsers(username, "followers", targetId)
 
-                    // Get the arrs to filter
-                    const user = await prismadb.user.findUnique({
-                        where: { id: userId },
-                        select: {
-                            followers: true,
-                            follows: true,
-                        }
-                    })
-
-                    if (!user) return new Response(`User not found (api/user/${userGroup})`, { status: 404 })
-                    const { followers, follows } = user
-
-                    // Filter them
-                    const followersResult = binaryFilter(followers as SpecialIds[], targetUser)
-                    const followsResult = binaryFilter(follows as SpecialIds[], targetUser)
-
-                    // Add to blocked users
-                    // Set new list for others
-                    await prismadb.user.update({
+                    // Add target to blockedUsers
+                    const blockedUsersPromise = prismadb.user.update({
                         where: { id: userId },
                         data: {
                             blockedUsers: {
-                                push: targetUser
-                            },
-                            followers: {
-                                set: followersResult?.newList
-                            },
-                            follows: {
-                                set: followsResult?.newList
+                                push: targetId
                             }
                         }
                     })
+
+                    // Concurrent exec
+                    await Promise.all([followsPromise, followersPromise, blockedUsersPromise])
+                    break;
                 }
 
-                // Very simple here too: just push data
-                // HOWEVER: make sure to verify on the client side that it doesnt exist in the list
-                // already. Otherwise, will have DUPLICATES.
                 else {
                     // Ditto
                     const arg = {} as {
                         [key: string]: {
-                            push: SpecialIds | undefined
+                            push: string | undefined
                         }
                     }
 
                     arg[userGroup] = {
-                        push: targetUser
+                        push: targetId
                     }
 
                     await prismadb.user.update({
@@ -162,7 +126,7 @@ export async function POST(
             }
         }
 
-        return NextResponse.json(targetUser)
+        return NextResponse.json(targetId)
     } catch (error) {
         const err = error as any
         return NextResponse.json(err, { status: 500 })
