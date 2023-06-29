@@ -40,7 +40,7 @@ const postEx: (Post & GeneralUserInfo)[] = [
         title: 'GOODBYE WORLD',
         body: markdownEx2,
         createdAt: new Date(),
-        updatedAt: new Date(),
+        updatedAt: new Date("1/10/2023"),
         image: null,
         user: {
             image: null,
