@@ -80,7 +80,6 @@ type PostReq<T extends MutateHTTP> =
 // To be used when fetching comments || posts
 type GeneralUserInfo = {
     user: {
-        id: string,
         username: string,
         name: string,
         image: string | null
@@ -150,10 +149,11 @@ type MarkdownHelperTypes =
 type RandomUserResponse = {
     username: string,
     name: string,
-    followers: string[],
-    follows: string[],
+    followers: SpecialIds[],
+    follows: SpecialIds[],
     image: string | null,
     postsMade: number,
+    userId: string
 }
 
 type Reducer<S, A> = (prevState: S, action: A) => S

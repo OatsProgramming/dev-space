@@ -10,7 +10,7 @@ export default function PostCard({ post, isSimple }: {
     isSimple?: true
 }) {
 
-    const { title, body, id, user, readTime, timeDiff, imgAlt, imgUrl } = getPostMetadata(post)
+    const { title, body, id, user, readTime, timeDiff, imgAlt, imgUrl, userId } = getPostMetadata(post)
     const { username, image: userImg } = user
 
     return (
@@ -20,8 +20,8 @@ export default function PostCard({ post, isSimple }: {
                 <div className={styles['complexMeta']}>
                     <Avatar username={username} image={userImg} />
                     <div>
-                        <Link href={`/profile/${username}`} className='userLink'>
-                            {username}
+                        <Link href={`/profile/${userId}`} className='userLink'>
+                            <span>{username}</span>
                         </Link>
                         <span>
                             &nbsp;・ {timeDiff}

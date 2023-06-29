@@ -30,6 +30,7 @@ export default function getPostMetadata(post: (Post & GeneralUserInfo)) {
         title: post.title,
         body: post.body,
         user: post.user,
+        userId: post.userId,
         imgAlt,
         imgUrl,
         timeDiff,

@@ -60,7 +60,7 @@
     font-weight: bold;
 }
 
-.complexMeta div:last-of-type span {
+.complexMeta div:last-of-type > span {
     opacity: 0.5;
 }
 

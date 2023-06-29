@@ -13,8 +13,9 @@ export default function UserDialog({ session }: {
 }) {
     const [isOpen, setIsOpen] = useState(false)
     // TODO: remove the || later
-    const username = session?.user.name || 'eve'
+    const username = session?.user.name || 'machina'
     const userImg = session?.user.image || 'https://rukminim1.flixcart.com/image/850/1000/kufuikw0/poster/j/d/x/small-aesthetic-anime-girl-wall-poster-size-12x18-asstore-red-original-imag7k2v5dbs8tgn.jpeg?q=90'
+    const userId = session?.user.id || "649d4fcbe50bf7d4289d30fd"
 
     return (
         <>
@@ -29,7 +30,7 @@ export default function UserDialog({ session }: {
             <ModalSlide isOpen={isOpen} setIsOpen={setIsOpen}>
                 <div className={styles['userInfo']}>
                     <Avatar username={username} image={userImg} />
-                    <Link href={`/profile/${username}`} className='userLink'>
+                    <Link href={`/profile/${userId}`} className='userLink'>
                         <h1>USER</h1>
                         <p>name</p>
                     </Link>

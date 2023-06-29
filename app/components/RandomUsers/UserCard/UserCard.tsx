@@ -5,9 +5,9 @@ import styles from './userCard.module.css'
 export default function UserCard({ user }: {
     user: RandomUserResponse
 }) {
-    const { followers, follows, name, postsMade, username, image } = user
+    const { followers, follows, name, postsMade, username, image, userId } = user
     return (
-        <Link href={`/profile/${username}`}>
+        <Link href={`/profile/${userId}`}>
             <div className={styles['container']}>
                 <div className={styles['userInfo']}>
                     <Avatar username={username} image={image} removeLink />
