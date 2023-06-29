@@ -6,6 +6,7 @@ import { vscDarkPlus, vs } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import useTheme from '@/lib/zustand/useTheme'
 import dynamic from 'next/dynamic'
 import Loader from '../Loader/Loader'
+import styles from './markdownUI.module.css'
 
 const SyntaxHighlighter = dynamic(() =>
     import('react-syntax-highlighter/dist/esm/prism'),
@@ -27,7 +28,7 @@ function MarkdownUI({ text }: {
         <section className='container'>
             <ReactMarkdown
                 children={text}
-                className='markdown'
+                className={styles['container']}
                 remarkPlugins={[remarkGfm]}
                 components={{
                     code({ node, inline, className, children, ...props }) {
