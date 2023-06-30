@@ -146,14 +146,22 @@ type MarkdownHelperTypes =
     | "italic" | "bold" | "quote" | "multiQuote" | "code" | "codeBlock" | "unorderItem"
     | "blankLine"
 
-type RandomUserResponse = {
+
+// TODO: deal with naming conflict...?
+type UserResponse = {
     username: string,
     name: string,
-    followers: SpecialIds[],
-    follows: SpecialIds[],
-    image: string | null,
-    postsMade: number,
-    userId: string
+    /**
+     * Fetch the actual list of users after a user clicks on target user's userGroup
+     */
+    followersCount: number,
+     /**
+     * Fetch the actual list of users after a user clicks on target user's userGroup
+     */
+    followsCount: number,
+    image?: string | null,
+    postsCount: number,
+    id: string,
 }
 
 type Reducer<S, A> = (prevState: S, action: A) => S

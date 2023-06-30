@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Avatar({ username, image, removeLink, size}: {
     username: string,
-    image: string | null,
+    image?: string | null,
     /**
      * Add this to deal w/ hydration error. (For some reason can't place a link within a link...)
      */
