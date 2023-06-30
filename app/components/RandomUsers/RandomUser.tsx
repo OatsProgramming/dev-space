@@ -7,7 +7,7 @@ import baseUrl from "@/lib/baseUrl"
 export default async function RandomUsers({ username }: {
     username?: string
 }) {
-    const users = await fetcher(`${baseUrl}/api/randomUsers`) as UserResponse[]
+    const users = await fetcher(`${baseUrl}/api/randomUsers`) as UserResponseSML[]
     
     return (
         <div className={styles['container']}>

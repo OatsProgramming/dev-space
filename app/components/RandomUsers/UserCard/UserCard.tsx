@@ -3,7 +3,7 @@ import Avatar from '../../Avatar/Avatar'
 import styles from './userCard.module.css'
 
 export default function UserCard({ user }: {
-    user: UserResponse
+    user: UserResponseSML
 }) {
     const { followersCount, followsCount, name, postsCount, username, image, id: userId } = user
     return (
