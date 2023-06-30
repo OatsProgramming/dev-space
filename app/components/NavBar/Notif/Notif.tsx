@@ -2,16 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react'
 import styles from './notif.module.css'
-import { AnimatePresence, m, LazyMotion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { container, item } from './notifVariants'
 import NotifCard from './NotifCard/NotifCard'
 import useNotifs from './useNotifs'
 import Loader from '../../Loader/Loader'
 import AnimationProvider from '../../AnimationProvider/AnimationProvider'
 import textEX from '@/lib/toyData/textEx'
-
-const loadFeatures = () =>
-    import('@/lib/framer/domAnimation').then(mod => mod.default)
 
 export default function Notif({ username }: {
     username: string,
