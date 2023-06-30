@@ -150,7 +150,7 @@ type MarkdownHelperTypes =
 /**
  * This is a more general type. Helps make sure data is small.
  */
-type UserResponseSML = {
+type UserResponse = {
     username: string,
     name: string,
     /**
@@ -164,23 +164,6 @@ type UserResponseSML = {
     image?: string | null,
     postsCount: number,
     id: string,
-}
-
-// This will do for now
-type Post = {
-    id: string,
-    title: string,
-    body: string,
-    image?: string | null,
-    createdAt: string,
-    updatedAt: string,
-    userId: string,
-}
-
-type UserResponseLRG = Omit<UserResponseSML, 'followersCount' | 'followsCount' | 'postsCount'> & {
-    followers: string[],
-    follows: string[],
-    posts: Post[]
 }
 
 type Reducer<S, A> = (prevState: S, action: A) => S

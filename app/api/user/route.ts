@@ -3,6 +3,7 @@ import validateReq from "./validateReq";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 import deleteComments from "@/lib/prismaHelpers/deleteComments";
+import getUsers from "@/lib/prismaHelpers/getUsers";
 
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url)
@@ -11,17 +12,10 @@ export async function GET(req: Request) {
     if (!userId) return new Response("User ID not given (api/user)", { status: 422 })
 
     try {
-        const user = await prismadb.user.findUnique({
-            where: { id: userId },
-            select: {
-                username: true,
-                name: true,
-                followers: true,
-                follows: true,
-                image: true,
-                posts: true,
-            }
-        })
+        // Maintain data structure consistency
+        // Just fetch the data (e.g. follows, posts...) when needed
+        const userArr = await getUsers([userId])
+        const user = userArr[0]
 
         return NextResponse.json(user)
     } catch (err) {

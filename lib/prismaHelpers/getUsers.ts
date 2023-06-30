@@ -23,5 +23,5 @@ export default async function getUsers(userIds: string[]) {
     })
 
     // Concurrent execution to prevent blocking
-    return usersPromise as unknown as Promise<UserResponseSML[]>
+    return usersPromise as unknown as Promise<UserResponse[]>
 }
