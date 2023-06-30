@@ -4,7 +4,7 @@ import { markdownEx, markdownEx2 } from "./markdownEx"
 const postEx: (Post & GeneralUserInfo)[] = [
     {
         id: '649bcdc4c863c7ce8e7de8ce',
-        userId: '123',
+        userId: '649dd3d21a4f3c363800f786',
         title: 'HELLO WORLD',
         body: markdownEx,
         createdAt: new Date(),
@@ -18,7 +18,7 @@ const postEx: (Post & GeneralUserInfo)[] = [
     },
     {
         id: '123234',
-        userId: '123',
+        userId: '649dd3d21a4f3c363800f786',
         title: 'SUP WORLD',
         body: `
 
@@ -36,7 +36,7 @@ const postEx: (Post & GeneralUserInfo)[] = [
     },
     {
         id: '123345',
-        userId: '123',
+        userId: '649dd3d21a4f3c363800f786',
         title: 'GOODBYE WORLD',
         body: markdownEx2,
         createdAt: new Date(),
@@ -50,7 +50,7 @@ const postEx: (Post & GeneralUserInfo)[] = [
     },
     {
         id: '234123',
-        userId: '123',
+        userId: '649dd3d21a4f3c363800f786',
         title: 'SAYONARA WORLD',
         body: `
 

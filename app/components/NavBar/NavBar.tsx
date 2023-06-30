@@ -10,9 +10,12 @@ import ThemeSwitch from "../ThemeSwitch/ThemeSwitch"
 import Notif from "./Notif/Notif"
 import Nav from "./Nav/Nav"
 import logo from "@/public/logo"
+import getTempServerSession from "@/lib/toyData/getTempServerSession"
 
 export default async function NavBar() {
-    const session = await getServerSession(authOptions)
+    const session = await 
+        // getServerSession(authOptions)
+        getTempServerSession()
 
     return (
         <Nav>

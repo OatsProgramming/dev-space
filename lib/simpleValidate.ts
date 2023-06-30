@@ -1,6 +1,10 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 import isEmpty from "lodash/isEmpty"
 import { getServerSession } from "next-auth"
+import tempUserId from "./toyData/tempUserId"
+import getTempServerSession from "./toyData/getTempServerSession"
+// TODO: convert all session back to normal (remove Promise.resolve())
+
 
 /**
  * For simple req body extraction and auth.
@@ -12,7 +16,7 @@ export default async function simpleValidate<T>(req: Request) {
     const bodyPromise = req.json() as Promise<ReqBody<T>>
     const sessionPromise =
         // getServerSession(authOptions)
-        Promise.resolve({ user: { id: "649534b00c8edaf5088712a5", name: 'eve' } })
+        getTempServerSession()
 
     const [body, session] = await Promise.all([bodyPromise, sessionPromise])
     if (!session) return new Response("User must sign in", { status: 401 })

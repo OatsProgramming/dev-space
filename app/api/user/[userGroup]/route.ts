@@ -3,6 +3,7 @@ import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 import validateReq from "./validateReq";
 import prismadbSpliceUsers from "@/lib/prismaHelpers/prismadbSpliceUsers";
+import getTempServerSession from "@/lib/toyData/getTempServerSession";
 
 // TODO: convert all session back to normal (remove Promise.resolve())
 
@@ -33,7 +34,7 @@ export async function GET(
             // Make sure that the users can see only their own blocked list 
             const session =
                 // await getServerSession(authOptions)
-                await Promise.resolve({ user: { id: "649dd3d21a4f3c363800f786", name: 'adam' } })
+                await getTempServerSession()
 
             if (!session) {
                 return new Response("User must be signed in (api/blockedUser)", { status: 401 })
