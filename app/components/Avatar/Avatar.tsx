@@ -1,9 +1,11 @@
 import type { CSSProperties } from "react";
 import styles from './avatar.module.css'
 import Link from "next/link";
+import ProfileLink from "../ProfileLink/ProfileLink";
 
-export default function Avatar({ username, image, removeLink, size}: {
+export default function Avatar({ username, userId, image, removeLink, size}: {
     username: string,
+    userId: string,
     image?: string | null,
     /**
      * Add this to deal w/ hydration error. (For some reason can't place a link within a link...)
@@ -46,8 +48,8 @@ export default function Avatar({ username, image, removeLink, size}: {
 
     if (removeLink) return result
     return (
-        <Link href={`/profile/${username}`}>
+        <ProfileLink userId={userId}>
             {result}
-        </Link>
+        </ProfileLink>
     )
 }

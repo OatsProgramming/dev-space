@@ -19,7 +19,7 @@ export default function PostCard({ post, isSimple }: {
         <div>
             {!isSimple && (
                 <div className={styles['complexMeta']}>
-                    <Avatar username={username} image={userImg} />
+                    <Avatar username={username} userId={userId} image={userImg} />
                     <div>
                         <ProfileLink userId={userId}>
                             <span>{username}</span>
