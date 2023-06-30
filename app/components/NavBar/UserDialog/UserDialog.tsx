@@ -7,6 +7,7 @@ import ModalSlide from "../ModalSlide/ModalSlide";
 import Link from "next/link";
 import { SignOut } from "../../AuthBtns/AuthBtns";
 import Avatar from "../../Avatar/Avatar";
+import ProfileLink from "../../ProfileLink/ProfileLink";
 
 export default function UserDialog({ session }: {
     session: Session | null
@@ -30,10 +31,10 @@ export default function UserDialog({ session }: {
             <ModalSlide isOpen={isOpen} setIsOpen={setIsOpen}>
                 <div className={styles['userInfo']}>
                     <Avatar username={username} image={userImg} />
-                    <Link href={`/profile/${userId}`} className='userLink'>
+                    <ProfileLink userId={userId}>
                         <h1>USER</h1>
                         <p>name</p>
-                    </Link>
+                    </ProfileLink>
                 </div>
                 <hr />
                 <nav className="modalSlideSect">

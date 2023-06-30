@@ -4,6 +4,7 @@ import Avatar from '../Avatar/Avatar'
 import Link from 'next/link'
 import parseImgUrl from '@/lib/parseImgUrl'
 import getPostMetadata from '@/lib/getPostMetadata'
+import ProfileLink from '../ProfileLink/ProfileLink'
 
 export default function PostCard({ post, isSimple }: {
     post: Post & GeneralUserInfo,
@@ -20,9 +21,9 @@ export default function PostCard({ post, isSimple }: {
                 <div className={styles['complexMeta']}>
                     <Avatar username={username} image={userImg} />
                     <div>
-                        <Link href={`/profile/${userId}`} className='userLink'>
+                        <ProfileLink userId={userId}>
                             <span>{username}</span>
-                        </Link>
+                        </ProfileLink>
                         <span>
                             &nbsp;・ {timeDiff}
                         </span>

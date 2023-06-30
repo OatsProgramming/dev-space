@@ -84,12 +84,3 @@ svg {
   display: grid;
   place-items: center;
 }
-
-.userLink > *:first-child {
-  transition: color 100ms cubic-bezier(0.165, 0.84, 0.44, 1);
-  width: max-content;
-}
-
-.userLink > *:first-child:hover {
-  color: var(--base);
-}
