@@ -1,4 +1,5 @@
 import prismadb from "../prismadb";
+import userResponseShape from "./userResponseShape";
 
 /**
  * Given just a string of userIds, returns only the necessary data of those users.
@@ -8,22 +9,19 @@ import prismadb from "../prismadb";
  * @returns 
  */
 export default async function getUsers(userIds: string[]) {
-    // Loop thru all of the names
-    const usersPromise = []
-    for (let id of userIds) {
-        // Only get necessary (non private) data
-        const userPromise = prismadb.user.findUnique({
-            where: { id },
-            select: {
-                id: true,
-                username: true,
-                name: true,
-                image: true
-            }
-        })
-        usersPromise.push(userPromise)
-    }
+    
+    // Doing it raw since cant customize the keys 
+    // Also, cant get count for some reason with reg prisma for scalar lists (?)
+    // ... Trying to maintain UserResponse shape for ease of use thru out app
+    const usersPromise = prismadb.user.aggregateRaw({
+        pipeline: [
+            // $in -> arr.includes() basically
+            // Ought to loop for $oid to work
+            { $match: { _id: { $in: userIds.map(id => ({ $oid: id })) } } },
+            ...userResponseShape
+        ]
+    })
 
-    // Parallel execution to prevent blocking
-    return Promise.all(usersPromise)
+    // Concurrent execution to prevent blocking
+    return usersPromise as unknown as Promise<UserResponse[]>
 }

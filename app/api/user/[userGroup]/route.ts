@@ -21,28 +21,42 @@ export async function GET(
         return new Response(`Invalid params. Allowed: follows || followers || blockedUsers. Received: ${userGroup}`, { status: 422 })
     }
 
-    try {
-        // Current user is only allowed to get their blocked list (best not to have searchParams to lessen code)
-        const session =
-            // await getServerSession(authOptions)
-            await Promise.resolve({ user: { id: "649dd3d21a4f3c363800f786", name: 'eve' } })
+    const { searchParams } = new URL(req.url)
+    const userId = searchParams.get('userId')
 
-        if (!session) return new Response("User must be signed in (api/blockedUser)", { status: 401 })
+    if (!userId) {
+        return new Response(`User ID not given (api/user/${userGroup})`, { status: 422 })
+    }
+
+    try {
+        if (userGroup === 'blockedUsers') {
+            // Make sure that the users can see only their own blocked list 
+            const session =
+                // await getServerSession(authOptions)
+                await Promise.resolve({ user: { id: "649dd3d21a4f3c363800f786", name: 'adam' } })
+
+            if (!session) {
+                return new Response("User must be signed in (api/blockedUser)", { status: 401 })
+            }
+            if (userId !== session.user.id) {
+                return new Response("Current user may not see the target user's blocked list", { status: 401 })
+            }
+        }
 
         // Hacky workaround
         const arg = {} as { [key: string]: true }
         arg[userGroup] = true
 
-        // Get userIds in the users blocked list
+        // Get userIds based off from userGroup
         const usersList = await prismadb.user.findUnique({
-            where: { id: session.user.id },
+            where: { id: userId },
             select: arg
         })
 
         if (!usersList) return new Response("User not found", { status: 404 })
 
-        // @ts-expect-error
-        const listOfUsers = await getUsers(usersList[userGroup])
+        // Get UserResponse[] 
+        const listOfUsers = await getUsers(usersList[userGroup] as unknown as string[])
 
         return NextResponse.json(listOfUsers)
     } catch (err) {
@@ -105,7 +119,7 @@ export async function POST(
                     break;
                 }
 
-                else {    
+                else {
                     // Check if target user is in the current user's blocked likst
                     const isBlocked = await prismadb.user.findFirst({
                         where: {
