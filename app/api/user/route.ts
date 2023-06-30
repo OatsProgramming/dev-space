@@ -5,7 +5,28 @@ import { NextResponse } from "next/server";
 import deleteComments from "@/lib/prismaHelpers/deleteComments";
 
 export async function GET(req: Request) {
+    const { searchParams } = new URL(req.url)
+    const userId = searchParams.get('userId')
 
+    if (!userId) return new Response("User ID not given (api/user)", { status: 422 })
+
+    try {
+        const user = await prismadb.user.findUnique({
+            where: { id: userId },
+            select: {
+                username: true,
+                name: true,
+                followers: true,
+                follows: true,
+                image: true,
+                posts: true,
+            }
+        })
+
+        return NextResponse.json(user)
+    } catch (err) {
+        return NextResponse.json(err, { status: 500 })
+    }
 }
 
 // TODO: encrypt the password on the client side for added securtiy in case of middle man
