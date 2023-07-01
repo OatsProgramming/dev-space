@@ -82,7 +82,8 @@ type GeneralUserInfo = {
     user: {
         username: string,
         name: string,
-        image: string | null
+        image: string | null,
+        bio: string | null,
     }
 }
 
@@ -92,6 +93,7 @@ type UserProps = {
     name?: string,
     email?: string,
     password?: string,
+    bio?: string | null
 }
 
 type UserReqPartial = UserProps & {
@@ -164,6 +166,7 @@ type UserResponse = {
     image?: string | null,
     postsCount: number,
     id: string,
+    bio?: string | null,
 }
 
 type Reducer<S, A> = (prevState: S, action: A) => S

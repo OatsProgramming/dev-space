@@ -58,12 +58,13 @@ model User {
   // Extra
   username       String    @unique
   hashedPassword String
+  bio            String?
   notifs         Json[]
-  follows        String[]  @db.ObjectId @default([])
-  followers      String[]  @db.ObjectId @default([])
+  follows        String[]  @default([]) @db.ObjectId
+  followers      String[]  @default([]) @db.ObjectId
   // Before letting someone follow another or even letting them see their profile, check blockedUsers 
   // But how would performance be? Then again, still fetching the entire user data anyways
-  blockedUsers   String[]  @db.ObjectId @default([])
+  blockedUsers   String[]  @default([]) @db.ObjectId
   posts          Post[]
   comments       Comment[]
 }

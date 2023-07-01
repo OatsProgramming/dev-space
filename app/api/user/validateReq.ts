@@ -52,7 +52,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
 
                 // Append new data to identify the user by id rather than username or email
                 data.userId = userId
-                data.username = username
+                data.username = username ?? undefined
                 break;
             }
             case 'POST': {

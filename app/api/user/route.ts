@@ -55,7 +55,7 @@ export async function POST(req: Request) {
             }
             case 'PATCH': {
                 const { userId, newInfo } = data
-                const { username, password } = newInfo
+                const { username, password, bio } = newInfo
 
                 let hashedPassword;
                 if (password) hashedPassword = await hash(password, 12)
@@ -64,7 +64,8 @@ export async function POST(req: Request) {
                     where: { id: userId },
                     data: {
                         username,
-                        hashedPassword
+                        hashedPassword,
+                        bio,
                     }
                 })
 

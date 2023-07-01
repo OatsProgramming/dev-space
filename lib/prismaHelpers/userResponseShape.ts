@@ -20,6 +20,7 @@ const userResponseShape = [
             name: 1,
             username: 1,
             image: 1,
+            bio: 1,
             followsCount: {
                 $size: "$follows"
             },
