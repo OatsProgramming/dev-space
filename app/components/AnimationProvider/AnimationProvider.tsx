@@ -10,13 +10,14 @@ const loadFeatures = () =>
  * @param children
  * @returns 
  */
-export default function AnimationProvider({ children }: {
+export default function AnimationProvider({ children, mode = "sync" }: {
     children: React.ReactNode,
+    mode?: "wait" | "popLayout" | "sync"
 }) {
 
     return (
         <LazyMotion features={loadFeatures}>
-            <AnimatePresence>
+            <AnimatePresence mode={mode}>
                 {children}
             </AnimatePresence>
         </LazyMotion>
