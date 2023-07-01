@@ -1,4 +1,4 @@
-import { AnimatePresence, LazyMotion, m } from 'framer-motion'
+import { m } from 'framer-motion'
 import { leftSide, rightSide, backdrop } from './modalVariants'
 import styles from './modalSlide.module.css'
 import AnimationProvider from '../../AnimationProvider/AnimationProvider'
