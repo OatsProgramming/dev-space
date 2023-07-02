@@ -178,3 +178,15 @@ type UserGroupReq = {
 }
 
 type UserGroupParam = "follows" | "followers" | "blockedUsers"
+
+// UNSPLASH
+type UnsplashColor = 
+    "black_and_white" | "black" | "white" | "yellow" |
+    "orange" | "red" | "purple" |  "magenta" | "green" | 
+    "teal" | "blue"
+
+type UnsplashOrientation = "landscape" | "portrait" | "squarish"
+
+type UnsplashContentFilter = 'high' | 'low'
+
+type UnsplashOrderBy = 'relevant' | 'latest'
