@@ -9,9 +9,9 @@
   box-shadow: var(--subtleGlow);
   padding: 1rem;
   position: sticky;
-  top: 5rem;
+  top: 2rem;
   border-radius: 10px;
-  max-height: 85dvh;
+  max-height: 90dvh;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
