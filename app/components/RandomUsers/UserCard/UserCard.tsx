@@ -10,8 +10,8 @@ export default function UserCard({ user }: {
         <Link href={`/profile/${userId}`}>
             <div className={styles['container']}>
                 <div className={styles['userInfo']}>
-                    <Avatar username={username} image={image} removeLink />
-                    <div>
+                    <Avatar username={username} image={image} userId={userId} removeLink />
+                    <div className={styles['username']}>
                         <h1>{username}</h1>
                         <p>{name}</p>
                     </div>
