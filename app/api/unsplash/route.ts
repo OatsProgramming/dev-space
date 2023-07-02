@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { createApi } from 'unsplash-js'
 import { isValidColor, isValidContentFilter, isValidOrderBy, isValidOrientation } from "./validators";
 import unsplashEx from "@/lib/toyData/unsplashEx";
+import { Photos } from "unsplash-js/dist/methods/search/types/response";
+import stripPhotoData from "./stripPhotoData";
 
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url)
@@ -13,8 +15,25 @@ export async function GET(req: Request) {
 
     if (!query) return new Response("Unsplash query not given", { status: 422 })
 
-    await new Promise((resolve) => setTimeout(() => resolve(''), 1000))
-    return NextResponse.json(unsplashEx)
+    const res = await new Promise((resolve) => setTimeout(() => resolve(unsplashEx), 0)) as Photos
+
+    // TEST FOR PERFORMANCE
+
+    // const toy = []
+    // 500 objs -> 1MB (i < 100) (200ms cold 50ms avg)
+    // for (let i = 0; i < 100; i++) {
+    //     const photos = stripPhotoData(res.results)
+    //     // no spread for practice
+    //     toy.push(photos)
+    // }
+    // return NextResponse.json(toy)
+    
+    // 500 objs -> 5MB (i < 100) (362ms cold 100-120ms avg)
+    // for (let i = 0; i < 90; i++) {
+    //     // no spread for practice
+    //     toy.push(res.results)
+    // }
+    // return NextResponse.json(toy)
 
     try {
         const unsplash = createApi({
@@ -34,12 +53,12 @@ export async function GET(req: Request) {
         else if (!originalResponse.ok) {
             const results = await originalResponse.json()
             throw new Error(results)
-        }  
-        console.log(response)
-        return NextResponse.json({
-            length: response.results.length,
-            response,
-        })
+        }
+        
+        // Lessen the amnt of data to transfer
+        const photos = stripPhotoData(response.results)
+
+        return NextResponse.json(photos)
     } catch (err) {
         return NextResponse.json(err, { status: 500 })
     }

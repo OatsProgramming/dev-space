@@ -25,4 +25,16 @@ function isValidOrderBy(orderBy: string | null): orderBy is UnsplashOrderBy {
 
 }
 
-export { isValidColor, isValidContentFilter, isValidOrientation, isValidOrderBy }
+function keepBasicKey(key: string): key is keyof UnsplashBasicSmaller {
+    const validKeys = new Set<keyof UnsplashBasicSmaller>(['alt_description', 'blur_hash', 'color', 'description', 'height', 'id', 'links', 'urls', 'user', 'width'])
+    // @ts-expect-error
+    return validKeys.has(key)
+}
+
+function keepUserKey(key: string): key is keyof UnsplashBasicSmaller['user'] {
+    const validKeys = new Set<keyof UnsplashBasicSmaller['user']>(['first_name', 'id', 'last_name', 'links', 'name', 'username'])
+    // @ts-expect-error
+    return validKeys.has(key)
+}
+
+export { isValidColor, isValidContentFilter, isValidOrientation, isValidOrderBy, keepBasicKey, keepUserKey }
