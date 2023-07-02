@@ -9,7 +9,16 @@ export async function GET(req: Request) {
 
     try {
         const posts = await prismadb.post.findMany({
-            where: { userId }
+            where: { userId },
+            include: {
+                user: {
+                    select: {
+                        username: true,
+                        name: true,
+                        image: true,
+                    }
+                }
+            }
         })
 
         return NextResponse.json(posts)
