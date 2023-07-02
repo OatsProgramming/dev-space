@@ -4,10 +4,12 @@
     justify-content: space-between;
     position: sticky;
     z-index: 99;
-    top: 0;
+    top: -100px;
     padding: 0.5rem 1rem;
     /* Maybe keep this? To be decided... */
-    transition: box-shadow 500ms ease;
+    transition: 
+        box-shadow 500ms ease,
+        top 500ms ease
 }
 
 .nav > * {
