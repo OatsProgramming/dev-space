@@ -1,10 +1,9 @@
 'use client'
 
 import { useReducer } from "react";
-import { Photos } from "unsplash-js/dist/methods/search/types/response";
 
 type UnsplashQueryState = {
-    photos: Photos[]
+    photos: UnsplashBasicSmaller[]
     isLoading: boolean
     isTyping: boolean,
     error: any
@@ -27,7 +26,7 @@ type UnsplashQueryAction =
         type: 'fetching', 
     } | {
         type: "loaded",
-        nextPhotos: Photos[],
+        nextPhotos: UnsplashBasicSmaller[],
     } | {
         type: "error",
         nextError: any,

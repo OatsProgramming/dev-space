@@ -4,8 +4,12 @@ import baseUrl from "@/lib/baseUrl"
 import fetcher from "@/lib/fetchers/fetcher"
 import { useRef } from "react"
 import useUnsplash from "./useUnsplash"
+import toggleDialog from "@/lib/toggleDialog"
+import { Photos } from "unsplash-js/dist/methods/search/types/response"
+import UnsplashPhoto from "./UnsplashPhoto/UnsplashPhoto"
 
 export default function UnsplashProvider() {
+    const dialogRef = useRef<HTMLDialogElement>(null)
     const timerRef = useRef<NodeJS.Timeout | undefined>()
     const { state, dispatch } = useUnsplash()
     const { photos, isTyping, isLoading, error, params } = state
@@ -22,7 +26,7 @@ export default function UnsplashProvider() {
             fetcher(
                 `${baseUrl}/api/unsplash?query=${query}&color=${color}&contentFilter=${contentFilter}&orderBy=${orderBy}&orientation=${orientation}`
             )
-                .then(res => dispatch({
+                .then((res: UnsplashBasicSmaller[]) => dispatch({
                     type: 'loaded',
                     nextPhotos: res
                 }))
@@ -48,30 +52,45 @@ export default function UnsplashProvider() {
 
     return (
         <div>
-            <input
-                name='searchBar'
-                placeholder='Cat in a hat'
-                onChange={handleQuery}
-            />
-            <div>
-                <div onClick={() => dispatch({
-                    type: 'changed',
-                    nextParams: { isSafe: !isSafe }
-                })}>
-                    {isSafe ? 'SFW' : 'NSFW'}
-                </div>
-                <div onClick={() => dispatch({
-                    type: 'changed',
-                    nextParams: { isRelevant: !isRelevant }
-                })}>
-                    {isRelevant ? 'Relevant' : 'Latest'}
-                </div>
-                <div>
-                    <div>User typing?: {JSON.stringify(isTyping)}</div>
-                    <div>Fetching Data?: {JSON.stringify(isLoading)}</div>
-                    <div>Data: {JSON.stringify(photos)}</div>
-                </div>
+            <div onPointerDown={(e) => toggleDialog(e, dialogRef)}>
+                Open
             </div>
+            <dialog ref={dialogRef}>
+                <input
+                    name='searchBar'
+                    placeholder='Cat in a hat'
+                    onChange={handleQuery}
+                />
+                {isTyping && (
+                    <div>Typing...</div>
+                )}
+                {isLoading && (
+                    <div>Searching...</div>
+                )}
+                <div>
+                    <div onClick={() => dispatch({
+                        type: 'changed',
+                        nextParams: { isSafe: !isSafe }
+                    })}>
+                        {isSafe ? 'SFW' : 'NSFW'}
+                    </div>
+                    <div onClick={() => dispatch({
+                        type: 'changed',
+                        nextParams: { isRelevant: !isRelevant }
+                    })}>
+                        {isRelevant ? 'Relevant' : 'Latest'}
+                    </div>
+                    <div>
+                        {photos.map(photo => (
+                            // <UnsplashPhoto 
+                            //     key={photo.id}
+                            //     photo={photo}
+                            // />
+                            <div></div>
+                        ))}
+                    </div>
+                </div>
+            </dialog>
         </div>
     )
 }
