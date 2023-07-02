@@ -8,7 +8,12 @@ import getTempServerSession from "@/lib/toyData/getTempServerSession";
 import textEX from "@/lib/toyData/textEx";
 
 export async function GET(req: Request) {
-    return NextResponse.json(textEX)
+    // Simulate data being an array of JSON objects
+    const toReturn = []
+    for (let text of textEX) {
+        toReturn.push(JSON.stringify(text))
+    }
+    return NextResponse.json(toReturn)
     // const session = await 
     // // getServerSession(authOptions)
     // getTempServerSession()
@@ -17,18 +22,18 @@ export async function GET(req: Request) {
 
     // try {
     //     const { searchParams } = new URL(req.url)
-    //     const username = searchParams.get('username')
+    //     const userId = searchParams.get('userId')
         
-    //     if (!username) {
-    //         return new Response("Username not given (/api/notifs)", { status: 422 })
+    //     if (!userId) {
+    //         return new Response("User ID not given (/api/notifs)", { status: 422 })
     //     }
 
-    //     else if (session.user.name !== username) {
+    //     else if (session.user.id !== userId) {
     //         return new Response("Fetch not authorized", { status: 401 })
     //     }
 
     //     const user = await prismadb.user.findUnique({
-    //         where: { username }
+    //         where: { id: userId }
     //     })
 
     //     if (!user) return new Response("User not found (/api/notifs)", {status: 404 })

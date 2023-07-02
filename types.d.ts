@@ -39,7 +39,7 @@ type CommentReq<T extends MutateHTTP> =
 type NotifProps = {
     title: string,
     body: string,
-    createdAt: Date
+    createdAt: Date | 'now'
 }
 
 type NotifsReq = {
@@ -83,7 +83,8 @@ type GeneralUserInfo = {
         username: string,
         name: string,
         image: string | null,
-        bio: string | null,
+        bio?: string | null,
+        id?: string
     }
 }
 

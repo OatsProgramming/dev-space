@@ -5,7 +5,15 @@ export default function NotifCard({ notif }: {
     notif: NotifProps
 }) {
     const { title, body, createdAt } = notif
-    const timeDiff = formatDistanceToNow(new Date(createdAt), { includeSeconds: true, addSuffix: true })
+    const timeDiff = formatDistanceToNow(
+        createdAt === 'now' 
+            ? Date.now() 
+            : new Date(createdAt), 
+        { 
+            includeSeconds: true, 
+            addSuffix: true 
+        }
+    )
     return (
         <div className={styles['container']}>
             <div className={styles['text']}>

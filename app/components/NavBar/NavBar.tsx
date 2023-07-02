@@ -35,7 +35,7 @@ export default async function NavBar() {
                 <SearchDialog />
                 <ThemeSwitch />
                 {/* Temp */}
-                <Notif username="eve"/> 
+                <Notif userId={session.user.id}/> 
                 {/* {session && <Notif />} */}
                 <CreatePost />
                 <UserDialog session={session}/>

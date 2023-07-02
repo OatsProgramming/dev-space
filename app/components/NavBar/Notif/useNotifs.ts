@@ -26,8 +26,8 @@ type NotifsAction =
         nextNotifs: NotifProps[]
     }
 
-export default function useNotifs(username: string) {
-    const url = `${baseUrl}/api/notifs?username=${username}`;
+export default function useNotifs(userId: string) {
+    const url = `${baseUrl}/api/notifs?userId=${userId}`;
     const [state, dispatch] = useReducer<Reducer<NotifsState, NotifsAction>>(
         reducer,
         {

@@ -8,14 +8,13 @@ import NotifCard from './NotifCard/NotifCard'
 import useNotifs from './useNotifs'
 import Loader from '../../Loader/Loader'
 import AnimationProvider from '../../AnimationProvider/AnimationProvider'
-import textEX from '@/lib/toyData/textEx'
 
-export default function Notif({ username }: {
-    username: string,
+export default function Notif({ userId }: {
+    userId: string,
 }) {
     const divRef = useRef<HTMLDivElement>(null)
     const [isOpen, setIsOpen] = useState(false)
-    const { state, dispatch } = useNotifs(username)
+    const { state, dispatch } = useNotifs(userId)
     const { notifs, isLoading, isError } = state
 
     // Close the modal if clicked outside of modal
@@ -86,13 +85,20 @@ export default function Notif({ username }: {
                         animate='animate'
                         exit='exit'
                     >
+                        {/* Check status */}
                         {isLoading ? (
                             <div className={styles['loader']}>
                                 <Loader />
                             </div>
+                        ) : isError ? (
+                            <div className={styles['card']}>
+                                <NotifCard notif={{ title: "System", body: "Something went wrong...", createdAt: 'now' }} />
+                            </div>
                         ) : (
+                            // Check length
                             <div className={styles['cards']}>
-                                {textEX.length !== 0 ? textEX.map((ex, idx) => (
+                                {/* Not empty */}
+                                {notifs.length !== 0 ? notifs.map((notif, idx) => (
                                     <m.div
                                         className={styles['card']}
                                         key={idx}
@@ -100,15 +106,16 @@ export default function Notif({ username }: {
                                         onClick={() => {
                                             dispatch({
                                                 type: 'removed',
-                                                nextNotif: ex
+                                                nextNotif: notif
                                             })
                                         }}
                                     >
-                                        <NotifCard notif={ex} />
+                                        <NotifCard notif={notif} />
                                     </m.div>
                                 )) : (
+                                    // On empty
                                     <div className={styles['card']}>
-                                        <NotifCard notif={{ title: "System", body: "You're all clear for today.", createdAt: new Date() }} />
+                                        <NotifCard notif={{ title: "System", body: "You're all clear for today.", createdAt: 'now' }} />
                                     </div>
                                 )}
                             </div>
