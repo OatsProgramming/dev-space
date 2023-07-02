@@ -1,0 +1,147 @@
+.container {
+    display: flex;
+    gap: 1rem;
+    height: 200dvh;
+}
+
+.userInfo {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1rem;
+    position: sticky;
+    top: 0rem;
+
+    min-width: 300px;
+    height: 100dvh;
+
+    gap: 1rem;
+    width: 350px;
+}
+
+.links {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.links > a {
+    /* width: max-content; */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    /* border: 1px solid; */
+    padding: 0.25rem 0.5rem;
+    border-radius: 10px;
+    background-color: none;
+    transition: all 100ms ease;
+    justify-content: space-between;
+}
+
+.links > a:hover {
+    background-color: rgba(128, 128, 128, 0.2);
+}
+
+.links > a:hover,
+.links > a:hover > span:last-child {
+    color: var(--base);
+}
+
+.container > *:last-child {
+    flex: 2;
+}
+
+.actionBtns {
+    display: flex;
+    grid-area: actionBtns;
+    gap: 3rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.actionBtns > * {
+    border: 1px solid var(--base);
+    border-radius: 10px;
+    width: clamp(100px, 25%, 150px);
+    max-width: 10rem;
+    padding: 1rem;
+    text-align: center;
+}
+
+.actionBtns > *:hover {
+    background-color: var(--base);
+    color: var(--black);
+    cursor: pointer;
+}
+
+@media (max-width: 720px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .container > * {
+        flex: auto;
+    }
+
+    .userInfo {
+        position: relative;
+        top: 0;
+        width: 100%;
+        min-height: 50dvh;
+        height: 80dvh;
+
+        display: grid;
+        grid-template-areas:
+            "avatar links links"
+            "username username ."
+            "bio bio bio"
+            "actionBtns actionBtns actionBtns"
+        ;
+    }
+
+    .links {
+        border-radius: 10px;
+        grid-area: links;
+        box-shadow: var(--subtleGlow);
+
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 100%;
+
+        padding: 1rem;
+        gap: 2rem;
+    }
+
+    .links > a {
+        border-radius: 0px;
+        /* border: 1px solid var(--base); */
+        flex-direction: column;
+        height: 50%;
+        flex: 1;
+        padding: 1rem;
+        border-radius: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .username {
+        grid-area: username;
+
+        display: flex;
+        align-items: center;
+        /* border: 1px solid; */
+        /* width: 100%; */
+    }
+
+    .bio {
+        grid-area: bio;
+    }
+
+    .avatar {
+        grid-area: avatar;
+    }
+
+    .userInfo > div:first-child {
+        place-self: center;
+    }
+}
