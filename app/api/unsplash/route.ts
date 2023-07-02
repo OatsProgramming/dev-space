@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createApi } from 'unsplash-js'
 import { isValidColor, isValidContentFilter, isValidOrderBy, isValidOrientation } from "./validators";
+import unsplashEx from "@/lib/toyData/unsplashEx";
 
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url)
@@ -12,14 +13,8 @@ export async function GET(req: Request) {
 
     if (!query) return new Response("Unsplash query not given", { status: 422 })
 
-    // await new Promise((resolve) => setTimeout(() => resolve(''), 2000))
-    // return NextResponse.json({
-    //     query,
-    //     color,
-    //     orderBy,
-    //     orientation,
-    //     contentFilter
-    // })
+    await new Promise((resolve) => setTimeout(() => resolve(''), 1000))
+    return NextResponse.json(unsplashEx)
 
     try {
         const unsplash = createApi({
@@ -40,7 +35,7 @@ export async function GET(req: Request) {
             const results = await originalResponse.json()
             throw new Error(results)
         }  
-
+        console.log(response)
         return NextResponse.json({
             length: response.results.length,
             response,
