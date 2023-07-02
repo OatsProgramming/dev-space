@@ -11,7 +11,7 @@ export default async function Page({ params: { postId } }: {
     params: { postId: string }
 }) {
     // const post = await fetcher(`${baseUrl}/api/post?postId=${postId}`) as Post & GeneralUserInfo
-    const { body, imgAlt, imgUrl, title, user, readTime, timeDiff } = getPostMetadata(postEx[2])
+    const { body, imgAlt, imgUrl, title, user, readTime, timeDiff, userId } = getPostMetadata(postEx[2])
     const { username, image: userImg } = user
 
     return (
@@ -19,7 +19,7 @@ export default async function Page({ params: { postId } }: {
             <div className={styles['metadata']}>
                 <h1>{title}</h1>
                 <div className={styles['author']}>
-                    <Avatar username={username} image={userImg} />
+                    <Avatar username={username} userId={userId} image={userImg} />
                     <div>
                         <div>
                             <Link href={`/profile/${username}`} className="userLink">
