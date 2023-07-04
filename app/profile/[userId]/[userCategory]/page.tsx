@@ -1,7 +1,7 @@
 'use client'
 
 import type { Post } from "@prisma/client"
-import UserCard from "@/app/components/RandomUsers/UserCard/UserCard"
+import UserCard from "@/app/components/UserCard/UserCard"
 import PostCard from "@/app/components/PostCard/PostCard"
 import styles from './page.module.css'
 import AnimationProvider from "@/app/components/AnimationProvider/AnimationProvider"

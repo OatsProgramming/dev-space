@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Avatar from '../../Avatar/Avatar'
+import Avatar from '../Avatar/Avatar'
 import styles from './userCard.module.css'
 
 export default function UserCard({ user }: {

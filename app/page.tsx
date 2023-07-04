@@ -1,7 +1,7 @@
 import postEx from '@/lib/toyData/postEx'
 import PostCard from './components/PostCard/PostCard'
 import styles from './page.module.css'
-import RandomUsers from './components/RandomUsers/RandomUser'
+import RandomCards from './components/RandomCards/RandomCards'
 
 export default function Home() {
   return (
@@ -28,7 +28,7 @@ export default function Home() {
         </div>
         <div>
           <h1>Random Users: </h1>
-          <RandomUsers />
+          <RandomCards category='users' />
         </div>
       </div>
     </main>
