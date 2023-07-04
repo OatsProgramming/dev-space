@@ -1,13 +1,16 @@
 // TS acting weird...
 
+import colors from "@/lib/unsplash/validColors"
+import orientations from "@/lib/unsplash/validOrientations"
+
 function isValidColor(color: string | null): color is UnsplashColor {
-    const validColors = new Set<UnsplashColor>(['black', 'black_and_white', 'blue', 'green', 'magenta', 'orange', 'purple', 'red', 'teal', 'white', 'yellow'])
+    const validColors = new Set<UnsplashColor>(colors)
     // @ts-expect-error
     return validColors.has(color)
 }
 
 function isValidOrientation(orientation: string | null): orientation is UnsplashOrientation {
-    const validOrientation = new Set<UnsplashOrientation>(['landscape', 'portrait', 'squarish'])
+    const validOrientation = new Set<UnsplashOrientation>(orientations)
     // @ts-expect-error
     return validOrientation.has(orientation)
 }
