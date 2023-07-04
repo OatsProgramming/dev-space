@@ -7,9 +7,9 @@ const userResponseShape = [
         // Similar to "include" in prisma
         $lookup: {
             from: "Post",
-            localField: "_id",
-            foreignField: "userId",
-            as: "posts"
+            localField: "_id",          // Field from the input documents (i.e. for this ex: User)
+            foreignField: "userId",     // Field from the documents of the "from" collection (i.e. "Post" here)
+            as: "posts"                 // Essentially: " Include all: input.localField === from.foreignField "
         }
     },
     {
