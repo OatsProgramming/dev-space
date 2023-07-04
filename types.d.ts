@@ -230,3 +230,26 @@ type UnsplashBasicSmaller = {
         },
     },
 }
+
+type RandomCategoryParam = 'posts' | 'users' | 'comments'
+
+type CommentResponse = {
+    "body": string
+    "id": string
+    "createdAt": string
+    "updatedAt": string
+    "userId": string
+    "user": GeneralUserInfo
+    "postId": string | null
+    "parentCommentId": string | null
+}
+
+type PostResponse = {
+    "title": string,
+    "body": string,
+    "id": string,
+    "createdAt": string,
+    "updatedAt": string,
+    "userId": string,
+    "user": GeneralUserInfo
+}
