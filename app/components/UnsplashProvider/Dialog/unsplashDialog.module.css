@@ -1,19 +1,45 @@
-.container[open] {
-    margin: auto;
-    min-height: 50dvh;
+.container {
+    display: grid;
+    place-items: center;
+    
+    height: 100dvh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+}
+
+.dialog {
+    min-height: 450px;
+    max-height: 90dvh;
     width: clamp(500px, 80%, 720px);
     background-color: var(--background);
-    border: none;
     box-shadow: var(--subtleGlow);
+    color: var(--color);
+    position: absolute;
+    z-index: 2;
+    /* I have no idea why the top corners arent rounding */
     border-radius: 10px;
+    overflow: scroll;    
+}
+
+/* Need this still to setIsOpen(false) */
+.backdrop {
+    position: absolute;
+    width: 100dvw;
+    height: 100dvh;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    backdrop-filter: blur(5px);
+}
+
+.dialog * {
     color: var(--color);
 }
 
-.container * {
-    color: var(--color);
-}
-
-.container::backdrop {
+.dialog::backdrop {
     backdrop-filter: blur(5px);
     background-color: rgba(0, 0, 0, 0.25);
 }
@@ -26,7 +52,7 @@
 
 .barContainer {
     position: sticky;
-    top: -1rem;
+    top: 0rem;
     padding: 1rem;
     z-index: 99;
     background-color: var(--background);

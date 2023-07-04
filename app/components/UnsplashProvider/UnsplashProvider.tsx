@@ -1,23 +1,28 @@
 'use client'
 
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import toggleDialog from "@/lib/toggleDialog"
 import dynamic from "next/dynamic"
 
 // Dont give it a loader (?)
-const UnsplashDialog = dynamic(() => 
+const UnsplashDialog = dynamic(() =>
     import("./Dialog/UnsplashDialog")
 )
 
 export default function UnsplashProvider() {
-    const dialogRef = useRef<HTMLDialogElement>(null)
+    const [isOpen, setIsOpen] = useState(false)
 
     return (
         <div>
-            <div onPointerDown={() => toggleDialog(dialogRef)}>
+            <div onPointerDown={() => setIsOpen(true)}>
                 Open
             </div>
-            <UnsplashDialog dialogRef={dialogRef} />
+            {isOpen && (
+                <UnsplashDialog
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                />
+            )}
         </div>
     )
 }

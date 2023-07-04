@@ -2,7 +2,7 @@
 
 import baseUrl from "@/lib/baseUrl"
 import fetcher from "@/lib/fetchers/fetcher"
-import { RefObject, useEffect, useRef } from "react"
+import { useRef } from "react"
 import useUnsplash from "../useUnsplash"
 import UnsplashPhoto from "../Photo/UnsplashPhoto"
 import styles from './unsplashDialog.module.css'
@@ -12,10 +12,10 @@ import validColors from "@/lib/unsplash/validColors"
 import validOrientations from "@/lib/unsplash/validOrientations"
 import AnimationProviderMAX from "../../AnimationProvider/AnimationProviderMAX"
 import { statusAnim } from "../variants"
-import toggleDialog from "@/lib/toggleDialog"
 
-export default function UnsplashDialog({ dialogRef }: {
-    dialogRef: RefObject<HTMLDialogElement>
+export default function UnsplashDialog({ isOpen, setIsOpen }: {
+    isOpen: boolean,
+    setIsOpen: (isOpen: boolean) => void
 }) {
     const timerRef = useRef<NodeJS.Timeout | undefined>()
     const { state, dispatch } = useUnsplash()
@@ -61,30 +61,11 @@ export default function UnsplashDialog({ dialogRef }: {
         console.log(error)
     }
 
-    // useEffect(() => {
-    //     function handleClose(e: PointerEvent) {
-    //         const dialog = dialogRef.current
-    //         if (!dialog) return
-    //         console.log(dialog.open)
-
-    //         const el = e.target as HTMLElement
-    //         console.log(dialog.contains(el) && dialog !== el)
-    //         console.log(dialog === el)
-    //         if ((dialog === el)) {
-    //             toggleDialog(dialogRef)
-    //         }
-    //     }
-
-    //     window.addEventListener('pointerdown', handleClose)
-    //     return () => {
-    //         window.removeEventListener('pointerdown', handleClose)
-    //     }
-    // }, [])
-
     return (
         <AnimationProviderMAX>
-            <m.dialog ref={dialogRef} className={styles['container']} layout>
-                <div className={styles['wrapper']}>
+            <div className={styles['container']}>
+                <div className={styles['backdrop']} onPointerDown={() => setIsOpen(false)}/>
+                <m.div className={styles['dialog']} layout>
                     <div className={styles['barContainer']}>
                         <div className={styles['unsplash']}>
                             <div className={styles['svgContainer']}>
@@ -185,8 +166,8 @@ export default function UnsplashDialog({ dialogRef }: {
                             />
                         ))}
                     </m.div>
-                </div>
-            </m.dialog>
+                </m.div>
+            </div>
         </AnimationProviderMAX>
     )
 }
