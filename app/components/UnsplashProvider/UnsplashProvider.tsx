@@ -14,7 +14,7 @@ export default function UnsplashProvider() {
 
     return (
         <div>
-            <div onPointerDown={(e) => toggleDialog(e, dialogRef)}>
+            <div onPointerDown={() => toggleDialog(dialogRef)}>
                 Open
             </div>
             <UnsplashDialog dialogRef={dialogRef} />

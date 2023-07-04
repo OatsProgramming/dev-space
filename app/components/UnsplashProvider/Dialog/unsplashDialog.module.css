@@ -1,15 +1,37 @@
-.container {
+.container[open] {
     margin: auto;
-    min-width: 500px;
     min-height: 50dvh;
-    padding: 1rem;
-    max-width: 80dvw;
+    width: clamp(500px, 80%, 720px);
+    background-color: var(--background);
+    border: none;
+    box-shadow: var(--subtleGlow);
+    border-radius: 10px;
+    color: var(--color);
+}
+
+.container * {
+    color: var(--color);
 }
 
 .container::backdrop {
     backdrop-filter: blur(5px);
     background-color: rgba(0, 0, 0, 0.25);
 }
+
+.wrapper {
+    border: 1px solid;
+    padding: 1rem;
+    min-height: inherit;
+}
+
+.barContainer {
+    position: sticky;
+    top: -1rem;
+    padding: 1rem;
+    z-index: 99;
+    background-color: var(--background);
+}
+
 
 /* SEARCH BAR - START */
 .searchBar {
@@ -32,6 +54,8 @@
     padding-left: calc(var(--iconSize) + calc(var(--padding) * 0.5));
     border-radius: 10px;
     outline: none;
+    background-color: transparent;
+    border: 2px solid var(--base);
 }
 
 .searchBar label {
@@ -65,7 +89,6 @@
 }
 
 .photos {
-    /* border: 1px solid; */
     padding: 1rem;
     display: flex;
     flex-wrap: wrap;
@@ -83,7 +106,7 @@
 }
 
 .filterBar > * {
-    border: 1px solid;
+    border: 2px solid var(--base);
     padding: 0.25rem 0.5rem;
     border-radius: 10px;
     cursor: pointer;
