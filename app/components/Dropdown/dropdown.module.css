@@ -1,0 +1,10 @@
+.dropdown {
+    /* appearance: none; */
+    background-color: transparent;
+    /* border: 1px solid green !important; */
+    width: min-content;
+}
+
+.dropdown option {
+    border: 1px solid red;
+}
