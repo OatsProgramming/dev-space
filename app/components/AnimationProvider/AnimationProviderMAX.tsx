@@ -3,14 +3,14 @@
 import { AnimatePresence, LazyMotion } from 'framer-motion'
 
 const loadFeatures = () =>
-    import('@/lib/framer/domAnimation').then(mod => mod.default)
+    import('@/lib/framer/domMax').then(mod => mod.default)
 
 /**
- * To lazy load animations (Provides only the following: animations, variants, exit animations, and tap/hover/focus gestures).
+ * To lazy load animations (Provides all of the features of Framer Motion)
  * @param children
  * @returns 
  */
-export default function AnimationProvider({ children, mode = "sync" }: {
+export default function AnimationProviderMAX({ children, mode = "sync" }: {
     children: React.ReactNode,
     mode?: "wait" | "popLayout" | "sync"
 }) {
