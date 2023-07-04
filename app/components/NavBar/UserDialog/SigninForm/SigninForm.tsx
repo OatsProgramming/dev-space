@@ -50,7 +50,7 @@ export default function SigninForm({ dialogRef }: {
                 <div className={styles['btns']}>
                     {/* Mouse event to prevent premature clicks on other elements (for mobile) */}
                     {/* @ts-expect-error */}
-                    <button onClick={(e) => toggleDialog(e, dialogRef)}>
+                    <button onClick={(e) => toggleDialog(dialogRef, e)}>
                         Cancel
                     </button>
                     <button>
