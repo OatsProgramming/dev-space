@@ -1,0 +1,89 @@
+.container {
+    position: relative;
+    height: max-content;
+}
+
+.container a {
+    text-decoration: underline;
+    transition: none;
+}
+
+.container a:hover {
+    color: var(--base)
+}
+
+/* Undesirable but itll do for now */
+.container > img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 10px;
+}
+
+.dialog {
+    margin: auto;
+    border: 0;
+    position: relative;
+    min-width: max-content;
+    min-height: max-content;
+}
+
+.dialog::backdrop {
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.dialog > img {
+    max-width: 90dvw;
+    height: max-content;
+    max-height: 90dvh;
+}
+
+.name {
+    background: linear-gradient(0deg, rgba(0,0,0,0.7021009087228641) 35%, rgba(231, 231, 231, 0) 100%);
+    padding: 1rem;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 3;
+}
+
+.overlay {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.dialog > .overlay {
+    background-color: transparent;
+    opacity: 1;
+    border: 0;
+}
+
+.svgContainer {
+    /* border: 1px solid; */
+    text-align: right;
+    width: fit-content;
+    position: absolute;
+    padding: 1rem;
+    top: 0;
+    right: 0;
+    z-index: 3;
+    background-color: var(--black);
+    border-bottom-left-radius: 10px;
+}
+
+.toHide {
+    opacity: 0;
+    transition: opacity 100ms ease-out;
+}
+
+.toHide:hover {
+    opacity: 1;
+}
+
