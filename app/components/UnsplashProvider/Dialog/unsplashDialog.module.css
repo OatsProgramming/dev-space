@@ -21,7 +21,8 @@
     z-index: 2;
     /* I have no idea why the top corners arent rounding */
     border-radius: 10px;
-    overflow: scroll;    
+    overflow: hidden;
+    overflow-y: scroll;    
 }
 
 /* Need this still to setIsOpen(false) */
@@ -44,19 +45,57 @@
     background-color: rgba(0, 0, 0, 0.25);
 }
 
-.wrapper {
-    border: 1px solid;
-    padding: 1rem;
-    min-height: inherit;
-}
-
 .barContainer {
     position: sticky;
     top: 0rem;
     padding: 1rem;
     z-index: 99;
     background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
+
+
+
+/* UNSPLASH - START */
+.unsplash {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.svgContainer {
+    display: grid;
+    place-items: center;
+}
+/* UNSPLASH - END */
+
+
+
+/* FILTER BAR - START */
+.filterBar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.filterBar > * {
+    border: 2px solid var(--base);
+    padding: 0.25rem 0.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    width: 25%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+/* FILTER BAR - END */
+
 
 
 /* SEARCH BAR - START */
@@ -93,26 +132,15 @@
 }
 /* SEARCH BAR - END */
 
-/* STATUS BAR - START */
-/* .statusBar > * {
-    border: 1px solid;
-    padding: 1rem;
-    margin: 1rem;
-} */
 
+
+/* STATUS BAR - START */
+.statusBar > * {
+   text-align: center;
+}
 /* STATUS BAR - END */
 
-.unsplash {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-}
 
-.svgContainer {
-    display: grid;
-    place-items: center;
-}
 
 .photos {
     padding: 1rem;
@@ -122,20 +150,9 @@
     gap: 1rem;
 }
 
-.filterBar {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    width: 100%;
-    justify-content: space-around;
-}
-
-.filterBar > * {
-    border: 2px solid var(--base);
-    padding: 0.25rem 0.5rem;
-    border-radius: 10px;
-    cursor: pointer;
-    flex: 1;
-    text-align: center;
+@media screen and (max-width: 640px) {
+    .dialog {
+        width: 90%;
+        aspect-ratio: 3 / 5;
+    }
 }

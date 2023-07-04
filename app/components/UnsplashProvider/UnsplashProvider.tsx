@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef, useState } from "react"
-import toggleDialog from "@/lib/toggleDialog"
+import { useState } from "react"
 import dynamic from "next/dynamic"
 
 // Dont give it a loader (?)

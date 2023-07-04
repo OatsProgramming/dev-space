@@ -3,11 +3,10 @@ import { Variants } from "framer-motion"
 const statusAnim: Variants = {
     initial: {
         opacity: 0,
-        padding: '1rem',
-        transformOrigin: 'top',
     },
     animate: {
         opacity: 1,
+        margin: '0.5rem 0'
     },
     exit: {
         opacity: 0,

@@ -129,7 +129,7 @@ export default function UnsplashDialog({ isOpen, setIsOpen }: {
                             <input
                                 type="search"
                                 name='searchBar'
-                                placeholder='Cat in a hat'
+                                placeholder='Cat in a hat...'
                                 onChange={handleQuery}
                             />
                         </div>
