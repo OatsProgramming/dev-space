@@ -6,6 +6,7 @@ import getPostMetadata from "@/lib/getPostMetadata"
 import postEx from "@/lib/toyData/postEx"
 import Link from "next/link"
 import styles from './page.module.css'
+import PostStats from "./PostStats/PostStats"
 
 export default async function Page({ params: { postId } }: {
     params: { postId: string }
@@ -33,6 +34,7 @@ export default async function Page({ params: { postId } }: {
                         <span>{readTime} ・ {timeDiff}</span>
                     </div>
                 </div>
+                <PostStats />
                 <div>
                     {imgUrl && (
                         <img

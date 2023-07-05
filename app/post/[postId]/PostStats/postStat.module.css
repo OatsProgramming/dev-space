@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 2px solid var(--base);
+    border-bottom: 2px solid var(--base);
+}
+
+.comment {
+    border: 1px solid var(--base);
+    position: fixed;
+    width: 60%;
+    max-width: 720px;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+
+    bottom: -2rem;
+    left: 50%;
+    translate: -50% 0;
+
+    display: flex;
+    backdrop-filter: blur(15px);
+    box-shadow: var(--subtleGlow);
+    color: var(--secondary);
+}
+
+.comment * {
+    color: var(--secondary)
+}
