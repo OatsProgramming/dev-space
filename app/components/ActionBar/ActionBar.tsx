@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './actionBar.module.css'
 import { m } from 'framer-motion'
 import { container } from './variants'
@@ -16,6 +16,11 @@ export default function ActionBar({ inView }: {
     inView: boolean
 }) {
     const [isCommenting, setIsCommenting] = useState(false)
+
+    useEffect(() => {
+        // Reset ActionBar when out of view
+        if (inView) setIsCommenting(false)
+    }, [inView])
 
     return (
         <AnimationProviderMAX>
