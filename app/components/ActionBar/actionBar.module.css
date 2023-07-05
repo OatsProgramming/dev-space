@@ -1,0 +1,38 @@
+.container {
+    border: 1px solid var(--base);
+    position: fixed;
+    width: 60%;
+    max-width: 720px;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+
+    bottom: -2rem;
+    left: 50%;
+    translate: -50% 0;
+
+    display: flex;
+}
+
+.main {
+    flex: 2;
+
+    display: flex;
+    gap: 1rem;
+}
+
+.svgContainer {
+    /* border: 1px solid green; */
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+
+    position: relative;
+    aspect-ratio: 1 / 1;
+    width: 32px;
+    z-index: 100;
+}
+
+.svgContainer svg {
+    position: absolute;
+    z-index: 100;
+}

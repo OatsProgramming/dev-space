@@ -1,0 +1,39 @@
+.commenting {
+    /* border: 1px solid red; */
+    width: 100%;
+    height: max-content;
+    display: grid;
+    gap: 1rem;
+}
+
+/* TODO: Figure out a way to change height based on the amnt of text */
+.commenting textarea {
+    width: 100%;
+    height: 20ch;
+    resize: none;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--base);
+    outline: none;
+    padding: 1rem;
+}
+
+.commentBtns {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.commentBtns > * {
+    padding: 0.25rem 0.5rem;
+    border-radius: 10px;
+    flex: 1;
+    text-align: center;
+    max-width: 200px;
+}
+
+.commentBtns > *:hover {
+    cursor: pointer;
+    background-color: rgba(128, 128, 128, 0.2);
+    color: var(--base);
+}
