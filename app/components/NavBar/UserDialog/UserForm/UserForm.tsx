@@ -107,7 +107,7 @@ export default function UserForm({ session, dialogRef }: {
                     )}
                 </button>
                 {!isEditing && <SignOut />}
-                <button onPointerDown={() => toggleDialog(dialogRef, e)}>
+                <button onPointerDown={(e) => toggleDialog(dialogRef, e)}>
                     <div>Close</div>
                 </button>
             </div>
