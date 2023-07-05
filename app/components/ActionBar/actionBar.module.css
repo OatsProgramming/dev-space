@@ -11,4 +11,11 @@
     translate: -50% 0;
 
     display: flex;
+    backdrop-filter: blur(15px);
+    box-shadow: var(--subtleGlow);
+    color: var(--secondary);
+}
+
+.container * {
+    color: var(--secondary)
 }
