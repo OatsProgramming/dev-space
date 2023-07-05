@@ -1,7 +1,7 @@
 import { m } from "framer-motion"
 import { useState } from "react"
+import styles from '../svgAnims.module.css'
 import { svgContainerAnim } from "../variants"
-import styles from '../actionBar.module.css'
 
 /**
  * To localize "click" state
