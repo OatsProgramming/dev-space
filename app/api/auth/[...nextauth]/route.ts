@@ -1,5 +1,5 @@
 import NextAuth from 'next-auth'
-import type { NextAuthOptions } from 'next-auth'
+import type { NextAuthOptions, User } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import prismadb from '@/lib/prismadb'
@@ -60,43 +60,54 @@ export const authOptions: NextAuthOptions = {
                     return null;
                 }
 
+                // To be attached to token
+                // Dont loop for keys: too many unnecessary props to go thru
                 return {
                     id: user.id,
+                    image: user.image,
                     name: user.username,
-                    follows: user.follows
+                    follows: user.follows,
+                    blockedUsers: user.blockedUsers,
+                    starred: user.starred,
+                    bookmarked: user.bookmarked,
                 };
             }
         })
     ],
     callbacks: {
         session: ({ session, token }) => {
-            return {
-                ...session,
-                user: {
-                    ...session.user,
-                    id: token.id ,
-                    name: token.name,
-                    follows: token.follows
-                },
-            };
+            // Similar situation as jwt
+            const keys = Object.keys(token)
+            for (let key of keys) {
+                if (isValidKey(key) || key === 'id') {
+                    session.user[key] = token[key]
+                }
+            }
+            return session
         },
+        // Currently using JWT instead of session (check "strategy" above)
         jwt: ({ token, user, trigger, session }) => {
             if (trigger === 'update') {
-                // Validate the data
-                if (session.name) {
-                    token.name = session.name
-                }
-                else if (session.follows) {
-                    token.follows = session.follows
+                // Update only whats necessary (& allowed)
+                const keys = Object.keys(session)
+                for (let key of keys) {
+                    if (isValidKey(key)) {
+                        token[key] = session[key]
+                    }
                 }
             }
             // Exec on sign in
             if (user) {
-                return {
-                    ...token,
-                    id: user.id,
-                    name: user.name,
+                const keys = Object.keys(user)
+                // Attach all the additional necessary props to token
+                for (let key of keys) {
+                    // Just for added securtiy
+                    // Dont forget to add 'id' as a valid param for this scenario
+                    if (isValidKey(key) || key === 'id') {
+                        token[key] = user[key]
+                    }
                 }
+                return token
             }
             // Exec on reg
             return token
@@ -107,3 +118,8 @@ export const authOptions: NextAuthOptions = {
 // Export it like this so that next auth can use this
 const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }
+
+function isValidKey(key: string): key is keyof User {
+    const validKeys = new Set(['blockedUsers', 'bookmarked', 'follows', 'image', 'name', 'starred'])
+    return validKeys.has(key)
+}
