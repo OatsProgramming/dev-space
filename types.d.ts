@@ -266,3 +266,8 @@ type PostResponse = {
 type TargetGroup = UserGroupParam | PostGroupParam
 
 type PostGroupParam = 'starred' | 'bookmarked'
+
+type PostGroupReq = {
+    userId: string,
+    postId: string
+}
