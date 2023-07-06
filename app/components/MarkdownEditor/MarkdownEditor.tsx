@@ -1,12 +1,13 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import './markdownEditor.css'
+import styles from './markdownEditor.module.css'
 import useUI from '@/lib/zustand/useUI'
 import MarkdownHelper from './MarkdownHelper/MarkdownHelper'
 import dynamic from 'next/dynamic'
 import Loader from '../Loader/Loader'
 
+// TODO: do a skeleton for this instead
 const MarkdownUI = dynamic(() =>
   import('../MarkdownUI/MarkdownUI'),
   {
@@ -46,7 +47,7 @@ function MarkdownEditor() {
   return (
     <>
       <MarkdownHelper textareaRef={textareadRef} />
-      <section className='container'>
+      <section className={styles['container']}>
         {isPreview ? (
           <MarkdownUI text={text} />
         ) : (
