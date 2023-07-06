@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth'
 import type { NextAuthOptions, User } from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import prismadb from '@/lib/prismadb'
 import { compare } from 'bcrypt';
 import GoogleProvider from 'next-auth/providers/google'
@@ -9,6 +9,9 @@ import GithubProvider from 'next-auth/providers/github'
 
 // export this so we can use later for getServerSession or whatnot
 export const authOptions: NextAuthOptions = {
+    // For some reason, updating next-auth caused a type error...
+    // Keep a look out for this
+    // @ts-expect-error
     adapter: PrismaAdapter(prismadb),
     session: {
         strategy: 'jwt'
