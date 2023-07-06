@@ -5,8 +5,6 @@ import { signIn, signOut, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 
 type UpdateArgs = Partial<User>
-// TODO: Create an update function for Session
-
 export function SignOut() {
     const router = useRouter()
 
@@ -37,53 +35,23 @@ export function SignIn() {
     )
 }
 
-export function AddFollow() {
+// TEMP
+export function UpdateSeshBtn({ toUpdate }: {
+    toUpdate: UpdateArgs,
+}) {
     const { update } = useSession()
-
-
     const router = useRouter()
-    const test: UpdateArgs = { follows: ['follow'] }
 
-    async function handleClick() {
-        await update(test)
-        router.refresh()
+    function updateSesh(toUpdate: UpdateArgs) {
+        update(toUpdate)
+            .then(_ => router.refresh())
+            .catch(err => console.log(err))
     }
+    
 
     return (
-        <button onClick={handleClick}>
-            Add follow
-        </button>
-    )
-}
-
-export function AddBlockedUsers() {
-    const { update } = useSession()
-    const test: UpdateArgs = { blockedUsers: ['blocked'] }
-
-    const router = useRouter()
-    async function handleClick() {
-        await update(test)
-        router.refresh()
-    }
-    return (
-        <button onClick={handleClick}>
-            Add blocked
-        </button>
-    )
-}
-
-export function AddStarred() {
-    const { update } = useSession()
-    const test: UpdateArgs = { starred: ['star'] }
-
-    const router = useRouter()
-    async function handleClick() {
-        await update(test)
-        router.refresh()
-    }
-    return (
-        <button onClick={handleClick}>
-            Add star
+        <button onClick={() => updateSesh(toUpdate)}>
+            Click Me
         </button>
     )
 }
