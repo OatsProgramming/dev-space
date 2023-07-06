@@ -1,2 +1,2 @@
-const validOrientations: UnsplashOrientation[] = ['landscape', 'portrait', 'squarish']
+const validOrientations = ['landscape', 'portrait', 'squarish']
 export default validOrientations
