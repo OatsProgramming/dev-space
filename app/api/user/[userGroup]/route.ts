@@ -2,7 +2,7 @@ import getUsers from "@/lib/prismaHelpers/getUsers";
 import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 import validateReq from "./validateReq";
-import prismadbSpliceUsers from "@/lib/prismaHelpers/prismadbSpliceUsers";
+import prismadbSpliceArr from "@/lib/prismaHelpers/prismadbSpliceArr";
 import getTempServerSession from "@/lib/toyData/getTempServerSession";
 
 // TODO: convert all session back to normal (remove Promise.resolve())
@@ -84,7 +84,7 @@ export async function POST(
         switch (method) {
             // Very simple: will only target one userGroup
             case 'DELETE': {
-                const res = await prismadbSpliceUsers(userId, userGroup, targetId)
+                const res = await prismadbSpliceArr(userId, userGroup, targetId)
 
                 // Check for any fails
                 if (res.isError) {
@@ -102,8 +102,8 @@ export async function POST(
             case 'POST': {
                 if (userGroup === 'blockedUsers') {
                     // Remove target from any of the following
-                    const followsPromise = prismadbSpliceUsers(userId, "follows", targetId)
-                    const followersPromise = prismadbSpliceUsers(userId, "followers", targetId)
+                    const followsPromise = prismadbSpliceArr(userId, "follows", targetId)
+                    const followersPromise = prismadbSpliceArr(userId, "followers", targetId)
 
                     // Add target to blockedUsers
                     const blockedUsersPromise = prismadb.user.update({
