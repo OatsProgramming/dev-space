@@ -1,7 +1,11 @@
 'use client'
 
-import { signIn, signOut } from "next-auth/react"
+import type { User } from "next-auth"
+import { signIn, signOut, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
+
+type UpdateArgs = Partial<User>
+// TODO: Create an update function for Session
 
 export function SignOut() {
     const router = useRouter()
@@ -27,8 +31,59 @@ export function SignOut() {
 
 export function SignIn() {
     return (
-        <a onClick={() => signIn()}>
+        <button onClick={() => signIn()}>
             Sign in
-        </a>
+        </button>
+    )
+}
+
+export function AddFollow() {
+    const { update } = useSession()
+
+
+    const router = useRouter()
+    const test: UpdateArgs = { follows: ['follow'] }
+
+    async function handleClick() {
+        await update(test)
+        router.refresh()
+    }
+
+    return (
+        <button onClick={handleClick}>
+            Add follow
+        </button>
+    )
+}
+
+export function AddBlockedUsers() {
+    const { update } = useSession()
+    const test: UpdateArgs = { blockedUsers: ['blocked'] }
+
+    const router = useRouter()
+    async function handleClick() {
+        await update(test)
+        router.refresh()
+    }
+    return (
+        <button onClick={handleClick}>
+            Add blocked
+        </button>
+    )
+}
+
+export function AddStarred() {
+    const { update } = useSession()
+    const test: UpdateArgs = { starred: ['star'] }
+
+    const router = useRouter()
+    async function handleClick() {
+        await update(test)
+        router.refresh()
+    }
+    return (
+        <button onClick={handleClick}>
+            Add star
+        </button>
     )
 }
