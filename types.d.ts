@@ -168,6 +168,14 @@ type UserResponse = {
     postsCount: number,
     id: string,
     bio?: string | null,
+    /**
+     * Check the array if Post.id in User.bookmarked before entering /post
+     */
+    bookmarked: string[]
+    /**
+     * Check the array if Post.id in User.bookmarked before entering /post
+     */
+    starred: string[]
 }
 
 type Reducer<S, A> = (prevState: S, action: A) => S
@@ -251,5 +259,10 @@ type PostResponse = {
     "createdAt": string,
     "updatedAt": string,
     "userId": string,
-    "user": GeneralUserInfo
+    "user": GeneralUserInfo,
+    stars: number,
 }
+
+type TargetGroup = UserGroupParam | PostGroupParam
+
+type PostGroupParam = 'starred' | 'bookmarked'
