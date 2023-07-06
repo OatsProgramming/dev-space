@@ -15,24 +15,24 @@ export async function GET(req: Request) {
 
     if (!query) return new Response("Unsplash query not given", { status: 422 })
 
-    const res = await new Promise((resolve) => setTimeout(() => resolve(unsplashEx), 0)) as Photos
-
-    // TEST FOR PERFORMANCE
-
-    // const toy = []
-    // 500 objs -> 1MB (i < 100) (200ms cold 50ms avg)
-    // for (let i = 0; i < 100; i++) {
-    //     const photos = stripPhotoData(res.results)
-    //     // no spread for practice
-    //     toy.push(photos)
-    // }
-    // return NextResponse.json(toy)
+    // // TEST FOR PERFORMANCE
+    // const res = await new Promise((resolve) => setTimeout(() => resolve(unsplashEx), 0)) as Photos
     
-    // 500 objs -> 5MB (i < 100) (362ms cold 100-120ms avg)
-    // for (let i = 0; i < 90; i++) {
-    //     // no spread for practice
-    //     toy.push(res.results)
+    // const toy = []
+    // // 500 objs -> 1MB (i < 100) (200ms cold 50ms avg)
+    // for (let i = 0; i < 10; i++) {
+    //     toy.push(...res.results)
     // }
+
+    // // Manipulate directly
+    // stripPhotoData(toy)
+    
+    // // // 500 objs -> 5MB (i < 100) (362ms cold 100-120ms avg)
+    // // for (let i = 0; i < 90; i++) {
+    // //     toy.push(...res.results)
+    // // }
+
+
     // return NextResponse.json(toy)
 
     try {
@@ -54,11 +54,13 @@ export async function GET(req: Request) {
             const results = await originalResponse.json()
             throw new Error(results)
         }
+
+        if (!response) return new Response("Response from Unsplash empty", { status: 404 })
         
         // Lessen the amnt of data to transfer
-        const photos = stripPhotoData(response.results)
+        stripPhotoData(response.results)
 
-        return NextResponse.json(photos)
+        return NextResponse.json(response.results)
     } catch (err) {
         return NextResponse.json(err, { status: 500 })
     }
