@@ -1,15 +1,21 @@
 import prismadb from "@/lib/prismadb"
 import { NextResponse } from "next/server"
 
+type Arg = {
+    userId: string | undefined | { not: string } 
+} 
+
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url)
     const userId = searchParams.get('userId')
+    const exclude = searchParams.get('exclude')
 
-    if (!userId) return new Response("User ID not given (/api/posts)", { status: 422 })
+    const arg: Arg = { userId: userId ?? undefined }
+    if (exclude && userId) arg.userId = { not: userId }
 
     try {
         const posts = await prismadb.post.findMany({
-            where: { userId },
+            where: arg,
             include: {
                 user: {
                     select: {
