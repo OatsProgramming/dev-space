@@ -21,6 +21,8 @@ const userResponseShape = [
             username: 1,
             image: 1,
             bio: 1,
+            starred: 1,
+            bookmarked: 1,
             followsCount: {
                 $size: "$follows"
             },

@@ -103,7 +103,8 @@ export async function GET(
                         {
                             $project: {
                                 ...responseShape,
-                                title: 1
+                                title: 1,
+                                stars: 1,
                             }
                         },
                         randomSampleSize,
