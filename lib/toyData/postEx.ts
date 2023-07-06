@@ -3,13 +3,14 @@ import { markdownEx, markdownEx2 } from "./markdownEx"
 
 const postEx: (Post & GeneralUserInfo)[] = [
     {
-        id: '649bcdc4c863c7ce8e7de8ce',
+        id: '64a4597e5fb1d94464038165',
         userId: '649dd3d21a4f3c363800f786',
         title: 'HELLO WORLD',
         body: markdownEx,
         createdAt: new Date(),
         updatedAt: new Date(),
         image: null,
+        stars: 1,
         user: {
             image: "https://rukminim1.flixcart.com/image/850/1000/kufuikw0/poster/j/d/x/small-aesthetic-anime-girl-wall-poster-size-12x18-asstore-red-original-imag7k2v5dbs8tgn.jpeg?q=90",
             username: "eve",
@@ -17,7 +18,7 @@ const postEx: (Post & GeneralUserInfo)[] = [
         }
     },
     {
-        id: '123234',
+        id: '64a459885fb1d94464038166',
         userId: '649dd3d21a4f3c363800f786',
         title: 'SUP WORLD',
         body: `
@@ -28,6 +29,7 @@ const postEx: (Post & GeneralUserInfo)[] = [
         createdAt: new Date(),
         updatedAt: new Date(),
         image: null,
+        stars: 1,
         user: {
             image: null,
             username: "eve",
@@ -35,13 +37,14 @@ const postEx: (Post & GeneralUserInfo)[] = [
         }
     },
     {
-        id: '123345',
+        id: '64a4598b5fb1d94464038167',
         userId: '649dd3d21a4f3c363800f786',
         title: 'GOODBYE WORLD',
         body: markdownEx2,
         createdAt: new Date(),
         updatedAt: new Date("1/10/2023"),
         image: null,
+        stars: 1,
         user: {
             image: null,
             username: "eve",
@@ -49,7 +52,7 @@ const postEx: (Post & GeneralUserInfo)[] = [
         }
     },
     {
-        id: '234123',
+        id: '64a459935fb1d94464038169',
         userId: '649dd3d21a4f3c363800f786',
         title: 'SAYONARA WORLD',
         body: `
@@ -60,6 +63,7 @@ const postEx: (Post & GeneralUserInfo)[] = [
         createdAt: new Date(),
         updatedAt: new Date(),
         image: null,
+        stars: 1,
         user: {
             image: null,
             username: "eve",
