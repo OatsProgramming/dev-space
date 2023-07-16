@@ -1,0 +1,9 @@
+.container {
+    border: 1px solid red;
+    display: grid;
+    gap: 1rem;
+}
+
+.container > * {
+    border: 1px solid yellow;
+}

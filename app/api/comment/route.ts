@@ -9,24 +9,27 @@ export async function GET(req: Request) {
     const commentId = searchParams.get('commentId')
 
     if (!postId && !commentId) return NextResponse.json("Given neither post nor comment ID for comments (api/comment)", { status: 422 })
-
-    const comments = await prismadb.comment.findMany({
-        where: {
-            OR: [{ postId }, { id: commentId! }]
-         },
-        include: {
-            user: {
-                select: {
-                    username: true,
-                    image: true,
-                    name: true,
-                }
+    try {
+        const comments = await prismadb.comment.findMany({
+            where: {
+                OR: [{ postId }, { parentCommentId: commentId }]
             },
-            replies: true
-        }
-    })
+            include: {
+                user: {
+                    select: {
+                        username: true,
+                        image: true,
+                        name: true,
+                    }
+                },
+                replies: true
+            }
+        })
 
-    return NextResponse.json(comments)
+        return NextResponse.json(comments)
+    } catch (err) {
+        return NextResponse.json(err, { status: 500 })
+    }
 }
 
 export async function POST(req: Request) {
