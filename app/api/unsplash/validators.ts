@@ -2,13 +2,13 @@ import colors from "@/lib/unsplash/validColors"
 import orientations from "@/lib/unsplash/validOrientations"
 
 function isValidColor(color: string | null): color is UnsplashColor {
-    const validColors = new Set(colors)
+    const validColors = new Set(colors as string[])
     if (!color) return false
     return validColors.has(color)
 }
 
 function isValidOrientation(orientation: string | null): orientation is UnsplashOrientation {
-    const validOrientation = new Set(orientations)
+    const validOrientation = new Set(orientations as string[])
     if (!orientation) return false
     return validOrientation.has(orientation)
 }
