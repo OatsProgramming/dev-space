@@ -9,14 +9,33 @@ import styles from './page.module.css'
 import PostStats from "./PostStats/PostStats"
 import type { Metadata } from "next"
 import type { Post } from "@prisma/client"
+import FollowBtn from "@/app/components/FollowBtn/FollowBtn"
+import ParentIdProvider from "@/app/components/ActionBar/ActionComment/ParentIdProvider"
 // import { getServerSession } from "next-auth"
 // import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 
-export async function generateMetadata({ params: { postId }}: {
+// DONT USE CODE BELOW: apparently it causes session token to go null
+
+// export const dynamic = 'force-static'
+// export async function generateStaticParams({ params: { postId }}: {
+//     params: { postId: string }
+// }) { 
+//     // const session = await getSesh()
+
+//     let url = `${baseUrl}/api/posts`
+//     // if (session) url = `${baseUrl}/api/posts?userId=${session.user.id}`
+
+//     const posts = await fetcher(url) as (Post & GeneralUserInfo)[]
+//     return posts.map(post => ({
+//         params: { postId: post.id }
+//     }))
+// }
+
+export async function generateMetadata({ params: { postId } }: {
     params: { postId: string }
 }): Promise<Metadata> {
     const post = await fetcher(`${baseUrl}/api/post?postId=${postId}`) as Post & GeneralUserInfo
-    
+
     return {
         title: post.title,
         creator: `${post.user.username} :: ${post.user.name}`,
@@ -28,10 +47,11 @@ export default async function Page({ params: { postId } }: {
     params: { postId: string }
 }) {
     // const postPromise = fetcher(`${baseUrl}/api/post?postId=${postId}`) as Promise<Post & GeneralUserInfo>
-    // const sessionPromise = getServerSession(authOptions)
     // const [post, session] = await Promise.all([postPromise, sessionPromise])
+    const post = await new Promise((resolve) => setTimeout(() => resolve(postEx.find(ex => ex.id === postId)), 10))
+    if (!post) return <div>Not found</div>
 
-    const { body, imgAlt, imgUrl, title, user, readTime, timeDiff, userId } = getPostMetadata(postEx[2])
+    const { body, imgAlt, imgUrl, title, user, readTime, timeDiff, userId } = getPostMetadata(post as Post & GeneralUserInfo)
     const { username, image: userImg } = user
 
     return (
@@ -45,15 +65,14 @@ export default async function Page({ params: { postId } }: {
                             <Link href={`/profile/${username}`} className="userLink">
                                 <h3>{username}</h3>
                             </Link>
-                            ・
-                            <div>
-                                Follow
-                            </div>
+                            <FollowBtn userId={userId} />
                         </div>
                         <span>{readTime} ・ {timeDiff}</span>
                     </div>
                 </div>
-                <PostStats />
+                <ParentIdProvider parentId={{ postId }}>
+                    <PostStats />
+                </ParentIdProvider>
                 <div>
                     {imgUrl && (
                         <img
