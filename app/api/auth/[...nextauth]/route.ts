@@ -6,6 +6,8 @@ import prismadb from '@/lib/prismadb'
 import { compare } from 'bcrypt';
 import GoogleProvider from 'next-auth/providers/google'
 import GithubProvider from 'next-auth/providers/github'
+import { PrismaClientValidationError } from '@prisma/client/runtime';
+import { randomBytes } from 'crypto';
 
 // export this so we can use later for getServerSession or whatnot
 export const authOptions: NextAuthOptions = {
@@ -50,7 +52,7 @@ export const authOptions: NextAuthOptions = {
 
                 // Check for any missing properties
                 if (!username || !password) return null
-        
+
                 // If not then check db
                 const user = await prismadb.user.findUnique({
                     where: { username }
@@ -59,7 +61,7 @@ export const authOptions: NextAuthOptions = {
                 if (!user) return null
 
                 // Use compare from bcrypt since it'd be hashed
-                if (!await compare(password, user.hashedPassword)) {
+                if (!await compare(password, user.hashedPassword!)) {
                     return null;
                 }
 
@@ -114,6 +116,37 @@ export const authOptions: NextAuthOptions = {
             }
             // Exec on reg
             return token
+        },
+        signIn: async ({ user, account }) => {
+            // For users that sign in w/ providers, give them a default username
+            // @ts-expect-error
+            if (account.type === 'oauth' && !user.username) {
+                // Prevent overwritting username (since oauth wouldnt have user.username 99% of the time)
+                const userDB = await prismadb.user.findUnique({
+                    where: { email: user.email! }
+                })
+
+                if (userDB) {
+                    // @ts-expect-error
+                    user.username = userDB.username
+                }
+
+                else {
+                    // @ts-expect-error
+                    user.username = user.email
+                }
+            }
+            return true
+        }
+    },
+    logger: {
+        error: (code, metadata) => {
+            const err = metadata as Error
+            const argRegex = /Argument[^]+?(?=\n\n)/
+            const message = err.message.match(argRegex)?.[0] || ''
+
+            console.log("WHOLE ERR: ", metadata)
+            console.log("MAIN ERR: ", message)
         }
     }
 }
@@ -122,7 +155,8 @@ export const authOptions: NextAuthOptions = {
 const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }
 
+// TODO: deal w/ username and name issue
 function isValidKey(key: string): key is keyof User {
-    const validKeys = new Set(['blockedUsers', 'bookmarked', 'follows', 'image', 'name', 'starred'])
+    const validKeys = new Set(['blockedUsers', 'bookmarked', 'follows', 'image', 'name', 'starred', 'username'])
     return validKeys.has(key)
 }
