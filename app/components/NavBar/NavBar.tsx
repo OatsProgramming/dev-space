@@ -1,5 +1,5 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
-import { getServerSession } from "next-auth"
+'use client'
+
 import styles from './navBar.module.css'
 import SearchDialog from "./SearchDialog/SearchDialog"
 import UserDialog from "./UserDialog/UserDialog"
@@ -7,15 +7,17 @@ import CreatePost from "./CreatePost/CreatePost"
 import Link from "next/link"
 import Hamburger from "./Hamburger/Hamburger"
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch"
-import Notif from "./Notif/Notif"
 import Nav from "./Nav/Nav"
 import logo from "@/public/logo"
-import getTempServerSession from "@/lib/toyData/getTempServerSession"
+import { getSesh } from '../SessionProviderC/SessionProviderC'
+import dynamic from 'next/dynamic'
 
-export default async function NavBar() {
-    const session = await 
-        // getServerSession(authOptions)
-        getTempServerSession()
+const Notif = dynamic(() => 
+    import('./Notif/Notif')
+)
+
+export default function NavBar() {
+    const sesh = getSesh()
 
     return (
         <Nav>
@@ -35,10 +37,9 @@ export default async function NavBar() {
                 <SearchDialog />
                 <ThemeSwitch />
                 {/* Temp */}
-                <Notif userId={session.user.id}/> 
-                {/* {session && <Notif />} */}
+                {sesh && <Notif userId={sesh.user.id} />}
                 <CreatePost />
-                <UserDialog session={session}/>
+                <UserDialog sesh={sesh}/>
             </div>
         </Nav>
     )

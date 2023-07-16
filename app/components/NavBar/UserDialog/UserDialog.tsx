@@ -8,13 +8,12 @@ import Link from "next/link";
 import { SignOut } from "../../AuthBtns/AuthBtns";
 import Avatar from "../../Avatar/Avatar";
 import ProfileLink from "../../ProfileLink/ProfileLink";
-import getTempServerSession from "@/lib/toyData/getTempServerSession";
 
-export default function UserDialog({ session }: {
-    session: Session | null
+export default function UserDialog({ sesh }: {
+    sesh: Session | null
 }) {
     const [isOpen, setIsOpen] = useState(false)
-    const user = session?.user
+    const user = sesh?.user
 
     return (
         <>
