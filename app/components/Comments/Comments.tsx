@@ -1,32 +1,37 @@
-import baseUrl from "@/lib/baseUrl"
-import fetcher from "@/lib/fetchers/fetcher"
-import { ActionCommentParam } from "../ActionBar/ActionComment/ActionComment"
+'use client'
+
 import styles from './comments.module.css'
+import useComments from "./hooks/useComments"
+import useParentCommentId from './hooks/useParentCommentId'
 
-export default async function Comments({ parentId }: {
-    parentId: ActionCommentParam['parentId']
-}) {
-    let url;
-    if ('postId' in parentId) {
-        url = `${baseUrl}/api/comment?postId=${parentId.postId}`
-    }
+export default function Comments() {
+    const { comments, error, isLoading } = useComments()
+    const { setParentCommentId } = useParentCommentId()
 
-    else if ('parentCommentId' in parentId) {
-        url = `${baseUrl}/api/comment?commentId=${parentId.parentCommentId}`
-    }
+    if (isLoading) return <div>Loading</div>
+    else if (error) return <div>Error</div>
 
-    else {
-        throw new Error('Parent ID not given for comments section')  
-    }
-
-    const comments = await fetcher(url) as CommentResponse[]
     return (
         <div className={styles['container']}>
-            {comments.map(comment => (
+            {comments.length > 0 ? comments.map(comment => (
                 <div key={comment.id}>
+                    {/* TODO: THIS WILL MAKE AN INFINITE AMNT OF THREADS. PREVENT THIS */}
+                    <div onClick={() => setParentCommentId(comment.id)}>
+                        SET
+                    </div>
+                    <div onClick={() => setParentCommentId(null)}>
+                        GO BACK
+                    </div>
                     {comment.body}
                 </div>
-            ))}
+            )) : (
+                <>
+                    <div onClick={() => setParentCommentId(null)}>
+                        GO BACK
+                    </div>
+                    <div> Theres nothing </div>
+                </>
+            )}
         </div>
     )
 }
