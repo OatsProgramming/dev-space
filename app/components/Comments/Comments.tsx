@@ -1,6 +1,7 @@
 'use client'
 
 import CommentItem from './CommentItem/CommentItem'
+import ProviderComment from './CommentItem/ProviderComment/ProviderComment'
 import CommentsSkeleton from './CommentsSkeleton/CommentsSkeleton'
 import styles from './comments.module.css'
 import useComments from "./hooks/useComments"
@@ -10,16 +11,18 @@ export default function Comments() {
     const { comments, error, isLoading } = useComments()
     const { parentCommentId, setParentCommentId } = useParentCommentId()
 
-    if (true) return <CommentsSkeleton />
+    if (isLoading) return <CommentsSkeleton />
     else if (error) return <div>Error</div>
 
     return (
         <div className={styles['container']}>
             {comments.length > 0 ? comments.map(comment => (
-                <CommentItem
+                <ProviderComment
                     key={comment.id}
                     comment={comment}
-                />
+                >
+                    <CommentItem />
+                </ProviderComment>
             )) : (
                 <>
                     {parentCommentId && (
