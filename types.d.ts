@@ -249,7 +249,8 @@ type CommentResponse = {
     "userId": string
     "user": GeneralUserInfo
     "postId": string | null
-    "parentCommentId": string | null
+    "parentCommentId": string | null,
+    replyCount: number,
 }
 
 type PostResponse = {

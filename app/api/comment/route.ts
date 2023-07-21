@@ -3,6 +3,12 @@ import { NextResponse } from "next/server"
 import validateReq from "./validateReq"
 import deleteComments from "@/lib/prismaHelpers/deleteComments"
 
+function modifyCountShape(comment: CommentResponse & { _count: { replies: number }}) {
+    comment.replyCount = comment._count.replies
+    // @ts-expect-error
+    delete comment._count
+}
+
 export async function GET(req: Request) {
     const { searchParams } = new URL(req.url)
     const postId = searchParams.get('postId')
@@ -22,9 +28,18 @@ export async function GET(req: Request) {
                         name: true,
                     }
                 },
-                replies: true
+                _count: {
+                    select: { 
+                        replies: true
+                    }
+                }
             }
         })
+
+        for (let comment of comments) {
+            // @ts-expect-error
+            modifyCountShape(comment)
+        }
 
         return NextResponse.json(comments)
     } catch (err) {
