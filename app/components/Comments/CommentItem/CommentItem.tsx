@@ -1,29 +1,31 @@
 'use client'
 
-import useParentCommentId from '../hooks/useParentCommentId'
+import { useState } from 'react'
 import styles from './commentItem.module.css'
+import dynamic from 'next/dynamic'
 
-export default function CommentItem({ comment }: {
-    comment: CommentResponse
-}) {
-    const { parentCommentId, setParentCommentId } = useParentCommentId()
+const EditComment = dynamic(() => 
+    import('./EditComment/EditComment')
+)
+
+const ContentComment = dynamic(() =>
+    import('./ContentComment/ContentComment')
+)
+
+export default function CommentItem() {
+    const [isEditing, setIsEditing] = useState(false)
 
     return (
         <div className={styles['container']}>
-            <div className={styles['body']}>
-                {comment.body}
-            </div>
-            <div className={styles['actions']}>
-                {/* Prevent user from going down an infinite thread */}
-                {!parentCommentId && (
-                    <div onClick={() => setParentCommentId(comment.id)}>
-                        {comment.replyCount > 1 ? `See all ${comment.replyCount} replies` : "See replies"}
-                    </div>
-                )}
-                <div onClick={() => setParentCommentId(null)}>
-                    GO BACK
-                </div>
-            </div>
+           {isEditing ? (
+            <EditComment 
+                setIsEditing={setIsEditing}
+            />
+           ) : (
+            <ContentComment 
+                setIsEditing={setIsEditing}
+            />
+           )}
         </div>
     )
 }
