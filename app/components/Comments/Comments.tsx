@@ -1,9 +1,11 @@
 'use client'
 
+import styles from './comments.module.css'
+import styles2 from './CommentItem/commentItem.module.css'
+
 import CommentItem from './CommentItem/CommentItem'
 import ProviderComment from './CommentItem/ProviderComment/ProviderComment'
 import CommentsSkeleton from './CommentsSkeleton/CommentsSkeleton'
-import styles from './comments.module.css'
 import useComments from "./hooks/useComments"
 import useParentCommentId from './hooks/useParentCommentId'
 
@@ -12,10 +14,29 @@ export default function Comments() {
     const { parentCommentId, setParentCommentId } = useParentCommentId()
 
     if (isLoading) return <CommentsSkeleton />
-    else if (error) return <div>Error</div>
+    // TODO: show a proper error message
+    else if (error) {
+        console.error(error)
+        return (
+            <div className={styles2['container']}>
+                System: failed to load comments. See log for more info.
+            </div>
+        )
+    }
 
     return (
         <div className={styles['container']}>
+
+            {/* If user is in a comment thread */}
+            {parentCommentId && (
+                <div 
+                    onClick={() => setParentCommentId(null)}
+                    className={styles['goBack']}
+                >
+                    GO BACK
+                </div>
+            )}
+
             {comments.length > 0 ? comments.map(comment => (
                 <ProviderComment
                     key={comment.id}
@@ -24,14 +45,7 @@ export default function Comments() {
                     <CommentItem />
                 </ProviderComment>
             )) : (
-                <>
-                    {parentCommentId && (
-                        <div onClick={() => setParentCommentId(null)}>
-                            GO BACK
-                        </div>
-                    )}
-                    <div> Theres nothing </div>
-                </>
+                <div> Theres nothing </div>
             )}
         </div>
     )

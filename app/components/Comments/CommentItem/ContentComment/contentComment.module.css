@@ -1,0 +1,13 @@
+.content {
+    display: grid;
+    gap: 1rem;
+}
+
+.metadata {
+    opacity: 0.7;
+}
+
+.actions {
+    margin-top: 1rem;
+    color: var(--base)
+}

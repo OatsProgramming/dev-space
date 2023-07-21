@@ -1,11 +1,11 @@
 .container {
-    border: 1px solid red;
-    position: relative;
+    position: absolute;
+    top: var(--padding);
+    right: var(--padding);
 }
 
 .backdrop {
     position: fixed;
-    border: 4px solid green;
     width: 100%;
     height: 100%;
     top: 0;
@@ -15,7 +15,18 @@
 
 .menuItems {
     position: absolute;
-    background-color: black;
-    border: 1px solid purple;
+    background-color: grey;
     z-index: 2;
+    top: 0;
+    right: 0;
+    
+    display: grid;
+    place-items: center;
+    padding: 0.4rem;
+    gap: 0.5rem;
+}
+
+.menuItems > * {
+    border: 1px solid black;
+    padding: 0.25rem;
 }

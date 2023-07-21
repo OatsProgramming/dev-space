@@ -12,6 +12,7 @@ export default function ModalComment({ setIsEditing }: {
     const [isOpen, setIsOpen] = useState(false)
     const isCreator = sesh?.user.id === comment?.userId
 
+    // TODO: set up api system for this
     let options = (
         <>
             <div onClick={() => console.log("SHARE")}>
@@ -29,6 +30,7 @@ export default function ModalComment({ setIsEditing }: {
                 <div onClick={() => setIsEditing(true)}>
                     EDIT
                 </div>
+                {/* TODO: connect this with the comment "DELETE" api */}
                 <div onClick={() => console.log("DELETE")}>
                     DELETE
                 </div>
@@ -53,7 +55,9 @@ export default function ModalComment({ setIsEditing }: {
                 className={styles['menuClickable']}
                 onClick={() => setIsOpen(!isOpen)}
             >
-                MENU
+                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                </svg>
             </div>
         </div>
     )
