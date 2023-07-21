@@ -2,7 +2,9 @@ import baseUrl from '@/lib/baseUrl'
 import styles from './actionComment.module.css'
 import mutateFetch from '@/lib/fetchers/mutateFetch'
 import { useRef } from 'react'
-import { getParentId } from './ParentIdProvider'
+import { getPostId } from '../../PostIdProvider/PostIdProvider'
+import useParentCommentId from '../../Comments/hooks/useParentCommentId'
+import useComments from '../../Comments/hooks/useComments'
 
 export type ActionCommentParam = {
     parentId: {
@@ -10,35 +12,49 @@ export type ActionCommentParam = {
     } | {
         parentCommentId: string
     },
-    setIsCommenting:  (isCommenting: boolean) => void,
+    setIsCommenting: (isCommenting: boolean) => void,
+}
+
+type Data = {
+    body: string,
+    postId?: string,
+    parentCommentId?: string
 }
 
 export default function ActionComment({ setIsCommenting }: {
-    setIsCommenting:  (isCommenting: boolean) => void,
+    setIsCommenting: (isCommenting: boolean) => void,
 }) {
     const textareaRef = useRef<HTMLTextAreaElement>(null)
-    const parentId = getParentId()
+    const postId = getPostId()
+    const { parentCommentId } = useParentCommentId()
+    const { refresh } = useComments()
 
     async function handleSubmit() {
         const textarea = textareaRef.current
-        if (!parentId) {
-            throw new Error("Parent ID not given for ActionComment")
+        if (!textarea || !textarea.value) return
+        
+        // Set the parentId to the appropiate ID (post / comment) for commenting
+        const data: Data = {
+            body: textarea.value.trim(),
+            postId: (postId as unknown as undefined) // work around...
         }
 
-        if (!textarea || !textarea.value) return
+        if (parentCommentId) {
+            delete data.postId
+            data.parentCommentId = parentCommentId
+        }
 
         try {
-            const res = await mutateFetch<CommentReqPartial>(`${baseUrl}/api/comment`, 'POST', { 
-                body: textarea.value.trim(),
-                postId: 'postId' in parentId ? parentId.postId : undefined,
-                parentCommentId: 'parentCommentId' in parentId ? parentId.parentCommentId : undefined
-            })
+            const res = await mutateFetch<CommentReqPartial>(`${baseUrl}/api/comment`, 'POST', data)
 
             if ('error' in res) throw new Error(res.error)
 
             // TODO: set up a toast for success
             textarea.value = ''
             setIsCommenting(false)
+
+            // Revalidate comments (based on current parentId)
+            refresh()
         } catch (error) {
             // TODO: set up a toast for this
             console.log(error)
