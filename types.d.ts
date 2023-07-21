@@ -247,7 +247,7 @@ type CommentResponse = {
     "createdAt": string
     "updatedAt": string
     "userId": string
-    "user": GeneralUserInfo
+    "user": GeneralUserInfo['user']
     "postId": string | null
     "parentCommentId": string | null,
     replyCount: number,
