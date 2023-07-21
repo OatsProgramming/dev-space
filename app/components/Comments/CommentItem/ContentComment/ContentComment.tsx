@@ -1,20 +1,17 @@
 'use client'
 
-import { getSesh } from "@/app/components/SessionProviderC/SessionProviderC"
 import useParentCommentId from "../../hooks/useParentCommentId"
 import { getCommentContext } from "../ProviderComment/ProviderComment"
 import styles from './contentComment.module.css'
+import ModalComment from "../ModalComment/ModalComment"
 
 export default function ContentComment({ setIsEditing }: {
     setIsEditing: (isEditing: boolean) => void,
 }) {
-    const { parentCommentId, setParentCommentId } = useParentCommentId()
     const comment = getCommentContext()
-    const sesh = getSesh()
+    const { parentCommentId, setParentCommentId } = useParentCommentId()
 
     if (!comment) throw new Error("Comment is null (this should never occur)")
-
-    const isCreator = sesh?.user.id === comment.userId
 
     return (
         <>
@@ -31,13 +28,9 @@ export default function ContentComment({ setIsEditing }: {
                 <div onClick={() => setParentCommentId(null)}>
                     GO BACK
                 </div>
-                <div>
-                    {/* TODO: only give the creator access to edit buttons */}
-                    isCreator: {`${isCreator}`}
-                </div>
-                <div onClick={() => setIsEditing(true)}>
-                    Edit
-                </div>
+                <ModalComment
+                    setIsEditing={setIsEditing}
+                />
             </div>
         </>
     )

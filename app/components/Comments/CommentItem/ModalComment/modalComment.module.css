@@ -1,0 +1,21 @@
+.container {
+    border: 1px solid red;
+    position: relative;
+}
+
+.backdrop {
+    position: fixed;
+    border: 4px solid green;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.menuItems {
+    position: absolute;
+    background-color: black;
+    border: 1px solid purple;
+    z-index: 2;
+}
