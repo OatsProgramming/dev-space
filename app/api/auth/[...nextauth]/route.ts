@@ -145,7 +145,7 @@ export const authOptions: NextAuthOptions = {
             const argRegex = /Argument[^]+?(?=\n\n)/
             const message = err.message.match(argRegex)?.[0] || ''
 
-            console.log("WHOLE ERR: ", metadata)
+            console.log("WHOLE ERR: ", JSON.stringify(metadata))
             console.log("MAIN ERR: ", message)
         }
     }
