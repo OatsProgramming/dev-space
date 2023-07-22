@@ -21,6 +21,8 @@ type Data = {
     parentCommentId?: string
 }
 
+export const maxCharCount = 2500
+
 export default function ActionComment({ setIsCommenting }: {
     setIsCommenting: (isCommenting: boolean) => void,
 }) {
@@ -63,7 +65,7 @@ export default function ActionComment({ setIsCommenting }: {
 
     return (
         <div className={styles['commenting']}>
-            <textarea ref={textareaRef} />
+            <textarea ref={textareaRef} maxLength={maxCharCount}/>
             <div className={styles['commentBtns']}>
                 <div onClick={() => setIsCommenting(false)}>
                     Close
