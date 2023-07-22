@@ -5,6 +5,7 @@ import { getCommentContext } from "../ProviderComment/ProviderComment"
 import styles from './contentComment.module.css'
 import ModalComment from "../ModalComment/ModalComment"
 import formatDistanceToNow from "date-fns/formatDistanceToNow"
+import ArrowAnim from "../../ArrowAnim/ArrowAnim"
 
 export default function ContentComment({ setIsEditing }: {
     setIsEditing: (isEditing: boolean) => void,
@@ -23,12 +24,12 @@ export default function ContentComment({ setIsEditing }: {
 
     // Determine which date to use 
     const timeDiff = formatDistanceToNow(
-        isUpdated 
-            ? updatedAt 
+        isUpdated
+            ? updatedAt
             : createdAt,
-        { 
-            includeSeconds: true, 
-            addSuffix: true 
+        {
+            includeSeconds: true,
+            addSuffix: true
         }
     )
 
@@ -55,19 +56,15 @@ export default function ContentComment({ setIsEditing }: {
             <div className={styles['actions']}>
                 {/* Prevent user from going down an infinite thread */}
                 {!parentCommentId && (
-                    <div onClick={() => setParentCommentId(comment.id)}>
-                        {comment.replyCount > 1 ? `See all ${comment.replyCount} replies` : "See replies"}
-                        &nbsp;
-                        {/* TODO: set a hover animation for this */}
-                        {arrows.map(arrow => (
-                            <span key={arrow}>
-                                ▹
-                            </span>
-                        ))}
-                    </div>
+                    <ArrowAnim onClick={() => setParentCommentId(comment.id)}>
+                        {comment.replyCount > 1
+                            ? `See all ${comment.replyCount} replies`
+                            : "See replies"
+                        }
+                    </ArrowAnim>
                 )}
             </div>
-            
+
             <ModalComment
                 setIsEditing={setIsEditing}
             />

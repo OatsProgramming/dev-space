@@ -8,6 +8,7 @@ import ProviderComment from './CommentItem/ProviderComment/ProviderComment'
 import CommentsSkeleton from './CommentsSkeleton/CommentsSkeleton'
 import useComments from "./hooks/useComments"
 import useParentCommentId from './hooks/useParentCommentId'
+import ArrowAnim from './ArrowAnim/ArrowAnim'
 
 export default function Comments() {
     const { comments, error, isLoading } = useComments()
@@ -29,12 +30,9 @@ export default function Comments() {
 
             {/* If user is in a comment thread */}
             {parentCommentId && (
-                <div 
-                    onClick={() => setParentCommentId(null)}
-                    className={styles['goBack']}
-                >
+                <ArrowAnim isLeft onClick={() => setParentCommentId(null)}>
                     GO BACK
-                </div>
+                </ArrowAnim>
             )}
 
             {comments.length > 0 ? comments.map(comment => (
