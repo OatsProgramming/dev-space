@@ -70,7 +70,8 @@ export const authOptions: NextAuthOptions = {
                 return {
                     id: user.id,
                     image: user.image,
-                    name: user.username,
+                    name: user.name,
+                    username: user.username,
                     follows: user.follows,
                     blockedUsers: user.blockedUsers,
                     starred: user.starred,
@@ -127,12 +128,11 @@ export const authOptions: NextAuthOptions = {
                 })
 
                 if (userDB) {
-                    // @ts-expect-error
                     user.username = userDB.username
+                    user.isOauth = true
                 }
 
                 else {
-                    // @ts-expect-error
                     user.username = user.email
                 }
             }

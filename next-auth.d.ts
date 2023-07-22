@@ -7,11 +7,13 @@ declare module "next-auth" {
     user: {
       id: string;
       image: User['image'];
-      name: User['username'];
+      name: User['name'];
+      username: User['username'];
       follows: User['follows'];
       blockedUsers: User['blockedUsers'];
       starred: User['starred'];
       bookmarked: User['bookmarked'];
+      isOauth?: true;
     } & DefaultSession["user"];
   }
 
@@ -19,10 +21,12 @@ declare module "next-auth" {
   interface User {
     id: string;
     image: User['image'];
-    name: User['username'];
+    name: User['name'];
+    username: User['username'];
     follows: User['follows'];
     blockedUsers: User['blockedUsers'];
     starred: User['starred'];
     bookmarked: User['bookmarked'];
+    isOauth?: true;
   }
 }
