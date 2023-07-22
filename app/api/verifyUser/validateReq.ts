@@ -17,17 +17,32 @@ export default async function validateReq(req: Request) {
             message = "User must sign in."
             status = 401
         }
+
+        else if (session.user.isOauth) {
+            return {
+                username,
+                email,
+                isOauth: session.user.isOauth,
+                userId: session.user.id
+            }
+        }
+
         else if ((!username && !email) || !password) {
             message = 
                 `Missing properties:
-Username or Email?      ${!username && !email}
-Password?               ${!password}`
+                    Username or Email?      ${!username && !email}
+                    Password?               ${!password}`
             status = 422
         }
     
         if (message && status) return NextResponse.json(message, { status })
     
-        return { username, email, password, userId: session?.user.id }
+        return { 
+            username, 
+            email, 
+            password,
+            userId: session?.user.id 
+        }
 
     } catch (err) {
         return NextResponse.json(err, { status: 500 })

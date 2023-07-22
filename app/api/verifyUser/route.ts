@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     let message;
     let status;
     try {
-        const { username, email, userId, password } = res
+        const { username, email, userId, password, isOauth } = res
 
         // findUnique doesnt take OR filter
         const targetUser = await prismadb.user.findFirst({
@@ -35,8 +35,11 @@ export async function POST(req: Request) {
             status = 401
         }
 
-        // Compare pw
-        else if (!await compare(password, targetUser.hashedPassword)) {
+        // Compare pw if via credentials
+        else if (
+            (password && !isOauth)
+            && !await compare(password, targetUser.hashedPassword!)
+        ) {
             message = "Password mismatch"
             status = 401
         }
