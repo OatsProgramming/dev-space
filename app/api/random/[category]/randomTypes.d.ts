@@ -1,0 +1,1 @@
+type RandomCategoryParam = 'posts' | 'users' | 'comments'
