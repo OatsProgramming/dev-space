@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styles from './modalComment.module.css'
-import { getSesh } from '@/app/components/SessionProviderC/SessionProviderC'
+import { getSesh } from '@/app/components/SeshProvider/SeshClient'
 import { getCommentContext } from '../ProviderComment/ProviderComment'
 
 export default function ModalComment({ setIsEditing }: {

@@ -9,10 +9,10 @@ import Hamburger from "./Hamburger/Hamburger"
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch"
 import Nav from "./Nav/Nav"
 import logo from "@/public/logo"
-import { getSesh } from '../SessionProviderC/SessionProviderC'
+import { getSesh } from '../SeshProvider/SeshClient'
 import dynamic from 'next/dynamic'
 
-const Notif = dynamic(() => 
+const Notif = dynamic(() =>
     import('./Notif/Notif')
 )
 
@@ -39,7 +39,7 @@ export default function NavBar() {
                 {/* Temp */}
                 {sesh && <Notif userId={sesh.user.id} />}
                 <CreatePost />
-                <UserDialog sesh={sesh}/>
+                <UserDialog sesh={sesh} />
             </div>
         </Nav>
     )

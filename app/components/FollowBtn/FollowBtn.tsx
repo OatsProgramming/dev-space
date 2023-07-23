@@ -1,7 +1,7 @@
 'use client'
 
 import styles from './followBtn.module.css'
-import { getSesh } from "../SessionProviderC/SessionProviderC";
+import { getSesh } from "../SeshProvider/SeshClient";
 
 export default async function FollowBtn({ userId }: {
     userId: string
@@ -10,7 +10,7 @@ export default async function FollowBtn({ userId }: {
 
     return (
         <>
-            ・ 
+            ・
             <div className={styles['container']}>
                 {sesh?.user.id === userId ? '' : 'Follow'}
             </div>

@@ -5,7 +5,7 @@ import { createContext, useContext } from "react";
 
 const SessionContext = createContext<Session | null>(null)
 
-export default function SessionProviderC({ children, sesh }: {
+export default function SeshClient({ children, sesh }: {
     children: React.ReactNode,
     sesh: Session | null,
 }) {
@@ -20,6 +20,7 @@ export default function SessionProviderC({ children, sesh }: {
     )
 }
 
+// This is to help find out what components are using the sesh
 export function getSesh() {
     return useContext(SessionContext)
 }
