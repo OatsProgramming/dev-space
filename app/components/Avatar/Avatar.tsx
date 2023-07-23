@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import styles from './avatar.module.css'
-import Link from "next/link";
 import ProfileLink from "../ProfileLink/ProfileLink";
 
 export default function Avatar({ username, userId, image, removeLink, size}: {
