@@ -25,18 +25,16 @@ export default function Footer() {
                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam, impedit eaque sint quas ea omnis? Asperiores nisi natus fugiat, fugit totam placeat dolores.
                     </div>
                     <div className={styles['iconsContainer']}>
-                        <Link href='https://github.com/OatsProgramming/miruTV' target="_blank" rel='noreferrer noopener'>
+                        <Link href='https://github.com/OatsProgramming/dev-space' target="_blank" rel='noreferrer noopener'>
                             <Icon
                                 img={github}
                                 alt='Github Icon'
-
                             />
                         </Link>
-                        <Link href='https://discord.gg/WUhmy8CaB' target='_blank' rel='noreferrer noopener'>
+                        <Link href='https://discord.gg/Q2zsvnare' target='_blank' rel='noreferrer noopener'>
                             <Icon
                                 img={discord}
                                 alt='Discord Icon'
-
                             />
                         </Link>
                     </div>
