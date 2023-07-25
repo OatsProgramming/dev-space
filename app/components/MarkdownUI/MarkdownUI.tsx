@@ -2,7 +2,7 @@
 
 import remarkGfm from 'remark-gfm'
 import { vscDarkPlus, vs } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import useTheme from '@/lib/zustand/useTheme'
+import useTheme from '@/app/utils/hooks/useTheme'
 import dynamic from 'next/dynamic'
 import Loader from '../Loader/Loader'
 import styles from './markdownUI.module.css'
@@ -21,7 +21,7 @@ const SyntaxHighlighter = dynamic(() =>
 
 // TODO: Get a skeleton for this ("flashing" gets annoying)
 // @ts-expect-error
-const ReactMarkdown = dynamic(() => 
+const ReactMarkdown = dynamic(() =>
     import('react-markdown')
 )
 

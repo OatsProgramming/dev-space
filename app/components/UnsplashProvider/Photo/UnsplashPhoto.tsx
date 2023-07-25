@@ -1,6 +1,6 @@
 import styles from './unsplashPhoto.module.css'
 import { useEffect, useRef } from "react";
-import toggleDialog from "@/lib/toggleDialog";
+import toggleDialog from "@/app/utils/toggleDialog";
 
 export default function UnsplashPhoto({ photo }: {
     photo: UnsplashBasicSmaller

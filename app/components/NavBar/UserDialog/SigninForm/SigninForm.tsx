@@ -1,6 +1,6 @@
 'use client'
 
-import toggleDialog from '@/lib/toggleDialog';
+import toggleDialog from '@/app/utils/toggleDialog';
 import styles from './signinForm.module.css'
 import type { RefObject } from "react";
 import { useState } from 'react'

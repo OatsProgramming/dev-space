@@ -1,5 +1,5 @@
-import baseUrl from "@/lib/baseUrl";
-import fetcher from "@/lib/fetchers/fetcher";
+import baseUrl from "@/app/utils/baseUrl";
+import fetcher from "@/app/utils/fetchers/fetcher";
 import isEqual from "lodash/isEqual";
 import { useEffect, useReducer } from "react";
 
@@ -71,7 +71,7 @@ export default function useNotifs(userId: string) {
                 const { notifs: prevNotifs } = prevState
                 const { nextNotif } = action
 
-                const notifs = [ ...prevNotifs, nextNotif ]
+                const notifs = [...prevNotifs, nextNotif]
                 return { ...prevState, notifs }
             }
             case "removed": {

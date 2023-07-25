@@ -1,6 +1,6 @@
 'use client'
 
-import useTheme from "@/lib/zustand/useTheme"
+import useTheme from "@/app/utils/hooks/useTheme"
 import { useEffect, useRef } from "react"
 
 // Created this fn to deal w/ fillColor issue w/ base64 imgs
@@ -17,7 +17,7 @@ export default function Icon({ img, alt, safeDimensions = { width: 100, height: 
 
     useEffect(() => {
         const img = imgRef.current
-        if (!img) return 
+        if (!img) return
         else if (isLight) img.style.filter = ''
         else img.style.filter = 'invert(1)'
 

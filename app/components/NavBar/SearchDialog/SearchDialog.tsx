@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import styles from './searchDialog.module.css'
-import toggleDialog from '@/lib/toggleDialog'
+import toggleDialog from '@/app/utils/toggleDialog'
 // import enimeFetcher from '@/lib/fetchers/enimeFetcher'
 // import AnimeInfo from '../../AnimeInfo/AnimeInfo'
 

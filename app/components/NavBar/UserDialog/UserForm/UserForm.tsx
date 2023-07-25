@@ -1,7 +1,7 @@
 'use client'
 
 import { SignOut } from "@/app/components/AuthBtns/AuthBtns"
-import toggleDialog from "@/lib/toggleDialog"
+import toggleDialog from "@/app/utils/toggleDialog"
 import { useState } from 'react'
 import styles from './userForm.module.css'
 import type { Session } from "next-auth"

@@ -3,7 +3,7 @@ import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 import validateReq from "./validateReq";
 import prismadbSpliceArr from "@/lib/prismaHelpers/prismadbSpliceArr";
-import getTempServerSession from "@/lib/toyData/getTempServerSession";
+import getTempServerSession from "@/app/utils/toyData/getTempServerSession";
 
 // TODO: convert all session back to normal (remove Promise.resolve())
 

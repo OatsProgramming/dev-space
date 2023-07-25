@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import styles from './markdownEditor.module.css'
-import useUI from '@/lib/zustand/useUI'
+import useUI from '@/app/components/MarkdownEditor/hooks/useUI'
 import MarkdownHelper from './MarkdownHelper/MarkdownHelper'
 import dynamic from 'next/dynamic'
 import Loader from '../Loader/Loader'

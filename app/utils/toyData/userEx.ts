@@ -6,7 +6,9 @@ const userEx: UserResponse[] = [
         followersCount: 1,
         followsCount: 7,
         postsCount: 2,
-        image: "https://rukminim1.flixcart.com/image/850/1000/kufuikw0/poster/j/d/x/small-aesthetic-anime-girl-wall-poster-size-12x18-asstore-red-original-imag7k2v5dbs8tgn.jpeg?q=90"
+        image: "https://rukminim1.flixcart.com/image/850/1000/kufuikw0/poster/j/d/x/small-aesthetic-anime-girl-wall-poster-size-12x18-asstore-red-original-imag7k2v5dbs8tgn.jpeg?q=90",
+        bookmarked: [],
+        starred: []
     },
     {
         id: crypto.randomUUID(),
@@ -14,7 +16,9 @@ const userEx: UserResponse[] = [
         name: 'adam',
         followersCount: 2,
         followsCount: 8,
-        postsCount: 1
+        postsCount: 1,
+        bookmarked: [],
+        starred: []
     },
     {
         id: crypto.randomUUID(),
@@ -22,7 +26,9 @@ const userEx: UserResponse[] = [
         name: 'machina',
         followersCount: 3,
         followsCount: 9,
-        postsCount: 5
+        postsCount: 5,
+        bookmarked: [],
+        starred: []
     },
     {
         id: crypto.randomUUID(),
@@ -30,7 +36,9 @@ const userEx: UserResponse[] = [
         name: 'flores',
         followersCount: 4,
         followsCount: 10,
-        postsCount: 2
+        postsCount: 2,
+        bookmarked: [],
+        starred: []
     },
     {
         id: crypto.randomUUID(),
@@ -39,7 +47,9 @@ const userEx: UserResponse[] = [
         followersCount: 5,
         followsCount: 11,
         postsCount: 2,
-        image: "https://i.kym-cdn.com/photos/images/original/001/908/429/04d.jpg"
+        image: "https://i.kym-cdn.com/photos/images/original/001/908/429/04d.jpg",
+        bookmarked: [],
+        starred: []
     },
     {
         id: crypto.randomUUID(),
@@ -48,7 +58,9 @@ const userEx: UserResponse[] = [
         followersCount: 6,
         followsCount: 12,
         postsCount: 3,
-        image: "https://i.ytimg.com/vi/LN_D-8HThFw/maxresdefault.jpg"
+        image: "https://i.ytimg.com/vi/LN_D-8HThFw/maxresdefault.jpg",
+        bookmarked: [],
+        starred: []
     },
 ]
 

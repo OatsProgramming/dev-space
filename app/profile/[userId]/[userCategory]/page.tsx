@@ -4,10 +4,10 @@ import type { Post } from "@prisma/client"
 import UserCard from "@/app/components/UserCard/UserCard"
 import PostCard from "@/app/components/PostCard/PostCard"
 import styles from './page.module.css'
-import AnimationProvider from "@/app/components/AnimationProvider/AnimationProvider"
+import AnimationProvider from "@/app/components/context/AnimationProvider/AnimationProvider"
 import { m } from "framer-motion"
 import { container, item } from "./pageVariants"
-import useUserMetrics from "../../useUserMetrics"
+import useUserMetrics from "../../hooks/useUserMetrics"
 import { useEffect } from "react"
 
 type UserMetrics = (Post & GeneralUserInfo)[] | UserResponse[]

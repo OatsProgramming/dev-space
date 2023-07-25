@@ -1,7 +1,7 @@
 import { m } from 'framer-motion'
 import { leftSide, rightSide, backdrop } from './modalVariants'
 import styles from './modalSlide.module.css'
-import AnimationProvider from '../../AnimationProvider/AnimationProvider'
+import AnimationProvider from '../../context/AnimationProvider/AnimationProvider'
 
 export default function ModalSlide({ children, isOpen, setIsOpen, isLeft }: {
     children: React.ReactNode,

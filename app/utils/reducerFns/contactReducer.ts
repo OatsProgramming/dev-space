@@ -1,5 +1,5 @@
 import emailjs from '@emailjs/browser'
-import notify from "../toast/toast"
+import notify from "../../../lib/toast/toast"
 
 export default function contactReducer(state: Email, action: Action): Email {
     switch (action.type) {
@@ -15,7 +15,7 @@ export default function contactReducer(state: Email, action: Action): Email {
         }
         case 'sending': {
             const emailRegex = /^(("[\w\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w\s]+")([\w-]+(?:\.[\w-]+)*))@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
-            
+
             if (!state.email || !state.name || !state.message) {
                 // Check for missing props
                 notify({ type: 'error', message: "It seems you're missing a few things..." })
@@ -28,7 +28,7 @@ export default function contactReducer(state: Email, action: Action): Email {
             }
 
             // emailjs does not work on backend; frontend only
-            notify({ 
+            notify({
                 type: 'promise',
                 promise: emailjs.send(`${process.env.NEXT_PUBLIC_SERVICE_ID}`, `${process.env.NEXT_PUBLIC_TEMPLATE_ID}`, state, `${process.env.NEXT_PUBLIC_EMAIL_KEY}`),
                 messages: {
@@ -36,7 +36,7 @@ export default function contactReducer(state: Email, action: Action): Email {
                     error: "Email failed to send",
                     success: "Email sent"
                 },
-            })  
+            })
             action.form!.reset()
             return state
         }

@@ -1,16 +1,16 @@
 'use client'
 
-import baseUrl from "@/lib/baseUrl"
-import fetcher from "@/lib/fetchers/fetcher"
+import baseUrl from "@/app/utils/baseUrl"
+import fetcher from "@/app/utils/fetchers/fetcher"
 import { useRef } from "react"
 import useUnsplash from "../useUnsplash"
 import UnsplashPhoto from "../Photo/UnsplashPhoto"
 import styles from './unsplashDialog.module.css'
 import { m } from "framer-motion"
 import Dropdown from "../../Dropdown/Dropdown"
-import validColors from "@/lib/unsplash/validColors"
-import validOrientations from "@/lib/unsplash/validOrientations"
-import AnimationProviderMAX from "../../AnimationProvider/AnimationProviderMAX"
+import validColors from "@/app/utils/unsplash/validColors"
+import validOrientations from "@/app/utils/unsplash/validOrientations"
+import AnimationProviderMAX from "../../context/AnimationProvider/AnimationProviderMAX"
 import { statusAnim } from "../variants"
 
 export default function UnsplashDialog({ isOpen, setIsOpen }: {
@@ -64,7 +64,7 @@ export default function UnsplashDialog({ isOpen, setIsOpen }: {
     return (
         <AnimationProviderMAX>
             <div className={styles['container']}>
-                <div className={styles['backdrop']} onPointerDown={() => setIsOpen(false)}/>
+                <div className={styles['backdrop']} onPointerDown={() => setIsOpen(false)} />
                 <m.div className={styles['dialog']} layout>
                     <div className={styles['barContainer']}>
                         <div className={styles['unsplash']}>

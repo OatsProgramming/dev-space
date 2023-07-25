@@ -1,8 +1,8 @@
-import userEx from "@/lib/toyData/userEx"
+import userEx from "@/app/utils/toyData/userEx"
 import UserCard from "../UserCard/UserCard"
 import styles from './randomCards.module.css'
-import fetcher from "@/lib/fetchers/fetcher"
-import baseUrl from "@/lib/baseUrl"
+import fetcher from "@/app/utils/fetchers/fetcher"
+import baseUrl from "@/app/utils/baseUrl"
 
 // TODO: Associate to proper cardsz
 export default async function RandomCards({ category }: {

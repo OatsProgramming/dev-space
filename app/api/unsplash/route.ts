@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createApi } from 'unsplash-js'
 import { isValidColor, isValidContentFilter, isValidOrderBy, isValidOrientation } from "./validators";
-import unsplashEx from "@/lib/toyData/unsplashEx";
+import unsplashEx from "@/app/utils/toyData/unsplashEx";
 import { Photos } from "unsplash-js/dist/methods/search/types/response";
 import stripPhotoData from "./stripPhotoData";
 
@@ -17,7 +17,7 @@ export async function GET(req: Request) {
 
     // // TEST FOR PERFORMANCE
     // const res = await new Promise((resolve) => setTimeout(() => resolve(unsplashEx), 0)) as Photos
-    
+
     // const toy = []
     // // 500 objs -> 1MB (i < 100) (200ms cold 50ms avg)
     // for (let i = 0; i < 10; i++) {
@@ -26,7 +26,7 @@ export async function GET(req: Request) {
 
     // // Manipulate directly
     // stripPhotoData(toy)
-    
+
     // // // 500 objs -> 5MB (i < 100) (362ms cold 100-120ms avg)
     // // for (let i = 0; i < 90; i++) {
     // //     toy.push(...res.results)
@@ -56,7 +56,7 @@ export async function GET(req: Request) {
         }
 
         if (!response) return new Response("Response from Unsplash empty", { status: 404 })
-        
+
         // Lessen the amnt of data to transfer
         stripPhotoData(response.results)
 

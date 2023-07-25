@@ -1,5 +1,5 @@
 import { m } from "framer-motion"
-import AnimationProvider from "../../AnimationProvider/AnimationProvider"
+import AnimationProvider from "../../context/AnimationProvider/AnimationProvider"
 import { container, item } from "./variants"
 
 export default function ArrowAnim({ children, isLeft, onClick }: {
@@ -22,7 +22,7 @@ export default function ArrowAnim({ children, isLeft, onClick }: {
             >
                 {isLeft ? (
                     <>
-                    {/* TODO: reverse this animation. Cant figure out how rn. */}
+                        {/* TODO: reverse this animation. Cant figure out how rn. */}
                         {arrows.map(arrow => (
                             <m.span
                                 key={arrow}

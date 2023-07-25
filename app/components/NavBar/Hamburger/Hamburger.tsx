@@ -4,7 +4,7 @@ import { useState } from "react"
 import styles from './hamburger.module.css'
 import ModalSlide from "../ModalSlide/ModalSlide"
 import Link from "next/link"
-import postEx from "@/lib/toyData/postEx"
+import postEx from "@/app/utils/toyData/postEx"
 import PostCard from "../../PostCard/PostCard"
 import logo from "@/public/logo"
 
@@ -54,7 +54,7 @@ export default function Hamburger() {
                     <div className={styles['posts']}>
                         {postEx.map(post => (
                             <div key={post.id}>
-                                <PostCard post={post} isSimple/>
+                                <PostCard post={post} isSimple />
                             </div>
                         ))}
                     </div>

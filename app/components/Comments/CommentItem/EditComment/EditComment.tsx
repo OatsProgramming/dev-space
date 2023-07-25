@@ -1,9 +1,9 @@
 import { useState } from "react"
 import styles from './editComment.module.css'
 import { getCommentContext } from "../ProviderComment/ProviderComment"
-import { maxCharCount } from "@/app/components/ActionBar/ActionComment/ActionComment"
-import mutateFetch from "@/lib/fetchers/mutateFetch"
-import baseUrl from "@/lib/baseUrl"
+import { maxCharCount } from "@/app/post/components/ActionBar/ActionComment/ActionComment"
+import mutateFetch from "@/app/utils/fetchers/mutateFetch"
+import baseUrl from "@/app/utils/baseUrl"
 import useComments from "../../hooks/useComments"
 
 export default function EditComment({ setIsEditing }: {

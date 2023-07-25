@@ -1,4 +1,4 @@
-import postEx from '@/lib/toyData/postEx'
+import postEx from '@/app/utils/toyData/postEx'
 import PostCard from './components/PostCard/PostCard'
 import styles from './page.module.css'
 import RandomCards from './components/RandomCards/RandomCards'
@@ -13,7 +13,7 @@ export default function Home() {
         </div>
         <div className={styles['posts']}>
           {postEx.map((post, idx) => (
-            <PostCard post={post} key={idx} isSimple/>
+            <PostCard post={post} key={idx} isSimple />
           ))}
         </div>
       </div>

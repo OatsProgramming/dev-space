@@ -1,5 +1,5 @@
 import { useCallback, type RefObject, useEffect } from "react";
-import useUI from "@/lib/zustand/useUI";
+import useUI from "@/app/components/MarkdownEditor/hooks/useUI";
 import './markdownHelper.css'
 
 function MarkdownHelper({ textareaRef }: {
@@ -11,13 +11,13 @@ function MarkdownHelper({ textareaRef }: {
         if (!textarea) return
         const text = selectedText || '_INSERT_TEXT_'
         let helperText: string;
-        switch(helper) {
+        switch (helper) {
             case 'heading1':
-            case 'heading2':              
-            case 'heading3':        
-            case 'heading4':          
+            case 'heading2':
+            case 'heading3':
+            case 'heading4':
             case 'heading5':
-            case 'heading6':{
+            case 'heading6': {
                 const size = Number(helper.substring(helper.length - 1, helper.length))
                 const headingSize = "#".repeat(size)
                 helperText = `\n${headingSize} ${text}\n`
@@ -42,7 +42,7 @@ function MarkdownHelper({ textareaRef }: {
             case 'quote': {
                 helperText = `\n> ${text}`
                 break;
-            } 
+            }
             case 'multiQuote': {
                 helperText = `\n> ${text}\n> \n> `
                 break;
@@ -54,8 +54,8 @@ function MarkdownHelper({ textareaRef }: {
             case 'blankLine': {
                 helperText = `\n&nbsp;\\${selectedText ? `\n${selectedText}` : ''}`
                 break;
-             }
-            default : {
+            }
+            default: {
                 throw new Error("Unknown Helper")
             }
         }
@@ -109,7 +109,7 @@ function MarkdownHelper({ textareaRef }: {
                 <button className={`${!isPreview && 'clicked'}`} onPointerDown={() => setIsPreview(!isPreview)}>
                     {isPreview ? 'Edit' : 'Preview'}
                 </button>
-                <button onPointerDown={() => setText("")}> 
+                <button onPointerDown={() => setText("")}>
                     Clear
                 </button>
             </div>

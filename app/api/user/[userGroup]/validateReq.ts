@@ -1,4 +1,4 @@
-import simpleValidate from "@/lib/simpleValidate"
+import simpleValidate from "@/app/utils/simpleValidate"
 import { NextResponse } from "next/server"
 
 export default async function validateReq(req: Request) {

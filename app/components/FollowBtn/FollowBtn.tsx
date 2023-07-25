@@ -1,7 +1,7 @@
 'use client'
 
 import styles from './followBtn.module.css'
-import { getSesh } from "../SeshProvider/SeshClient";
+import { getSesh } from "../context/SeshProvider/SeshClient";
 
 export default async function FollowBtn({ userId }: {
     userId: string

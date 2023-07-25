@@ -1,8 +1,9 @@
 import Link from "next/link"
 import type { Metadata } from "next"
 import styles from './layout.module.css'
-import userEx from "@/lib/toyData/userEx"
+import userEx from "@/app/utils/toyData/userEx"
 import Avatar from "@/app/components/Avatar/Avatar"
+import Test from "./test"
 
 export type Params = {
     userId: string,
@@ -32,7 +33,7 @@ export default async function Layout({ children, params: { userId } }: {
         userId: string,
     }
 }) {
-    const user = await new Promise((resolve) => setTimeout(() => resolve(userEx[0]), 100)) as UserResponse
+    const user = await new Promise((resolve) => setTimeout(() => resolve(userEx[0]), 0)) as UserResponse
     const { username, image, name, postsCount, followersCount, followsCount } = user
 
     return (
@@ -91,7 +92,9 @@ export default async function Layout({ children, params: { userId } }: {
                     </Link>
                 </div>
             </section>
-            {children}
+            <Test>
+                {children}
+            </Test>
         </div>
     )
 }

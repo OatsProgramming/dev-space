@@ -1,6 +1,6 @@
 'use client'
 
-import contactReducer from '@/lib/reducerFns/contactReducer'
+import contactReducer from '@/app/utils/reducerFns/contactReducer'
 import { useReducer, useRef } from 'react'
 import styles from './emailContact.module.css'
 import { ToastContainer } from 'react-toastify'
@@ -40,11 +40,11 @@ export default function EmailContact() {
                     <label htmlFor="name">Name</label>
                 </div>
                 <textarea className={styles['textarea']} id='message' placeholder='' required
-                        onChange={(e) => dispatch({
-                            type: 'updating',
-                            newInfo: { message: e.target.value }
-                        })}
-                    />
+                    onChange={(e) => dispatch({
+                        type: 'updating',
+                        newInfo: { message: e.target.value }
+                    })}
+                />
                 <div className={styles['btns']}>
                     <button onPointerDown={(e) => {
                         e.preventDefault()

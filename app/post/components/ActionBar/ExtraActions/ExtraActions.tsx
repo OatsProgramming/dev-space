@@ -1,7 +1,7 @@
 import { m } from "framer-motion";
 import { modalContainer, modalItems } from "../variants";
 import styles from './extraAction.module.css'
-import AnimationProvider from "../../AnimationProvider/AnimationProvider";
+import AnimationProvider from "../../../../components/context/AnimationProvider/AnimationProvider";
 
 export default function ExtraActions({ isOpen }: {
     isOpen: boolean

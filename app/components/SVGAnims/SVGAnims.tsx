@@ -6,10 +6,10 @@ import styles from './svgAnims.module.css'
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import { bookmark, star, svgContainerAnim } from "./variants";
-import AnimationProvider from "../AnimationProvider/AnimationProvider";
+import AnimationProvider from "../context/AnimationProvider/AnimationProvider";
 
 const ExtraActions = dynamic(() =>
-    import('../ActionBar/ExtraActions/ExtraActions')
+    import('../../post/components/ActionBar/ExtraActions/ExtraActions')
 )
 
 export default function SVGAnims({ setIsCommenting }: {

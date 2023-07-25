@@ -1,12 +1,12 @@
 'use client'
 
 import useSWR from 'swr'
-import { Params } from './[userId]/layout';
-import baseUrl from '@/lib/baseUrl';
-import tempUserId from '@/lib/toyData/tempUserId';
+import { Params } from '../[userId]/layout';
+import baseUrl from '@/app/utils/baseUrl';
+import tempUserId from '@/app/utils/toyData/tempUserId';
 import type { Post } from '@prisma/client';
-import postEx from '@/lib/toyData/postEx';
-import userEx from '@/lib/toyData/userEx';
+import postEx from '@/app/utils/toyData/postEx';
+import userEx from '@/app/utils/toyData/userEx';
 import useCancelableSWR from '@/lib/hooks/useCancelableSWR';
 
 export type UserMetrics = (Post & GeneralUserInfo)[] | UserResponse[]

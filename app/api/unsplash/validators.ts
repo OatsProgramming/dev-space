@@ -1,5 +1,5 @@
-import colors from "@/lib/unsplash/validColors"
-import orientations from "@/lib/unsplash/validOrientations"
+import colors from "@/app/utils/unsplash/validColors"
+import orientations from "@/app/utils/unsplash/validOrientations"
 
 function isValidColor(color: string | null): color is UnsplashColor {
     const validColors = new Set(colors as string[])

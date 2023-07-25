@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 import prismadb from "@/lib/prismadb"
-import simpleValidate from "@/lib/simpleValidate"
+import simpleValidate from "@/app/utils/simpleValidate"
 
 type Essential = {
     userId?: string,

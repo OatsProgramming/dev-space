@@ -1,11 +1,11 @@
 import prismadb from "@/lib/prismadb";
-import simpleValidate from "@/lib/simpleValidate";
+import simpleValidate from "@/app/utils/simpleValidate";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
-import tempUserId from "@/lib/toyData/tempUserId";
+import tempUserId from "@/app/utils/toyData/tempUserId";
 import { authOptions } from "../auth/[...nextauth]/route";
-import getTempServerSession from "@/lib/toyData/getTempServerSession";
-import textEX from "@/lib/toyData/textEx";
+import getTempServerSession from "@/app/utils/toyData/getTempServerSession";
+import textEX from "@/app/utils/toyData/textEx";
 
 export async function GET(req: Request) {
     // Simulate data being an array of JSON objects
@@ -17,13 +17,13 @@ export async function GET(req: Request) {
     // const session = await 
     // // getServerSession(authOptions)
     // getTempServerSession()
-    
+
     // if (!session) return new Response("User must sign in.", { status: 401 })
 
     // try {
     //     const { searchParams } = new URL(req.url)
     //     const userId = searchParams.get('userId')
-        
+
     //     if (!userId) {
     //         return new Response("User ID not given (/api/notifs)", { status: 422 })
     //     }

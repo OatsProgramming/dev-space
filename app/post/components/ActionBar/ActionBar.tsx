@@ -5,8 +5,8 @@ import styles from './actionBar.module.css'
 import { m } from 'framer-motion'
 import { container } from './variants'
 import dynamic from 'next/dynamic'
-import AnimationProviderMAX from '../AnimationProvider/AnimationProviderMAX'
-import SVGAnims from '../SVGAnims/SVGAnims'
+import AnimationProviderMAX from '../../../components/context/AnimationProvider/AnimationProviderMAX'
+import SVGAnims from '../../../components/SVGAnims/SVGAnims'
 
 const ActionComment = dynamic(() =>
     import('./ActionComment/ActionComment')

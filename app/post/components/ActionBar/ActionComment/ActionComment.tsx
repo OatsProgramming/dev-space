@@ -1,10 +1,10 @@
-import baseUrl from '@/lib/baseUrl'
+import baseUrl from '@/app/utils/baseUrl'
 import styles from './actionComment.module.css'
-import mutateFetch from '@/lib/fetchers/mutateFetch'
+import mutateFetch from '@/app/utils/fetchers/mutateFetch'
 import { useRef } from 'react'
-import { getPostId } from '../../PostIdProvider/PostIdProvider'
-import useParentCommentId from '../../Comments/hooks/useParentCommentId'
-import useComments from '../../Comments/hooks/useComments'
+import { getPostId } from '../../../[postId]/context/PostIdProvider'
+import useParentCommentId from '../../../../components/Comments/hooks/useParentCommentId'
+import useComments from '../../../../components/Comments/hooks/useComments'
 
 export type ActionCommentParam = {
     parentId: {
@@ -34,7 +34,7 @@ export default function ActionComment({ setIsCommenting }: {
     async function handleSubmit() {
         const textarea = textareaRef.current
         if (!textarea || !textarea.value) return
-        
+
         // Set the parentId to the appropiate ID (post / comment) for commenting
         const data: Data = {
             body: textarea.value.trim(),
@@ -65,7 +65,7 @@ export default function ActionComment({ setIsCommenting }: {
 
     return (
         <div className={styles['commenting']}>
-            <textarea ref={textareaRef} maxLength={maxCharCount}/>
+            <textarea ref={textareaRef} maxLength={maxCharCount} />
             <div className={styles['commentBtns']}>
                 <div onClick={() => setIsCommenting(false)}>
                     Close

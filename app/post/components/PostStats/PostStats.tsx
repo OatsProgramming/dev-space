@@ -7,7 +7,7 @@ import styles from './postStat.module.css'
 import SVGAnims from "@/app/components/SVGAnims/SVGAnims"
 
 const ActionBar = dynamic(() =>
-    import('@/app/components/ActionBar/ActionBar')
+    import('@/app/post/components/ActionBar/ActionBar')
 )
 
 const CommentIsland = dynamic(() =>
@@ -32,7 +32,7 @@ export default function PostStats() {
         >
             <ActionBar inView={inView} />
             <SVGAnims setIsCommenting={setIsCommenting} />
-            <CommentIsland 
+            <CommentIsland
                 isCommenting={isCommenting}
                 setIsCommenting={setIsCommenting}
             />

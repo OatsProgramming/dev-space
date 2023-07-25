@@ -9,7 +9,7 @@ import Hamburger from "./Hamburger/Hamburger"
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch"
 import Nav from "./Nav/Nav"
 import logo from "@/public/logo"
-import { getSesh } from '../SeshProvider/SeshClient'
+import { getSesh } from '../context/SeshProvider/SeshClient'
 import dynamic from 'next/dynamic'
 
 const Notif = dynamic(() =>

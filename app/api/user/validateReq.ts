@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import isEmpty from "lodash/isEmpty";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
-import simpleValidate from "@/lib/simpleValidate";
+import simpleValidate from "@/app/utils/simpleValidate";
 
 type Essential = {
     userId?: string,
@@ -77,7 +77,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
         if (message && status) return NextResponse.json(message, { status })
 
         return {
-            data: {...data},
+            data: { ...data },
             method
         } as T
     } catch (err) {

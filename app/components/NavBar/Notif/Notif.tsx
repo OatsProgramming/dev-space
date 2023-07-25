@@ -7,7 +7,7 @@ import { container, item } from './notifVariants'
 import NotifCard from './NotifCard/NotifCard'
 import useNotifs from './useNotifs'
 import Loader from '../../Loader/Loader'
-import AnimationProvider from '../../AnimationProvider/AnimationProvider'
+import AnimationProvider from '../../context/AnimationProvider/AnimationProvider'
 
 export default function Notif({ userId }: {
     userId: string,

@@ -2,8 +2,8 @@ import styles from './postCard.module.css'
 import type { Post } from '@prisma/client'
 import Avatar from '../Avatar/Avatar'
 import Link from 'next/link'
-import parseImgUrl from '@/lib/parseImgUrl'
-import getPostMetadata from '@/lib/getPostMetadata'
+import parseImgUrl from '@/app/utils/parseImgUrl'
+import getPostMetadata from '@/app/utils/getPostMetadata'
 import ProfileLink from '../ProfileLink/ProfileLink'
 
 export default function PostCard({ post, isSimple }: {

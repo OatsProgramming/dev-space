@@ -1,6 +1,6 @@
 'use client'
 
-import useTheme from '@/lib/zustand/useTheme'
+import useTheme from '@/app/utils/hooks/useTheme'
 import { useEffect } from 'react'
 
 export default function ThemeSwitch() {

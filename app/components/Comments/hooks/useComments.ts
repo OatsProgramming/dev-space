@@ -1,7 +1,7 @@
-import baseUrl from "@/lib/baseUrl";
-import fetcher from "@/lib/fetchers/fetcher";
+import baseUrl from "@/app/utils/baseUrl";
+import fetcher from "@/app/utils/fetchers/fetcher";
 import useSWR, { useSWRConfig } from "swr";
-import { getPostId } from "../../PostIdProvider/PostIdProvider";
+import { getPostId } from "../../../post/[postId]/context/PostIdProvider";
 import useParentCommentId from "./useParentCommentId";
 
 // To get the comments from db

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import isEmpty from "lodash/isEmpty";
 import prismadb from "@/lib/prismadb";
-import simpleValidate from "@/lib/simpleValidate";
+import simpleValidate from "@/app/utils/simpleValidate";
 
 type Essential = {
     userId?: string,
@@ -23,7 +23,7 @@ type DELETE = {
 type POST = {
     method?: 'POST'
     data: PostReq<'POST'> & Essential
-} 
+}
 
 export default async function validateReq<T extends DELETE | PATCH | POST>(req: Request) {
     try {
@@ -34,7 +34,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
         let message;
         let status;
         switch (method) {
-            case 'DELETE': 
+            case 'DELETE':
             case 'PATCH': {
                 const { postId, newInfo } = data
                 // Check for missing properties (DELETE & PATCH)
@@ -60,20 +60,20 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
                     else if (post.userId !== userId) {
                         message = `Can't mutate a post thats not of the creator's`
                         status = 401
-                    } 
+                    }
                 }
                 break;
             }
             case 'POST': {
                 const { title, body } = data
                 if (!title || !body) {
-                    message = 
+                    message =
                         `Missing properties:
                         Title?      ${!title}
                         Body?       ${!body}`
                     status = 422
                 }
-                
+
                 // Append userId for creation
                 data.userId = userId
                 break;
@@ -86,7 +86,7 @@ export default async function validateReq<T extends DELETE | PATCH | POST>(req: 
         }
         if (message && status) return NextResponse.json(message, { status })
         return {
-            data: {...data},
+            data: { ...data },
             method
         } as T
     } catch (err) {
