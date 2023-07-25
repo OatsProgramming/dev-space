@@ -31,6 +31,10 @@ export default function Icon({ img, alt, safeDimensions = { width: 100, height: 
             width={safeDimensions.width}
             height={safeDimensions.height}
             ref={imgRef}
+            style={{
+                width: '100%',
+                height: '100%',
+            }}
         />
     )
 }
