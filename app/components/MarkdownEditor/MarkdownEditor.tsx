@@ -52,6 +52,7 @@ function MarkdownEditor() {
           <MarkdownUI text={text} />
         ) : (
           <textarea
+            className={styles['editing']}
             ref={textareadRef}
             value={text}
             onChange={(e) => setText(e.target.value)}

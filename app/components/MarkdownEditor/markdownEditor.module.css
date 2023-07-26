@@ -5,7 +5,7 @@
     margin: 0 auto;
 }
 
-.container > textarea,
+.editing,
 .markdown {
     width: 100%;
     height: 100%;
@@ -13,39 +13,15 @@
     border-radius: 20px;
     padding: 2rem;
     border: none;
-    background-color: var(--backgroundLighter);
+    background-color: transparent;
 }
 
-.container > textarea {
+.editing {
     resize: none;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    border: 2px dashed var(--accent);
-    -webkit-transition: all 500ms ease-out;
-    -o-transition: all 500ms ease-out;
-    transition: all 500ms ease-out;
+    border: 2px dashed var(--base);
 }
 
-.container > textarea:focus-within {
+.editing:focus-visible {
     outline: none;
-    border: 5px solid var(--accent);
-}
-
-@-webkit-keyframes border-dance {
-    0% {
-        background-position: 0px 0px, 300px 116px, 0px 150px, 216px 0px;
-    }
-
-    100% {
-        background-position: 300px 0px, 0px 116px, 0px 0px, 216px 150px;
-    }
-}
-
-@keyframes border-dance {
-    0% {
-        background-position: 0px 0px, 300px 116px, 0px 150px, 216px 0px;
-    }
-
-    100% {
-        background-position: 300px 0px, 0px 116px, 0px 0px, 216px 150px;
-    }
 }
