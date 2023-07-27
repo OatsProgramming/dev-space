@@ -6,6 +6,7 @@ import useUI from '@/app/components/MarkdownEditor/hooks/useUI'
 import MarkdownHelper from './MarkdownHelper/MarkdownHelper'
 import dynamic from 'next/dynamic'
 import Loader from '../Loader/Loader'
+import TextareaProvider from './context/TextareaProvider'
 
 // TODO: do a skeleton for this instead
 const MarkdownUI = dynamic(() =>
@@ -19,7 +20,7 @@ const MarkdownUI = dynamic(() =>
   }
 )
 
-function MarkdownEditor() {
+export default function MarkdownEditor() {
   const { text, isPreview, setText, setSelectedText } = useUI()
   const textareadRef = useRef<HTMLTextAreaElement>(null)
 
@@ -44,9 +45,10 @@ function MarkdownEditor() {
       textarea.removeEventListener('selectionchange', handleSelect)
     }
   }, [textareadRef.current])
+  
   return (
-    <>
-      <MarkdownHelper textareaRef={textareadRef} />
+    <TextareaProvider textareaRef={textareadRef}>
+      <MarkdownHelper />
       <section className={styles['container']}>
         {isPreview ? (
           <MarkdownUI text={text} />
@@ -59,8 +61,6 @@ function MarkdownEditor() {
           />
         )}
       </section>
-    </>
+    </TextareaProvider>
   )
 }
-
-export default MarkdownEditor
