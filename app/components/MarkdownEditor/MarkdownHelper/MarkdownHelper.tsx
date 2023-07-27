@@ -1,22 +1,23 @@
-import { useCallback, type RefObject, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import useUI from "@/app/components/MarkdownEditor/hooks/useUI";
 import './markdownHelper.css'
 import dynamic from "next/dynamic";
+import { getTextarea } from "../context/TextareaProvider";
 
 // Dont have a loader for this
 const UnsplashDialog = dynamic(() =>
-    import("../../UnsplashProvider/Dialog/UnsplashDialog")
+    import("../../UnsplashDialog/UnsplashDialog")
 )
 
-function MarkdownHelper({ textareaRef }: {
-    textareaRef: RefObject<HTMLTextAreaElement>
-}) {
+function MarkdownHelper() {
+    const textarea = getTextarea()
+
     const [isOpen, setIsOpen] = useState(false)
-    const { selectedText, isDark, isPreview, setIsDark, setIsPreview, setText, setSelectedText } = useUI()
+    const { selectedText, isPreview, setIsPreview, setText, setSelectedText } = useUI()
 
     const addHelper = useCallback((helper: MarkdownHelperTypes) => {
-        const textarea = textareaRef.current
         if (!textarea) return
+
         const text = selectedText || '_INSERT_TEXT_'
         let helperText: string;
         switch (helper) {
@@ -44,7 +45,7 @@ function MarkdownHelper({ textareaRef }: {
                 break;
             }
             case 'codeBlock': {
-                helperText = "\n```[INSERT_LANGUAGE]\n" + text + "\n```\n"
+                helperText = "\n```INSERT_LANGUAGE\n" + text + "\n```\n"
                 break;
             }
             case 'quote': {
@@ -68,35 +69,20 @@ function MarkdownHelper({ textareaRef }: {
             }
         }
 
-        // Set the text
+        // Place the text at wherever the caret is currently is
         textarea.setRangeText(helperText)
 
-        // Grab the text (For toggling preview)
+        // To see the preview, setText for MarkdownUI
         setText(textarea.value)
 
         // Reset selected text
         setSelectedText("")
     }, [selectedText])
 
-    function toggleTheme() {
-        if (isDark) {
-            document.body.classList.add('light')
-            document.body.classList.remove('dark')
-        }
-        else {
-            document.body.classList.add('dark')
-            document.body.classList.remove('light')
-        }
-        setIsDark(!isDark)
-    }
-
     return (
         <>
             <div className="btns">
                 <div className="toggles">
-                    <button onPointerDown={toggleTheme}>
-                        Toggle Theme
-                    </button>
                     <button className={`${!isPreview && 'clicked'}`} onPointerDown={() => setIsPreview(!isPreview)}>
                         {isPreview ? 'Edit' : 'Preview'}
                     </button>
@@ -147,7 +133,6 @@ function MarkdownHelper({ textareaRef }: {
             </div>
             {isOpen && (
                 <UnsplashDialog
-                    isOpen={isOpen}
                     setIsOpen={setIsOpen}
                 />
             )}
