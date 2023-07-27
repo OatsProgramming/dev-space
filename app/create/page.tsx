@@ -5,7 +5,8 @@ import dynamic from "next/dynamic";
 import { getSesh } from "../components/context/SeshProvider/SeshClient";
 
 const MarkdownEditor = dynamic(() =>
-    import('@/app/components/MarkdownEditor/MarkdownEditor')
+    import('@/app/components/MarkdownEditor/MarkdownEditor'), 
+    { ssr: false }
 )
 
 export default function Page() {
