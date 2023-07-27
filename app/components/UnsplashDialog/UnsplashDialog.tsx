@@ -3,18 +3,17 @@
 import baseUrl from "@/app/utils/baseUrl"
 import fetcher from "@/app/utils/fetchers/fetcher"
 import { useRef } from "react"
-import useUnsplash from "../useUnsplash"
-import UnsplashPhoto from "../Photo/UnsplashPhoto"
+import useUnsplash from "./hooks/useUnsplash"
+import UnsplashPhoto from "./UnsplashPhoto/UnsplashPhoto"
 import styles from './unsplashDialog.module.css'
 import { m } from "framer-motion"
-import Dropdown from "../../Dropdown/Dropdown"
+import Dropdown from "../Dropdown/Dropdown"
 import validColors from "@/app/utils/unsplash/validColors"
 import validOrientations from "@/app/utils/unsplash/validOrientations"
-import AnimationProviderMAX from "../../context/AnimationProvider/AnimationProviderMAX"
-import { statusAnim } from "../variants"
+import AnimationProviderMAX from "../context/AnimationProvider/AnimationProviderMAX"
+import { statusAnim } from "./variants"
 
-export default function UnsplashDialog({ isOpen, setIsOpen }: {
-    isOpen: boolean,
+export default function UnsplashDialog({ setIsOpen }: {
     setIsOpen: (isOpen: boolean) => void
 }) {
     const timerRef = useRef<NodeJS.Timeout | undefined>()
@@ -163,6 +162,7 @@ export default function UnsplashDialog({ isOpen, setIsOpen }: {
                             <UnsplashPhoto
                                 key={photo.id}
                                 photo={photo}
+                                setIsOpen={setIsOpen}
                             />
                         ))}
                     </m.div>
