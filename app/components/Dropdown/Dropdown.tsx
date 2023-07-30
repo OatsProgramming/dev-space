@@ -1,3 +1,4 @@
+import convertUnderscoreToTitle from '@/app/utils/convertUnderscoreToTitle'
 import styles from './dropdown.module.css'
 
 export default function Dropdown<T extends string>({ name, items, selected, setChange }: {
@@ -16,7 +17,7 @@ export default function Dropdown<T extends string>({ name, items, selected, setC
             <option value="">{name}</option>
             {items.map(item => (
                 <option key={crypto.randomUUID()} value={item}>
-                    {item}
+                    {convertUnderscoreToTitle(item)}
                 </option>
             ))}
         </select>
