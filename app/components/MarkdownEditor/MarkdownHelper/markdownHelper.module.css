@@ -1,0 +1,46 @@
+.btns {
+    display: grid;
+    bottom: 2rem;
+    gap: 1rem;
+    width: fit-content;
+    max-width: 90dvw;
+
+    /* Sandwich btwn main content and ModalSlides */
+    z-index: 55;
+}
+
+.btns button,
+.btns select {
+    width: 120px;
+    border: 1px solid var(--base);
+    padding: 0.5rem;
+    border-radius: 10px;
+}
+
+.toggles {
+    /* border: 1px solid green; */
+    display: flex;
+    justify-content: space-around;
+}
+
+.helpers {
+    /* border: 1px solid blue; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    column-gap: 1rem;
+    row-gap: 0.5rem;
+}
+
+.icon { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.icon div {
+    aspect-ratio: 1 / 1;
+    width: 1rem;
+}
