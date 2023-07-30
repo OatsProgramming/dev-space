@@ -14,7 +14,7 @@ const useUI = create<UIStore>()(
     persist((set) => ({
         text: "",
         selectedText: "",
-        isPreview: true,
+        isPreview: false,
         setText: (text) => set({ text }),
         setSelectedText: (selectedText) => set({ selectedText }),
         setIsPreview: (isPreview) => set({ isPreview }),
