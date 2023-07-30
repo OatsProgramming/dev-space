@@ -6,6 +6,7 @@ import useTheme from '@/app/utils/hooks/useTheme'
 import dynamic from 'next/dynamic'
 import Loader from '../Loader/Loader'
 import styles from './markdownUI.module.css'
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 
 // TODO: skeleton
 const SyntaxHighlighter = dynamic(() =>
@@ -19,13 +20,7 @@ const SyntaxHighlighter = dynamic(() =>
     }
 )
 
-// TODO: Get a skeleton for this ("flashing" gets annoying)
-// @ts-expect-error
-const ReactMarkdown = dynamic(() =>
-    import('react-markdown')
-)
-
-function MarkdownUI({ text }: {
+export default function MarkdownUI({ text }: {
     text: string
 }) {
     const { isLight } = useTheme()
@@ -58,5 +53,3 @@ function MarkdownUI({ text }: {
         </section>
     )
 }
-
-export default MarkdownUI
