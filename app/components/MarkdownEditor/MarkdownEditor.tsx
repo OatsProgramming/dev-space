@@ -1,23 +1,15 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './markdownEditor.module.css'
 import useUI from '@/app/components/MarkdownEditor/hooks/useUI'
 import MarkdownHelper from './MarkdownHelper/MarkdownHelper'
-import dynamic from 'next/dynamic'
-import Loader from '../Loader/Loader'
 import TextareaProvider from './context/TextareaProvider'
+import dynamic from 'next/dynamic'
 
-// TODO: do a skeleton for this instead
-const MarkdownUI = dynamic(() =>
-  import('../MarkdownUI/MarkdownUI'),
-  {
-    loading: () => (
-      <div className='defaultLoader' style={{ height: '80dvh' }}>
-        <Loader />
-      </div>
-    )
-  }
+// TODO: add a loading skeleton for this
+const MarkdownUI = dynamic(() => 
+  import('../MarkdownUI/MarkdownUI')
 )
 
 export default function MarkdownEditor() {
@@ -45,7 +37,7 @@ export default function MarkdownEditor() {
       textarea.removeEventListener('selectionchange', handleSelect)
     }
   }, [textareadRef.current])
-  
+
   return (
     <TextareaProvider textareaRef={textareadRef}>
       <MarkdownHelper />

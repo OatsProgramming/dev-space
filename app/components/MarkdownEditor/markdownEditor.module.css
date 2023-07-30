@@ -20,6 +20,7 @@
     resize: none;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     border: 2px dashed var(--base);
+    color: var(--secondary)
 }
 
 .editing:focus-visible {
