@@ -131,9 +131,6 @@ export default function MarkdownEditor() {
               value={formData.body}
               onChange={(e) => setFormData({ body: e.target.value })}
             />
-            <button>
-              Submit
-            </button>
           </>
         )}
       </section>

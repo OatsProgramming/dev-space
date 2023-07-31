@@ -15,7 +15,7 @@ export default function UnsplashPhoto({ photo, setIsOpen }: {
     if (!textarea) return
 
     const dialogRef = useRef<HTMLDialogElement>(null)
-    const { setText } = useUI()
+    const { setFormData } = useUI()
 
     useEffect(() => {
         function closeDialog(e: PointerEvent) {
@@ -50,7 +50,7 @@ export default function UnsplashPhoto({ photo, setIsOpen }: {
         )
 
         // For MarkdownUI to preview text
-        setText(textarea.value)
+        setFormData({ body: textarea.value })
         
         // Close dialog
         setIsOpen(false)
