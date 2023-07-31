@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './markdownEditor.module.css'
 import useUI from '@/app/components/MarkdownEditor/hooks/useUI'
-import MarkdownHelper from './MarkdownHelper/MarkdownHelper'
 import TextareaProvider from './context/TextareaProvider'
 import dynamic from 'next/dynamic'
 import mutateFetch from '@/app/utils/fetchers/mutateFetch'
@@ -20,6 +19,10 @@ import send from '@/public/send'
 // TODO: add a loading skeleton for this
 const MarkdownUI = dynamic(() =>
   import('../MarkdownUI/MarkdownUI')
+)
+
+const MarkdownHelper = dynamic(() => 
+  import('./MarkdownHelper/MarkdownHelper')
 )
 
 export default function MarkdownEditor() {
