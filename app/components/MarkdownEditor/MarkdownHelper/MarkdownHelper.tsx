@@ -5,24 +5,19 @@ import useUI from "@/app/components/MarkdownEditor/hooks/useUI";
 import dynamic from "next/dynamic";
 import { getTextarea } from "../context/TextareaProvider";
 import Dropdown from "../../Dropdown/Dropdown";
-import styles2 from '@/app/post/components/ActionBar/actionBar.module.css'
 import styles from './markdownHelper.module.css'
-
-import AnimationProviderMAX from "../../context/AnimationProvider/AnimationProviderMAX";
-import { m } from "framer-motion";
-import tools from "@/public/tools";
-import Icon from "../../Icon/Icon";
 
 // Dont have a loader for this
 const UnsplashDialog = dynamic(() =>
     import("../../UnsplashDialog/UnsplashDialog")
 )
 
-export default function MarkdownHelper() {
+export default function MarkdownHelper({ setIsOpen }: {
+    setIsOpen: (isOpen: boolean) => void
+}) {
     const textarea = getTextarea()
     if (!textarea) return
 
-    const [isOpen, setIsOpen] = useState(true)
     const [isUnsplashOpen, setUnsplashOpen] = useState(false)
     const { selectedText, isPreview, setIsPreview, setFormData, setSelectedText } = useUI()
 
@@ -90,7 +85,7 @@ export default function MarkdownHelper() {
         // Place the text at wherever the caret is currently is
         textarea.setRangeText(helperText)
 
-        // To see the preview, setText for MarkdownUI
+        // To see the preview, setFormData({ body }) for MarkdownUI
         setFormData({ body: textarea.value })
 
         // Reset selected text
@@ -104,87 +99,61 @@ export default function MarkdownHelper() {
     }, [])
 
     return (
-        <AnimationProviderMAX>
-            <m.div
-                layout
-                layoutDependency={isOpen}
-                className={`
-                    ${styles2['container']}
-                    ${styles['btns']}
-                `}
-            >
-                {isOpen ? (
-                    <>
-                        <div className={styles['toggles']}>
-                            <button className={`${!isPreview && 'clicked'}`} onPointerDown={() => setIsPreview(!isPreview)}>
-                                {isPreview ? 'Edit' : 'Preview'}
-                            </button>
-                            <button onPointerDown={clearContent}>
-                                Clear
-                            </button>
-                            <button onClick={() => setIsOpen(false)}>
-                                Close
-                            </button>
-                        </div>
-                        <div className={styles['helpers']}>
-                            <Dropdown
-                                name="Heading Sizes"
-                                items={headingSizes}
-                                setChange={addHelper}
-                            />
-                            <button onPointerDown={() => addHelper('italic')}>
-                                Italic
-                            </button>
-                            <button onPointerDown={() => addHelper('bold')}>
-                                Bold
-                            </button>
-                            <button onPointerDown={() => addHelper('code')}>
-                                Code
-                            </button>
-                            <button onPointerDown={() => addHelper('codeBlock')}>
-                                Code Block
-                            </button>
-                            <button onPointerDown={() => addHelper('quote')}>
-                                Quote
-                            </button>
-                            <button onPointerDown={() => addHelper('multiQuote')}>
-                                Multi Quote
-                            </button>
-                            <button onPointerDown={() => addHelper('unorderItem')}>
-                                Unordered Item
-                            </button>
-                            <button onPointerDown={() => addHelper('blankLine')}>
-                                Blank line
-                            </button>
-                            {/* This is set to position: fixed... supposed to be relative to viewport but yet its showing otherwise */}
-                            {/* Going to use UnsplashDialog directly to try and circumvent the issue */}
-                            {/* <UnsplashProvider /> */}
-                            <button onClick={() => setUnsplashOpen(true)}>
-                                Find Photos
-                            </button>
-                        </div>
-                    </>
-                ) : (
-                    <button
-                        onClick={() => setIsOpen(true)}
-                        className={styles['icon']}
-                    >
-                        Helpers
-                        <div>
-                            <Icon
-                                img={tools}
-                                alt='Tools icon'
-                            />
-                        </div>
-                    </button>
-                )}
-            </m.div>
+        <>
+            <div className={styles['toggles']}>
+                <button className={`${!isPreview && 'clicked'}`} onPointerDown={() => setIsPreview(!isPreview)}>
+                    {isPreview ? 'Edit' : 'Preview'}
+                </button>
+                <button onPointerDown={clearContent}>
+                    Clear
+                </button>
+                <button onClick={() => setIsOpen(false)}>
+                    Close
+                </button>
+            </div>
+            <div className={styles['helpers']}>
+                <Dropdown
+                    name="Heading Sizes"
+                    items={headingSizes}
+                    setChange={addHelper}
+                />
+                <button onPointerDown={() => addHelper('italic')}>
+                    Italic
+                </button>
+                <button onPointerDown={() => addHelper('bold')}>
+                    Bold
+                </button>
+                <button onPointerDown={() => addHelper('code')}>
+                    Code
+                </button>
+                <button onPointerDown={() => addHelper('codeBlock')}>
+                    Code Block
+                </button>
+                <button onPointerDown={() => addHelper('quote')}>
+                    Quote
+                </button>
+                <button onPointerDown={() => addHelper('multiQuote')}>
+                    Multi Quote
+                </button>
+                <button onPointerDown={() => addHelper('unorderItem')}>
+                    Unordered Item
+                </button>
+                <button onPointerDown={() => addHelper('blankLine')}>
+                    Blank line
+                </button>
+                {/* This is set to position: fixed... supposed to be relative to viewport but yet its showing otherwise */}
+                {/* Going to use UnsplashDialog directly to try and circumvent the issue */}
+                {/* <UnsplashProvider /> */}
+                <button onClick={() => setUnsplashOpen(true)}>
+                    Find Photos
+                </button>
+            </div>
             {/* This is fine: wont ever open unless isOpen: true first */}
             {isUnsplashOpen && (
                 <UnsplashDialog
                     setIsOpen={setUnsplashOpen}
                 />
             )}
-        </AnimationProviderMAX>
+        </>
     )
 }

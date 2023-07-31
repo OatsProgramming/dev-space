@@ -9,8 +9,9 @@
     z-index: 55;
 }
 
-.btns button,
-.btns select {
+.toggles button,
+.helpers button,
+.helpers select {
     width: 120px;
     border: 1px solid var(--base);
     padding: 0.5rem;
@@ -32,16 +33,4 @@
     align-items: center;
     column-gap: 1rem;
     row-gap: 0.5rem;
-}
-
-.icon { 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.icon div {
-    aspect-ratio: 1 / 1;
-    width: 1rem;
 }

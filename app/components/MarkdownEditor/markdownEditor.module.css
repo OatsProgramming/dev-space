@@ -36,3 +36,35 @@
 .body:focus-visible {
     outline: none;
 }
+
+.btnsContainer {
+    display: grid;
+    bottom: 2rem;
+    gap: 1rem;
+    width: fit-content;
+    max-width: 90dvw;
+
+    /* Sandwich btwn main content and ModalSlides */
+    z-index: 55;
+}
+
+.initHelpersState,
+.initHelpersState button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.initHelpersState button {
+    gap: 0.5rem;
+    border: 1px solid var(--base);
+    padding: 0.5rem;
+    border-radius: 10px;
+    width: 100px;
+}
+
+.initHelpersState div {
+    width: 1rem;
+    aspect-ratio: 1 / 1;
+}
