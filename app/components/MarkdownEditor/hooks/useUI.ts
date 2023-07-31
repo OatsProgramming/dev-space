@@ -54,7 +54,9 @@ const useUI = create<UIStore>()(
         setIsPreview: (isPreview) => set({ isPreview }),
     }), {
         name: 'UI-Store',
-        storage: createJSONStorage(() => sessionStorage)
+        storage: createJSONStorage(() => sessionStorage),
+        // Only store formData in sessionStorage
+        partialize: (state) => ({ formData: state.formData })
     })
 )
 
