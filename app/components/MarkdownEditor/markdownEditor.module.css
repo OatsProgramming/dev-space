@@ -5,7 +5,8 @@
     margin: 0 auto;
 }
 
-.editing,
+.title,
+.body,
 .markdown {
     width: 100%;
     height: 100%;
@@ -16,13 +17,22 @@
     background-color: transparent;
 }
 
-.editing {
+
+.title,
+.body {
     resize: none;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     border: 2px dashed var(--base);
     color: var(--secondary)
 }
 
-.editing:focus-visible {
+.title {
+    max-height: 10ch;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.title:focus-visible,
+.body:focus-visible {
     outline: none;
 }

@@ -24,7 +24,7 @@ export default function MarkdownHelper() {
 
     const [isOpen, setIsOpen] = useState(true)
     const [isUnsplashOpen, setUnsplashOpen] = useState(false)
-    const { selectedText, isPreview, setIsPreview, setText, setSelectedText } = useUI()
+    const { selectedText, isPreview, setIsPreview, setFormData, setSelectedText } = useUI()
 
     const headingSizes: MarkdownHelperTypes[] = [
         'heading_1',
@@ -91,7 +91,7 @@ export default function MarkdownHelper() {
         textarea.setRangeText(helperText)
 
         // To see the preview, setText for MarkdownUI
-        setText(textarea.value)
+        setFormData({ body: textarea.value })
 
         // Reset selected text
         setSelectedText("")
@@ -100,7 +100,7 @@ export default function MarkdownHelper() {
     // TODO: make own modal for this...?
     const clearContent = useCallback(() => {
         const clr = confirm("Are you sure you want to delete the entire thing?")
-        if (clr) setText('')
+        if (clr) setFormData({ title: '', body: '' })
     }, [])
 
     return (
