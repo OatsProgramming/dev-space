@@ -14,7 +14,7 @@ import tools from '@/public/tools'
 import AnimationProviderMAX from '../context/AnimationProvider/AnimationProviderMAX'
 import { m } from 'framer-motion'
 import send from '@/public/send'
-
+import { useRouter } from 'next/navigation'
 
 // TODO: add a loading skeleton for this
 const MarkdownUI = dynamic(() =>
@@ -29,6 +29,7 @@ export default function MarkdownEditor() {
   const { formData, isPreview, setFormData, setSelectedText } = useUI()
   const [isOpen, setIsOpen] = useState(false)
   const textareadRef = useRef<HTMLTextAreaElement>(null)
+  const router = useRouter()
 
   // Get selected text (if any)
   // This is to encapsulate the text in markdown syntax
@@ -60,8 +61,8 @@ export default function MarkdownEditor() {
       const res = await mutateFetch(`${baseUrl}/api/post`, 'POST', formData)
       if ('error' in res) throw new Error(res.error)
 
-      // TODO: once uploaded, transition to THAT post's url
-      else console.log('successful')
+      const postId = res.data as unknown as string
+      router.push(`/post/${postId}`)
 
     } catch (error) {
       // TODO: toast
@@ -119,7 +120,7 @@ export default function MarkdownEditor() {
             <input
               name='title'
               className={styles['title']}
-              placeholder='Title'
+              placeholder='Top 10 Ways to Optimize Your App With ReactJS'
               value={formData.title.slice(2)}
               onChange={(e) => setFormData({ title: e.target.value })}
               maxLength={120}
@@ -127,6 +128,7 @@ export default function MarkdownEditor() {
             <textarea
               name='body'
               className={styles['body']}
+              placeholder="One: providing promises as a prop to a component ``` code block example... ```"
               ref={textareadRef}
               value={formData.body}
               onChange={(e) => setFormData({ body: e.target.value })}

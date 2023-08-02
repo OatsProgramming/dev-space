@@ -70,14 +70,15 @@ export async function POST(req: Request) {
                 break;
             }
             case 'POST': {
-                await prismadb.post.create({
+                const post = await prismadb.post.create({
                     data: {
                         title: data.title,
                         body: data.body,
                         userId: data.userId!
                     }
                 })
-                break;
+                // This is to help redirect the creator of the post to that post's url
+                return NextResponse.json(post.id)
             }
             default: {
                 throw new Error(`Method unknown: ${method}`)

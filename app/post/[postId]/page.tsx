@@ -13,6 +13,7 @@ import FollowBtn from "@/app/components/FollowBtn/FollowBtn"
 import PostIdProvider from "@/app/post/[postId]/context/PostIdProvider"
 import dynamic from "next/dynamic"
 import Loader from "@/app/components/Loader/Loader"
+import { notFound } from "next/navigation"
 
 // Lazy load since no one reads the comments till the end (most of the time)
 const Comments = dynamic(() =>
@@ -40,9 +41,9 @@ export async function generateMetadata({ params: { postId } }: {
 export default async function Page({ params: { postId } }: {
     params: { postId: string }
 }) {
-    // const postPromise = fetcher(`${baseUrl}/api/post?postId=${postId}`) as Promise<Post & GeneralUserInfo>
-    const post = await new Promise((resolve) => setTimeout(() => resolve(postEx.find(ex => ex.id === postId)), 10))
-    if (!post) return <div>Not found</div>
+    const post = await fetcher(`${baseUrl}/api/post?postId=${postId}`) as Post & GeneralUserInfo
+    // const post = await new Promise((resolve) => setTimeout(() => resolve(postEx.find(ex => ex.id === postId)), 10))
+    if (!post) return notFound()
 
     const { body, imgAlt, imgUrl, title, user, readTime, timeDiff, userId } = getPostMetadata(post as Post & GeneralUserInfo)
     const { username, image: userImg } = user
@@ -50,6 +51,7 @@ export default async function Page({ params: { postId } }: {
         <PostIdProvider postId={postId}>
             <main className={styles['container']}>
                 <div className={styles['metadata']}>
+                    {/* Remove the hashtag */}
                     <h1>{title}</h1>
                     <div className={styles['author']}>
                         <Avatar username={username} userId={userId} image={userImg} />

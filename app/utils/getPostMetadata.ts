@@ -4,7 +4,11 @@ import getReadTime from "./getReadTime";
 import parseImgUrl from "./parseImgUrl";
 
 export default function getPostMetadata(post: (Post & GeneralUserInfo)) {
-    const { createdAt, updatedAt, body, image, title } = post
+    const { body, image, title } = post
+
+    let { createdAt, updatedAt } = post
+    createdAt = new Date(createdAt)
+    updatedAt = new Date(updatedAt)
 
     // Time related data
     const isUpdated = +createdAt !== +updatedAt
@@ -27,7 +31,7 @@ export default function getPostMetadata(post: (Post & GeneralUserInfo)) {
 
     return {
         id: post.id,
-        title: post.title,
+        title: post.title.slice(2), // Remove the hashtag
         body: post.body,
         user: post.user,
         userId: post.userId,

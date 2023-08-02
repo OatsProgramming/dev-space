@@ -2,7 +2,6 @@ import styles from './postCard.module.css'
 import type { Post } from '@prisma/client'
 import Avatar from '../Avatar/Avatar'
 import Link from 'next/link'
-import parseImgUrl from '@/app/utils/parseImgUrl'
 import getPostMetadata from '@/app/utils/getPostMetadata'
 import ProfileLink from '../ProfileLink/ProfileLink'
 
