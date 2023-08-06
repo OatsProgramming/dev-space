@@ -1,6 +1,4 @@
 type MutateFetchReturn<T> = {
-    error: string
-} | {
     data: T
 }
 
@@ -15,8 +13,8 @@ export default async function mutateFetch<T>(url: string, method: MutateHTTP, da
     })
 
     if (!res.ok) {
-        const result = await res.text()
-        return { error: result }
+        const message = await res.text()
+        throw new Error(message)
     }
 
     const result = await res.json()
