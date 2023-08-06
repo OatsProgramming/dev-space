@@ -3,9 +3,6 @@
 import contactReducer from '@/app/utils/reducerFns/contactReducer'
 import { useReducer, useRef } from 'react'
 import styles from './emailContact.module.css'
-import { ToastContainer } from 'react-toastify'
-import { toastOptions } from '@/lib/toast/toast'
-
 // Reusing old code
 
 // Attempt to make mobile v more enjoyable
@@ -66,7 +63,6 @@ export default function EmailContact() {
                     </button>
                 </div>
             </form>
-            <ToastContainer {...toastOptions} />
         </>
     )
 }

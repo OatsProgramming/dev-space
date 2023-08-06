@@ -5,6 +5,10 @@ import { SignIn, SignOut } from './components/AuthBtns/AuthBtns'
 import Footer from './components/Footer/Footer'
 import SeshProvider from './components/context/SeshProvider/SeshProvider'
 
+import { toastOptions } from '@/lib/toast/toast'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 const mulish = Mulish({ subsets: ['latin'] })
 
 export const metadata = {
@@ -28,6 +32,7 @@ export default function RootLayout({
           {children}
         </SeshProvider>
         <Footer />
+        <ToastContainer {...toastOptions} />
       </body>
     </html>
   )
