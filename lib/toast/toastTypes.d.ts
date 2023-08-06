@@ -10,9 +10,15 @@ type NotifyParams = {
         success: string,
         error: string,
     },
+    /**
+     * Use "as" keyword
+     */
     promise: Promise<any>
 }
 
 type NotifyReturnType = Record<ToastType, string | number> & {
-    promise: Promise<Response>
+    /**
+     * Use "as" keyword
+     */
+    promise: Promise<any>
 }

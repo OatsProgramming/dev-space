@@ -26,11 +26,11 @@ export default function notify<NotifyParamsT extends NotifyParams>(args: NotifyP
             messages,
             toastOptions
         ) as NotifyReturnType[NotifyParamsT['type']]
-    } else {
-        const { message } = args
-        return toast[type](
-            message,
-            toastOptions
-        ) as NotifyReturnType[NotifyParamsT['type']]
     }
+
+    const { message } = args
+    return toast[type](
+        message,
+        toastOptions
+    ) as NotifyReturnType[NotifyParamsT['type']]
 }
