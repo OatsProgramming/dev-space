@@ -15,13 +15,15 @@ import AnimationProviderMAX from '../context/AnimationProvider/AnimationProvider
 import { m } from 'framer-motion'
 import send from '@/public/send'
 import { useRouter } from 'next/navigation'
+import notify from '@/lib/toast/toast'
+
 
 // TODO: add a loading skeleton for this
 const MarkdownUI = dynamic(() =>
   import('../MarkdownUI/MarkdownUI')
 )
 
-const MarkdownHelper = dynamic(() => 
+const MarkdownHelper = dynamic(() =>
   import('./MarkdownHelper/MarkdownHelper')
 )
 
@@ -58,15 +60,20 @@ export default function MarkdownEditor() {
     if (!formData.title || !formData.body) return
 
     try {
-      const res = await mutateFetch(`${baseUrl}/api/post`, 'POST', formData)
-      if ('error' in res) throw new Error(res.error)
-
-      const postId = res.data as unknown as string
+      const res = await notify({
+        promise: mutateFetch(`${baseUrl}/api/post`, 'POST', formData),
+        type: 'promise',
+        messages: {
+          pending: 'Creating post...',
+          error: 'Failed to create post',
+          success: 'Successfully created post! Redirecting...'
+        }
+      }) as Awaited<ReturnType<typeof mutateFetch<string>>>
+   
+      const postId = res.data
       router.push(`/post/${postId}`)
-
-    } catch (error) {
-      // TODO: toast
-      console.log(error)
+    } catch (err) {
+      console.error(err)
     }
   }
 
