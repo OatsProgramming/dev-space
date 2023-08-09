@@ -1,12 +1,11 @@
 import styles from './postCard.module.css'
-import type { Post } from '@prisma/client'
 import Avatar from '../Avatar/Avatar'
 import Link from 'next/link'
 import getPostMetadata from '@/app/utils/getPostMetadata'
 import ProfileLink from '../ProfileLink/ProfileLink'
 
 export default function PostCard({ post, isSimple }: {
-    post: Post & GeneralUserInfo,
+    post: PostResponse,
     isSimple?: true
 }) {
 

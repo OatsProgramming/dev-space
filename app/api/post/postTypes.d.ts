@@ -37,9 +37,8 @@ type PostResponse = {
     "createdAt": string,
     "updatedAt": string,
     "userId": string,
-    "user": GeneralUserInfo,
     stars: number,
-}
+} & GeneralUserInfo
 
 // for dynamic
 type PostGroupParam = 'starred' | 'bookmarked'

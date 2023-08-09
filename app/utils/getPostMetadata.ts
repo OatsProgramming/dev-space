@@ -1,12 +1,15 @@
-import type { Post } from "@prisma/client";
 import formatDistanceToNow from "date-fns/esm/formatDistanceToNow";
 import getReadTime from "./getReadTime";
 import parseImgUrl from "./parseImgUrl";
 
-export default function getPostMetadata(post: (Post & GeneralUserInfo)) {
-    const { body, image, title } = post
+export default function getPostMetadata(post: PostResponse) {
+    const { body, title } = post
 
-    let { createdAt, updatedAt } = post
+    let { createdAt, updatedAt } : {
+        createdAt: string | Date, // Union for conversion to Date
+        updatedAt: string | Date
+    } = post
+
     createdAt = new Date(createdAt)
     updatedAt = new Date(updatedAt)
 
@@ -18,20 +21,15 @@ export default function getPostMetadata(post: (Post & GeneralUserInfo)) {
     const timeDiff = formatDistanceToNow(latest, { includeSeconds: true, addSuffix: true })
     const readTime = getReadTime(body)
 
-    // Img related data
-    let imgAlt = `Main img of ${title}`
-    let imgUrl = image
 
     // Use the first img of the body to be considered as main (if there is one)
-    if (!image) {
-        const res = parseImgUrl(body)
-        imgAlt = res.imgAlt || imgAlt
-        imgUrl = res.imgUrl || null
-    }
+    const res = parseImgUrl(body)
+    const imgAlt = res.imgAlt
+    const imgUrl = res.imgUrl
 
     return {
         id: post.id,
-        title: post.title.slice(2), // Remove the hashtag
+        title: title.slice(2), // Remove the hashtag
         body: post.body,
         user: post.user,
         userId: post.userId,
