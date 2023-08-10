@@ -13,7 +13,6 @@ export default async function SeshProvider({ children }: {
 
     return (
         <SeshClient sesh={session}>
-            {JSON.stringify(session)}
             {children}
         </SeshClient>
     )
