@@ -1,9 +1,10 @@
-import postEx from '@/app/utils/toyData/postEx'
-import PostCard from './components/PostCard/PostCard'
+// import postEx from '@/app/utils/toyData/postEx'
 import styles from './page.module.css'
 import RandomCards from './components/RandomCards/RandomCards'
+import UserPosts from './components/UserPosts/UserPosts'
 
 export default function Home() {
+
   return (
     <main className={styles['main']}>
       <div className={styles['left']}>
@@ -12,23 +13,22 @@ export default function Home() {
           <div>Create Post?</div>
         </div>
         <div className={styles['posts']}>
-          {postEx.map((post, idx) => (
-            <PostCard post={post} key={idx} isSimple />
-          ))}
+          <UserPosts />
         </div>
       </div>
       <div className={styles['right']}>
+        {/* FIXME: Random Posts is taking a small amnt of space while Random Users is taking more */}
         <div className={styles['posts']}>
-          {postEx.map((post, idx) => (
-            <PostCard post={post} key={idx} />
-          ))}
-          {postEx.map((post, idx) => (
-            <PostCard post={post} key={idx} />
-          ))}
+          <h1>Random Posts: </h1>
+          <RandomCards category='posts' />
         </div>
-        <div>
+        <div className={styles['users']}>
           <h1>Random Users: </h1>
           <RandomCards category='users' />
+        </div>
+        <div className={styles['comments']}>
+          <h1>Random Comments: </h1>
+          <RandomCards category='comments' />
         </div>
       </div>
     </main>
