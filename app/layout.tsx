@@ -1,7 +1,6 @@
 import NavBar from './components/NavBar/NavBar'
 import './globals.css'
 import { Mulish } from 'next/font/google'
-import { SignIn, SignOut } from './components/AuthBtns/AuthBtns'
 import Footer from './components/Footer/Footer'
 import SeshProvider from './components/context/SeshProvider/SeshProvider'
 
@@ -27,8 +26,6 @@ export default function RootLayout({
       <body className={mulish.className}>
         <SeshProvider>
           <NavBar />
-          <SignIn />
-          <SignOut />
           {children}
         </SeshProvider>
         <Footer />
