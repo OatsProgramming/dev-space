@@ -40,7 +40,6 @@ button {
 
 button:hover {
   cursor: pointer;
-  filter: drop-shadow(0 0 2px var(--white));
 }
 
 a {

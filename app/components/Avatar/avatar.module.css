@@ -7,7 +7,7 @@
     place-items: center;
     font-size: calc(1rem * var(--size));
     font-weight: bold;
-    color: inherit !important;
+    color: var(--secondary) !important;
 }
 
 .avatar > img {
