@@ -16,6 +16,7 @@
     transform-origin: bottom center;
     padding-bottom: 2rem;
     gap: 0.5rem;
+    backdrop-filter: blur(15px);
 }
 
 .modal > * {

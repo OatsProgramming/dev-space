@@ -31,7 +31,10 @@ export default function PostStats() {
             className={styles['container']}
         >
             <ActionBar inView={inView} />
-            <SVGAnims setIsCommenting={setIsCommenting} />
+            <SVGAnims 
+                isCommenting={isCommenting} 
+                setIsCommenting={setIsCommenting} 
+            />
             <CommentIsland
                 isCommenting={isCommenting}
                 setIsCommenting={setIsCommenting}

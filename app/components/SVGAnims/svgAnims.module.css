@@ -14,10 +14,10 @@
     position: relative;
     aspect-ratio: 1 / 1;
     width: 32px;
-    z-index: 100;
+    z-index: 10;
 }
 
 .svgContainer svg {
     position: absolute;
-    z-index: 100;
+    z-index: 10;
 }

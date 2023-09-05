@@ -1,6 +1,7 @@
 .container {
     border: 1px solid var(--base);
     position: fixed;
+    z-index: 9;
     width: 60%;
     max-width: 720px;
     padding: 1rem 2rem;
