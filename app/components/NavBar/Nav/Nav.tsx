@@ -10,6 +10,8 @@ export default function Nav({
   children: React.ReactNode
 }) {
   const navRef = useRef<HTMLElement>(null)
+  const divRef = useRef<HTMLDivElement>(null)
+
   const { scrollY } = useScroll()
 
   // Nav disappear (down) / reappear (up)
@@ -30,19 +32,26 @@ export default function Nav({
   // Backdrop blur
   useMotionValueEvent(scrollY, 'change', (latest) => {
     const nav = navRef.current
-    if (!nav) return
+    const div = divRef.current
+    
+    if (!nav || !div) return
     else if (latest > 0) {
-      nav.style.backdropFilter = 'blur(15px)'
+      // NOTE: This causes the position:fixed err for the ModalSlide
+      // Any of the closest ancestors that has transform, perspective or filter property set
+      // nav.style.backdropFilter = 'blur(15px)'
+
       nav.style.boxShadow = 'var(--subtleGlow)'
+      div.style.backdropFilter = 'blur(10px)'
     }
     else {
-      nav.style.backdropFilter = 'blur(0px)'
       nav.style.boxShadow = ''
+      div.style.backdropFilter = 'blur(0)'
     }
   })
 
   return (
     <nav ref={navRef} className={styles['nav']}>
+      <div ref={divRef} className={styles['backdrop']} />
       {children}
     </nav>
   )
